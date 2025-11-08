@@ -1,7 +1,7 @@
 /* Fuente y color base */
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: linear-gradient(135deg, #e0e7ff, #f0f4ff);
+  background: #F0F6FF;
   margin: 0;
   height: 100vh;
   display: flex;

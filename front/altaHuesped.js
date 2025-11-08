@@ -1,23 +1,35 @@
-document.getElementById("formHuesped").addEventListener("submit", e => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formHuesped");
 
-  const apellido = document.getElementById("apellido").value.trim();
-  const nombres = document.getElementById("nombres").value.trim();
-  const tipoDoc = document.getElementById("tipoDoc").value;
-  const nroDoc = document.getElementById("nroDoc").value.trim();
+  form.addEventListener("submit", e => {
+    e.preventDefault();
 
-  let errores = [];
+    // Validación simple
+    const nombre = document.getElementById("nombres").value.trim();
+    if (nombre === "") {
+      mostrarError("Debe ingresar el nombre del huésped");
+      return;
+    }
 
-  if (!apellido) errores.push("Apellido es obligatorio");
-  if (!nombres) errores.push("Nombres es obligatorio");
-  if (!tipoDoc) errores.push("Debe seleccionar tipo de documento");
-  if (!nroDoc) errores.push("Número de documento es obligatorio");
-
-  if (errores.length > 0) {
-    alert("⚠️ Errores:\n- " + errores.join("\n- "));
-    return;
-  }
-
-  alert(`✅ Huésped ${nombres} ${apellido} cargado correctamente.`);
-  e.target.reset();
+    mostrarExito(`✅ El huésped se cargado correctamente.`);
+    form.reset();
+  });
 });
+
+function mostrarError(mensaje) {
+  const alert = document.createElement("div");
+  alert.className = "alert error";
+  alert.textContent = mensaje;
+  document.body.appendChild(alert);
+
+  setTimeout(() => alert.remove(), 3000);
+}
+
+function mostrarExito(mensaje) {
+  const alert = document.createElement("div");
+  alert.className = "alert success";
+  alert.textContent = mensaje;
+  document.body.appendChild(alert);
+
+  setTimeout(() => alert.remove(), 3000);
+}

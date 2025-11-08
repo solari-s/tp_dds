@@ -1,0 +1,12 @@
+Carlos;Gomez;DNI;30123456;1983-03-12;Argentina;carlos.gomez@mail.com;+549115123456;Ingeniero;false
+Ana;Lopez;DNI;28456789;1980-11-01;Argentina;ana.lopez@mail.com;+549341612345;Medica;true
+Analia;Lopez;DNI;2321289;1970-07-02;Argentina;analia.lopez@mail.com;+549341653975;Veterinaria;true
+Juan;Torres;PASAPORTE;ABC12345;1995-02-20;Chilena;jtorres@mail.com;+5698765432;Estudiante;true
+Maria;Fernandez;DNI;35789012;1991-07-20;Argentina;maria.fer@mail.com;+549115987654;Abogada;false
+Pedro;Ramirez;LC;8123456;1955-01-15;Argentina;pramirez@mail.com;+5492215123123;Jubilado;true
+Lucia;Mendez;PASAPORTE;BR98765A;1999-12-05;Brasileña;lucia.mendez@mail.com;+55119876543;Diseñadora;true
+Martin;Herrera;DNI;40159753;1998-03-14;Argentina;martin.h@mail.com;+5493515987321;Programador;false
+Sofia;Castro;DNI;33159852;1988-09-22;Uruguaya;sofia.castro@mail.com;+59899123456;Contadora;true
+Diego;Alvarez;PASAPORTE;ES45678B;1975-06-10;Española;diegoalvarez@mail.com;+34600123456;Arquitecto;false
+Valeria;Ruiz;DNI;31456123;1985-04-18;Argentina;vale.ruiz@mail.com;+549115456789;Comerciante;true
+

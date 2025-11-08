@@ -1,0 +1,53 @@
+<html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CU9 - Alta de Huésped</title>
+  <style>
+    form { max-width: 600px; margin: auto; font-family: sans-serif; }
+    label { display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 5px; }
+    .error { color: red; margin-top: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Dar de alta un huésped:</h1>
+  <form id="formHuesped">
+    <label>Apellido* <input type="text" id="apellido" required></label>
+    <label>Nombres* <input type="text" id="nombres" required></label>
+    <label>Tipo de Documento*
+      <select id="tipoDoc" required>
+        <option value="">Seleccione...</option>
+        <option>DNI</option>
+        <option>LE</option>
+        <option>LC</option>
+        <option>Pasaporte</option>
+        <option>Otro</option>
+      </select>
+    </label>
+    <label>Número de Documento* <input type="number" id="numDoc" required></label>
+    <label>CUIT <input type="text" id="cuit"></label>
+    <label>IVA
+      <select id="iva">
+        <option>Consumidor Final</option>
+        <option>Responsable Inscripto</option>
+        <option>Exento</option>
+      </select>
+    </label>
+    <label>Fecha de Nacimiento* <input type="date" id="nacimiento" required></label>
+    <label>Dirección* <input type="text" id="direccion" required></label>
+    <label>Teléfono* <input type="text" id="telefono" required></label>
+    <label>Email <input type="email" id="email"></label>
+    <label>Ocupación* <input type="text" id="ocupacion" required></label>
+    <label>Nacionalidad* <input type="text" id="nacionalidad" required></label>
+
+    <button type="button" id="btnSiguiente">Siguiente</button>
+    <button type="button" id="btnCancelar">Cancelar</button>
+  </form>
+
+  <div id="mensaje" class="error"></div>
+
+  <script src="altaHuesped.js"></script>
+</body>
+</html>

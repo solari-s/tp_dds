@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="style.css">
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>CU9 - Alta de Huésped</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     form { max-width: 600px; margin: auto; font-family: sans-serif; }
     label { display: block; margin-top: 10px; }
@@ -15,10 +15,10 @@
 
   <h1>Buscar huésped:</h1>
   <form id="formHuesped">
-    <label>Apellido* <input type="text" id="apellido" required></label>
-    <label>Nombres* <input type="text" id="nombres" required></label>
+    <label>Apellido* <input type="text" id="apellido"></label>
+    <label>Nombres* <input type="text" id="nombres"></label>
     <label>Tipo de Documento*
-      <select id="tipoDoc" required>
+      <select id="tipoDoc">
         <option value="">Seleccione...</option>
         <option>DNI</option>
         <option>LE</option>
@@ -27,7 +27,7 @@
         <option>Otro</option>
       </select>
     </label>
-    <label>Número de Documento* <input type="number" id="numDoc" required></label>
+    <label>Número de Documento* <input type="number" id="numDoc"></label>
     <label>CUIT <input type="text" id="cuit"></label>
     <label>IVA
       <select id="iva">
@@ -36,12 +36,12 @@
         <option>Exento</option>
       </select>
     </label>
-    <label>Fecha de Nacimiento* <input type="date" id="nacimiento" required></label>
-    <label>Dirección* <input type="text" id="direccion" required></label>
-    <label>Teléfono* <input type="text" id="telefono" required></label>
+    <label>Fecha de Nacimiento* <input type="date" id="nacimiento"></label>
+    <label>Dirección* <input type="text" id="direccion"></label>
+    <label>Teléfono* <input type="text" id="telefono"></label>
     <label>Email <input type="email" id="email"></label>
-    <label>Ocupación* <input type="text" id="ocupacion" required></label>
-    <label>Nacionalidad* <input type="text" id="nacionalidad" required></label>
+    <label>Ocupación* <input type="text" id="ocupacion"></label>
+    <label>Nacionalidad* <input type="text" id="nacionalidad"></label>
 
     <button type="submit" id="btnSiguiente">Siguiente</button>
     <button type="submit" id="btnCancelar">Cancelar</button>

@@ -1,53 +1,77 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
   <meta charset="UTF-8">
   <title>CU9 - Alta de Huésped</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    form { max-width: 600px; margin: auto; font-family: sans-serif; }
-    label { display: block; margin-top: 10px; }
-    input, select { width: 100%; padding: 5px; }
-    .error { color: red; margin-top: 5px; }
-  </style>
+  <!-- Flatpickr (selector de fecha en español) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 </head>
 <body>
 
-  <h1>Buscar huésped:</h1>
-  <form id="formHuesped">
-    <label>Apellido* <input type="text" id="apellido"></label>
-    <label>Nombres* <input type="text" id="nombres"></label>
-    <label>Tipo de Documento*
-      <select id="tipoDoc">
-        <option value="">Seleccione...</option>
-        <option>DNI</option>
-        <option>LE</option>
-        <option>LC</option>
-        <option>Pasaporte</option>
-        <option>Otro</option>
-      </select>
-    </label>
-    <label>Número de Documento* <input type="number" id="numDoc"></label>
-    <label>CUIT <input type="text" id="cuit"></label>
-    <label>IVA
-      <select id="iva">
-        <option>Consumidor Final</option>
-        <option>Responsable Inscripto</option>
-        <option>Exento</option>
-      </select>
-    </label>
-    <label>Fecha de Nacimiento* <input type="date" id="nacimiento"></label>
-    <label>Dirección* <input type="text" id="direccion"></label>
-    <label>Teléfono* <input type="text" id="telefono"></label>
-    <label>Email <input type="email" id="email"></label>
-    <label>Ocupación* <input type="text" id="ocupacion"></label>
-    <label>Nacionalidad* <input type="text" id="nacionalidad"></label>
+  <div class="form-container">
+    <h2>Buscar Huésped</h2>
 
-    <button type="submit" id="btnSiguiente">Siguiente</button>
-    <button type="submit" id="btnCancelar">Cancelar</button>
-  </form>
+    <form id="formHuesped">
+      <div class="form-grid">
+        <!-- Columna izquierda -->
+        <div class="columna">
+          <label>Nombres: * <input type="text" id="nombres" placeholder="Ingrese sus nombres"> </label>
+          <label>Tipo de Documento: *
+            <select id="tipoDoc">
+              <option value="">Seleccione...</option>
+              <option>DNI</option>
+              <option>LE</option>
+              <option>LC</option>
+              <option>Pasaporte</option>
+              <option>Otro</option>
+            </select>
+          </label>
+          <label>Posición frente al IVA: *
+            <select id="iva">
+              <option value="">Seleccione...</option>
+              <option>Consumidor Final</option>
+              <option>Responsable Inscripto</option>
+              <option>Exento</option>
+            </select>
+          </label>
+          <label>Fecha de Nacimiento: * <input type="date" id="nacimiento" placeholder="Seleccione..."> </label>
+          <label>Ocupación: * <input type="text" id="ocupacion" placeholder="Ingrese su ocupacion"> </label>
+          <label>Nacionalidad: * <input type="text" id="nacionalidad" placeholder="Ingrese su nacionalidad"></label>
+        </div>
 
-  <div id="mensaje" class="error"></div>
+        <!-- Columna derecha -->
+        <div class="columna">
+          <label>Apellido: * <input type="text" id="apellido" placeholder="Ingrese su apellido"> </label>
+          <label>N° de Documento: * <input type="number" id="numDoc" placeholder="Ingrese su nro de doc"> </label>
+          <label>CUIT: <input type="text" id="cuit" placeholder="Ingrese su CUIT"> </label>
+          <label>Dirección: * <input type="text" id="direccion" placeholder="Ingrese su direccón"> </label>
+          <label>Email: <input type="email" id="email" placeholder="Ingrese su email"> </label>
+          <label>Teléfono: * <input type="text" id="telefono" placeholder="Ingrese su teléfono"> </label>
+        </div>
+      </div>
+
+      <div id="mensaje" class="error"></div>
+
+      <div class="botones">
+        <button type="button" id="btnCancelar" class="cancelar">Cancelar</button>
+        <button type="submit" id="btnSiguiente" class="siguiente">Siguiente</button>
+      </div>
+    </form>
+  </div>
+
   <script src="altaHuesped.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    flatpickr("#nacimiento", {
+      dateFormat: "d/m/Y",   // formato día/mes/año
+      locale: "es",          // idioma español
+      maxDate: "today"       // evita fechas futuras
+    });
+  });
+  </script>
+
 </body>
 </html>

@@ -2,7 +2,6 @@ package gestores;
 
 import responsablePago.PersonaFisicaDTO;
 import responsablePago.PersonaFisicaDAO;
-import responsablePago.PersonaFisicaDAOtxt;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import huesped.HuespedDAO;
-import huesped.HuespedDAOtxt;
 import huesped.HuespedDTO;
 import huesped.TipoDoc;
 

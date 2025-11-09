@@ -1,83 +1,105 @@
-/* Fuente y color base */
 body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #F0F6FF;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f6fc;
   margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0;
 }
 
-.container {
-  background: white;
-  padding: 2rem 3rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  width: 420px;
+.form-container {
+  background-color: #e9f0fa;
+  width: 80%;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-h1 {
+h2 {
   text-align: center;
-  color: #1e3a8a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 25px;
+  color: #2e3d63;
 }
 
-/* Distribución de los campos */
+/* --- GRID para mantener alineados los campos --- */
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.8rem;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  column-gap: 40px;
 }
 
+.columna {
+  display: grid;
+  grid-template-columns: 160px 1fr; /* etiqueta y campo */
+  align-items: center;
+  row-gap: 10px;
+}
+
+/* --- etiquetas y campos alineados en línea --- */
 label {
+  display: contents; /* hace que el label no rompa el flujo del grid */
   font-weight: 600;
-  color: #1e293b;
+  color: #2e3d63;
+}
+
+label span {
+  justify-self: end;
+  margin-right: 10px;
 }
 
 input, select {
-  padding: 0.5rem;
+  padding: 8px 10px;
+  border: 1px solid #b0c4de;
   border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  font-size: 0.95rem;
+  background-color: #fdfdfd;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus, select:focus {
+  border-color: #7fa4e8;
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+  box-shadow: 0 0 5px rgba(127,164,232,0.4);
 }
 
-/* Botones */
-.buttons {
-  margin-top: 1.5rem;
+/* --- errores centrados --- */
+.error {
+  color: #d8000c;
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+/* --- botones --- */
+.botones {
   display: flex;
   justify-content: space-between;
+  margin-top: 25px;
 }
 
-.btn {
-  padding: 0.6rem 1.2rem;
+button {
+  font-size: 15px;
+  padding: 10px 25px;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.btn.primary {
-  background-color: #2563eb;
-  color: white;
+.cancelar {
+  background-color: #c8d6f1;
 }
 
-.btn.primary:hover {
-  background-color: #1d4ed8;
+.siguiente {
+  background-color: #a8c4f3;
 }
 
-.btn.cancel {
-  background-color: #e2e8f0;
-  color: #1e293b;
+button:hover {
+  transform: scale(1.03);
 }
 
-.btn.cancel:hover {
-  background-color: #cbd5e1;
+button:active {
+  transform: scale(0.98);
 }

@@ -1,9 +1,9 @@
-package main;
+package com.app.main;
 
 import java.util.Scanner;
 
-import gestores.GestorHuesped;
-import huesped.HuespedDAO;
+import com.app.gestores.GestorHuesped;
+import com.app.huesped.HuespedDAO;
 
 public class Main {
 

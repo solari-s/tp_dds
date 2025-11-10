@@ -1,8 +1,8 @@
-package responsablePago;
+package com.app.responsablePago;
 
 
 
-import huesped.TipoDoc;
+import com.app.huesped.TipoDoc;
 
 public interface PersonaFisicaDAO{
 

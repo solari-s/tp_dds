@@ -1,4 +1,4 @@
-package responsablePago;
+package com.app.responsablePago;
 
 public abstract class ResponsablePago {
     private String CUIT;

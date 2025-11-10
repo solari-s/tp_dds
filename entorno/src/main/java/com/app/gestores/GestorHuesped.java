@@ -1,7 +1,7 @@
-package gestores;
+package com.app.gestores;
 
-import responsablePago.PersonaFisicaDTO;
-import responsablePago.PersonaFisicaDAO;
+import com.app.responsablePago.PersonaFisicaDTO;
+import com.app.responsablePago.PersonaFisicaDAO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import huesped.HuespedDAO;
-import huesped.HuespedDTO;
-import huesped.TipoDoc;
+import com.app.huesped.HuespedDAO;
+import com.app.huesped.HuespedDTO;
+import com.app.huesped.TipoDoc;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;

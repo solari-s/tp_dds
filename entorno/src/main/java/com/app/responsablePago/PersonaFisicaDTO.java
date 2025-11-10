@@ -1,6 +1,6 @@
-package responsablePago;
+package com.app.responsablePago;
 
-import huesped.HuespedDTO;
+import com.app.huesped.HuespedDTO;
 
 public class PersonaFisicaDTO {
     

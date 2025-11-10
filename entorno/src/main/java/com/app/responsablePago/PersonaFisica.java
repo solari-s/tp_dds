@@ -1,6 +1,6 @@
-package responsablePago;
+package com.app.responsablePago;
 
-import huesped.Huesped;
+import com.app.huesped.Huesped;
 
 public class PersonaFisica extends ResponsablePago {
 

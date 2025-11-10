@@ -1,15 +1,14 @@
-package gestores;
+package com.app.gestores;
 
-import responsablePago.PersonaFisicaDAO;
-import responsablePago.PersonaFisicaDAOtxt;
-import responsablePago.PersonaFisicaDTO;
+import com.app.responsablePago.PersonaFisicaDAO;
+import com.app.responsablePago.PersonaFisicaDTO;
 
 public class GestorResponsablePago {
  
     private static PersonaFisicaDAO datosTXT;
     //private static PersonaFisicaDAO datosMySQL; si hubiera otra
 
-    public GestorResponsablePago(PersonaFisicaDAOtxt fuente){
+    public GestorResponsablePago(PersonaFisicaDAO fuente){
         datosTXT = fuente;
     }
 

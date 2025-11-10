@@ -1,12 +1,17 @@
 package huesped;
 
 import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Huesped {
 
     private String nombre;
     private String apellido;
+    @Id
     private TipoDoc tipo_documento;
+    @Id
     private String nroDocumento;
     private Date fechaDeNacimiento;
     private String nacionalidad;

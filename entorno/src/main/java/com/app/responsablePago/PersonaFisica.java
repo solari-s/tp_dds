@@ -1,7 +1,10 @@
 package com.app.responsablePago;
 
 import com.app.huesped.Huesped;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class PersonaFisica extends ResponsablePago {
 
     private String PosicionIVA;

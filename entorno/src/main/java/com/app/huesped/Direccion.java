@@ -1,5 +1,9 @@
 package huesped;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Direccion {
     private String calle;
     private String departamento;

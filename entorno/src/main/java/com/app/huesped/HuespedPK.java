@@ -1,0 +1,49 @@
+package com.app.huesped;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public class HuespedPK implements Serializable {
+
+    private TipoDoc tipo_documento;
+    private String nroDocumento;
+
+    public HuespedPK() {}
+
+    public HuespedPK(TipoDoc tipo_documento, String nroDocumento) {
+        this.tipo_documento = tipo_documento;
+        this.nroDocumento = nroDocumento;
+    }
+
+    // Getters y setters (opcional)
+    public TipoDoc getTipo_documento() {
+        return tipo_documento;
+    }
+
+    public void setTipo_documento(TipoDoc tipo_documento) {
+        this.tipo_documento = tipo_documento;
+    }
+
+    public String getNroDocumento() {
+        return nroDocumento;
+    }
+
+    public void setNroDocumento(String nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
+    // equals() y hashCode() obligatorios
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HuespedPK)) return false;
+        HuespedPK that = (HuespedPK) o;
+       return Objects.equals(tipo_documento, that.tipo_documento) && Objects.equals(nroDocumento, that.nroDocumento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tipo_documento, nroDocumento);
+    }
+}
+

@@ -1,4 +1,4 @@
-package huesped;
+package com.app.huesped;
 
 public enum TipoDoc {
     DNI,

@@ -1,4 +1,4 @@
-package huesped;
+package com.app.huesped;
 
 import java.util.List;
 

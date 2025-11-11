@@ -1,24 +1,51 @@
-package huesped;
+package com.app.huesped;
 
 import java.util.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
+@IdClass(HuespedPK.class)
 public class Huesped {
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
     @Id
+    @Enumerated(EnumType.STRING)
     private TipoDoc tipo_documento;
+
     @Id
     private String nroDocumento;
+
+    @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;
+
+    @Column(nullable = false)
     private String nacionalidad;
     private String email;
+
+    @Column(nullable = false)
     private String telefono;
+
+    @Column(nullable = false)
     private String ocupacion;
+    
+    @Column(nullable = false, columnDefinition = "BOOLEAN CHECK (alojado IN (0,1))")
     private boolean alojado;
+
+
+    protected Huesped() {} //JPA requiere un constructor público o protegido sin argumentos para poder instanciar el objeto mediante reflexión.
 
     public Huesped(String nombre, String apellido, TipoDoc tipo_documento, String nroDocumento,
             Date fechaDeNacimiento, String nacionalidad, String email,

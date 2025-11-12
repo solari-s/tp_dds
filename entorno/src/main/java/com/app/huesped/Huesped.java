@@ -40,8 +40,8 @@ public class Huesped {
 
     @Column(nullable = false)
     private String ocupacion;
-    
-    @Column(nullable = false, columnDefinition = "BOOLEAN CHECK (alojado IN (0,1))")
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN CHECK (alojado IN (0,1))") //verficar si son (1/0) o (true/false) los valores q se almacenan para determinar el check
     private boolean alojado;
 
 

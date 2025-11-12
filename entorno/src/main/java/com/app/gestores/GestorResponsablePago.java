@@ -1,22 +1,23 @@
 package com.app.gestores;
 
-import com.app.responsablePago.PersonaFisicaDAO;
-import com.app.responsablePago.PersonaFisicaDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class GestorResponsablePago {
- 
-    private static PersonaFisicaDAO datosTXT;
-    //private static PersonaFisicaDAO datosMySQL; si hubiera otra
+import com.app.responsablePago.ResponsablePago;
+import com.app.responsablePago.ResponsablePagoRepository;
 
-    public GestorResponsablePago(PersonaFisicaDAO fuente){
-        datosTXT = fuente;
+
+@Service
+public class GestorResponsablePago{
+
+    @Autowired
+    private ResponsablePagoRepository responsablePagoRepository;
+
+    public ResponsablePago registrarResponsable(ResponsablePago responsable) {
+        return responsablePagoRepository.save(responsable);
     }
 
-    public void modificarPersona(PersonaFisicaDTO p){
-        datosTXT.modificarPersona(p);
-    }
+    // ResponsablePago solamente aparece para q se le cargan los datos en esta entrega?
 
-    public void modificarPersona(PersonaFisicaDTO p, String CUITAnterior){
-        datosTXT.modificarPersona(p, CUITAnterior);
-    }
 }
+

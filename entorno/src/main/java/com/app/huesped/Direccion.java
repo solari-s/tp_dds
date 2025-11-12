@@ -12,17 +12,15 @@ public class Direccion {
     private int piso;
     @Id
     private int codigoPostal;
-    private Huesped RefHuesped;
 
     protected Direccion() {}
 
-    public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal, Huesped RefHuesped) {
+    public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal) {
         this.calle = calle;
         this.altura = altura;
         this.piso = piso;
         this.departamento = departamento;
         this.codigoPostal = codigoPostal;
-        this.RefHuesped = RefHuesped;
     }
     //Getters
     public String getCalle() { return calle; }

@@ -3,7 +3,6 @@ package com.app.main;
 import java.util.Scanner;
 
 import com.app.gestores.GestorHuesped;
-import com.app.huesped.HuespedDAO;
 
 public class Main {
 

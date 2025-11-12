@@ -1,59 +1,44 @@
 package com.app.huesped;
 
 import java.util.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 @Entity
-@IdClass(HuespedPK.class)
+@Table(name = "huespedes")
 public class Huesped {
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String apellido;
+    
+    @EmbeddedId
+    private HuespedPK id; //id tipo y nro de documento, resuelto así para la bdd
 
-    @Id
-    @Enumerated(EnumType.STRING)
-    private TipoDoc tipo_documento;
-
-    @Id
-    private String nroDocumento;
-
-    @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;
-
-    @Column(nullable = false)
+    
+    @Column(nullable = false, length = 100)
     private String nacionalidad;
+    
+    @Column(nullable = true, length = 100)
     private String email;
-
-    @Column(nullable = false)
+    
+    @Column(nullable = false, length = 20)
     private String telefono;
-
-    @Column(nullable = false)
+    
+    @Column(nullable = false, length = 100)
     private String ocupacion;
-
-    @Column(nullable = false, columnDefinition = "BOOLEAN CHECK (alojado IN (0,1))") //verficar si son (1/0) o (true/false) los valores q se almacenan para determinar el check
-    private boolean alojado;
-
-
-    protected Huesped() {} //JPA requiere un constructor público o protegido sin argumentos para poder instanciar el objeto mediante reflexión.
+    
+    @Column(nullable = false) 
+    private boolean alojado; //indica si se ha alojado por lo menos una vez
 
     public Huesped(String nombre, String apellido, TipoDoc tipo_documento, String nroDocumento,
             Date fechaDeNacimiento, String nacionalidad, String email,
             String telefono, String ocupacion, boolean alojado) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.tipo_documento = tipo_documento;
-        this.nroDocumento = nroDocumento;
+        this.id = new HuespedPK(tipo_documento, nroDocumento);
         this.fechaDeNacimiento = fechaDeNacimiento;
         this.nacionalidad = nacionalidad;
         this.email = email;
@@ -65,8 +50,7 @@ public class Huesped {
     public Huesped(HuespedDTO huespedDto) {
         this.nombre = huespedDto.getNombre();
         this.apellido = huespedDto.getApellido();
-        this.tipo_documento = huespedDto.getTipo_documento();
-        this.nroDocumento = huespedDto.getNroDocumento();
+        this.id = new HuespedPK(huespedDto.getTipo_documento(), huespedDto.getNroDocumento());
         this.fechaDeNacimiento = huespedDto.getFechaDeNacimiento();
         this.nacionalidad = huespedDto.getNacionalidad();
         this.email = huespedDto.getEmail();
@@ -87,11 +71,11 @@ public class Huesped {
     }
 
     public TipoDoc getTipo_documento() {
-        return tipo_documento;
+        return id.getTipo_documento();
     }
 
     public String getNroDocumento() {
-        return nroDocumento;
+        return id.getNroDocumento();
     }
 
     public Date getFechaDeNacimiento() {

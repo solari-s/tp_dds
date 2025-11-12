@@ -19,7 +19,9 @@
         <!-- Columna izquierda -->
         <div class="columna">
           <label>Nombres: * <input type="text" id="nombres" placeholder="Ingrese sus nombres"> </label>
-          <label>Tipo de Documento: *
+          <label for="tipoDoc">Tipo de Documento: *</label>
+          <div class="seleccionar">
+
             <select id="tipoDoc">
               <option value="">Seleccione...</option>
               <option>DNI</option>
@@ -28,16 +30,42 @@
               <option>Pasaporte</option>
               <option>Otro</option>
             </select>
-          </label>
-          <label>Posición frente al IVA: *
+
+            <span class="flecha">
+              <svg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                <path fill='currentColor' d='M13.098 8H6.902c-.751 0-1.172.754-.708 1.268L9.292 12.7c.36.399 1.055.399 1.416 0l3.098-3.433C14.27 8.754 13.849 8 13.098 8Z'/>
+              </svg>
+              
+            </span>
+          </div>
+
+
+          <label for="iva">Posición frente al IVA: </label>
+          <div class="seleccionar">
             <select id="iva">
               <option value="">Seleccione...</option>
               <option>Consumidor Final</option>
               <option>Responsable Inscripto</option>
               <option>Exento</option>
             </select>
-          </label>
-          <label>Fecha de Nacimiento: * <input type="date" id="nacimiento" placeholder="Seleccione..."> </label>
+            <span class="flecha">
+              <svg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                <path fill='currentColor' d='M13.098 8H6.902c-.751 0-1.172.754-.708 1.268L9.292 12.7c.36.399 1.055.399 1.416 0l3.098-3.433C14.27 8.754 13.849 8 13.098 8Z'/>
+              </svg>
+            </span>
+          </div>
+
+          <label for="calendario">Fecha de Nacimiento: * </label>
+          <div class="seleccionar">
+          <input type="date" id="nacimiento" placeholder="Seleccione..."> 
+
+            <span class="flecha">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+              <path d="M7 10h5v5H7z" opacity=".3"/>
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14c0 1.11 .89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.11 -.89-2 -2-2zm0 16H5V8h14v11z"/>
+              </svg>
+            </span>
+          </div>
           <label>Ocupación: * <input type="text" id="ocupacion" placeholder="Ingrese su ocupacion"> </label>
           <label>Nacionalidad: * <input type="text" id="nacionalidad" placeholder="Ingrese su nacionalidad"></label>
         </div>

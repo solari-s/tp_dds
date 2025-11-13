@@ -3,7 +3,7 @@ body {
   background-color: #f2f6fc;
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .form-container {
@@ -111,8 +111,27 @@ button {
   background-color: #c8d6f1;
 }
 
+/* POPUPS */
+.swal2-popup {
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+  padding: 8px 20px !important;
+}
+
+.swal2-cancel {
+  color:#000000;
+  background-color: #A8C6FA !important;
+  border-radius: 10px !important;
+}
+
+.swal2-confirm {
+  color:#000000;
+  background-color: #A8C6FA !important;
+  border-radius: 10px !important;
+}
+
 .siguiente {
-  background-color: #a8c4f3;
+  background-color: #c8d6f1;
 }
 
 button:hover {

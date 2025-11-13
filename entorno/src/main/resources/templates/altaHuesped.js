@@ -1,18 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formHuesped");
-  const mensajeDiv = document.getElementById("mensaje"); // Lo mantenemos por si lo usas para 'mostrarExito'
   const btnCancelar = document.getElementById("btnCancelar");
 
-
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    clearFieldErrors(); // Llama a la nueva función (ver abajo)
-    
+    clearFieldErrors();
     let hayErrores = false;
 
     // --- VALIDACIONES ---
-    // (Ahora solo añadimos .campo-error y ponemos hayErrores = true)
-
     const apellidoEl = document.getElementById("apellido");
     if (!apellidoEl.value.trim()) {
       apellidoEl.classList.add("campo-error");
@@ -54,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       nacimientoEl.classList.add("campo-error");
       nacimientoEl.closest('.seleccionar')?.querySelector('.flecha')?.classList.add('cajon-error');
       hayErrores = true;
-    } else if (new Date(nacimiento) > new Date()) { // Asumiendo que flatpickr no lo previene
+    } else if (new Date(nacimiento) > new Date()) {
       nacimientoEl.classList.add("campo-error");
       hayErrores = true;
     }
@@ -97,36 +92,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- RESULTADO ---
     if (hayErrores) {
       console.log("Formulario inválido, campos marcados en rojo.");
-      return; // Detiene el envío, pero no muestra ningún mensaje de texto
+      return;
     }
 
-    // Si todo está bien
-    mostrarExito(`✅ El huésped se cargó correctamente.`);
-    form.reset();
-  });
-
-  // --- [NUEVO] LIMPIEZA AUTOMÁTICA DE ERRORES ---
-  // Esto quita el borde rojo en cuanto el usuario empieza a escribir o cambia una opción.
-  form.querySelectorAll("input, select").forEach(campo => {
-    const limpiarError = () => {
-      campo.classList.remove("campo-error");
-      campo.closest('.seleccionar')?.querySelector('.flecha')?.classList.remove('cajon-error');
-    }
-    campo.addEventListener("input", limpiarError);
-    campo.addEventListener("change", limpiarError);
-  });
-
-  //POPUPS
-  //CANCELAR
-  btnCancelar.addEventListener("click", async () => {
-    
+    // ✅ Si todo está bien: popup de éxito
     const resultado = await Swal.fire({
-      title: "¿Desea cancelar el alta del huésped?",
-      showCancelButton: true, // Muestra el botón de "cancelar"
+      title: `El huésped ${nombresEl.value} ${apellidoEl.value} ha sido cargado correctamente.`,
+      text: "¿Desea cargar otro?",
+      icon: "success",
+      showCancelButton: true,
       confirmButtonText: "SÍ",
       cancelButtonText: "NO",
-      confirmButtonColor: "#A8C6FA", 
-      cancelButtonColor: "#A8C6FA",  
+      confirmButtonColor: "#A8C6FA",
+      cancelButtonColor: "#A8C6FA",
       background: "#D4E3FC",
       color: "#000000",
       width: '400px',
@@ -134,44 +112,57 @@ document.addEventListener("DOMContentLoaded", () => {
       reverseButtons: true
     });
 
-    // Si el usuario hizo clic en SI
+    if (resultado.isConfirmed) {
+      clearFieldErrors();
+      form.reset();
+    } else {
+      console.log("No desea cargar otro huésped.");
+      // Podés redirigir o cerrar modal si querés
+    }
+  });
+
+  // --- LIMPIEZA AUTOMÁTICA DE ERRORES ---
+  form.querySelectorAll("input, select").forEach(campo => {
+    const limpiarError = () => {
+      campo.classList.remove("campo-error");
+      campo.closest('.seleccionar')?.querySelector('.flecha')?.classList.remove('cajon-error');
+    };
+    campo.addEventListener("input", limpiarError);
+    campo.addEventListener("change", limpiarError);
+  });
+
+  // --- POPUP CANCELAR ---
+  btnCancelar.addEventListener("click", async () => {
+    const resultado = await Swal.fire({
+      text: "¿Desea cancelar el alta del huésped?",
+      showCancelButton: true,
+      confirmButtonText: "SÍ",
+      cancelButtonText: "NO",
+      confirmButtonColor: "#A8C6FA",
+      cancelButtonColor: "#A8C6FA",
+      background: "#D4E3FC",
+      color: "#000000",
+      width: '400px',
+      height: '184px',
+      reverseButtons: true
+    });
+
     if (resultado.isConfirmed) {
       clearFieldErrors();
       form.reset();
     }
   });
+});
 
-  Swal.fire({
-      title: "El huésped "+ nombresEl.value + " " + apellidoEl.value + "ha sido satisfactoriamente cargado al sistema.",
-      text: "¿Desea cargar otro?",
-      icon: "success",
-      confirmButtonText: "SI",
-      cancelButtonText: "NO"
-
-    });
-
-    // Limpiamos el formulario después del éxito
-    form.reset();
-}); 
-
-
-// --- FUNCIONES AUXILIARES MODIFICADAS ---
-
+// --- FUNCIONES AUXILIARES ---
 function clearFieldErrors() {
-  // Busca TODOS los campos y les quita la clase de error
   document.querySelectorAll("input, select").forEach(el => {
     el.classList.remove("campo-error");
   });
-  
-  // Sigue limpiando el div de mensajes por si 'mostrarExito' lo usó
-  const mensajeDiv = document.getElementById("mensaje");
-  if (mensajeDiv) mensajeDiv.textContent = "";
-
   document.querySelectorAll('.flecha').forEach(el => {
     el.classList.remove('cajon-error');
   });
 }
-
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -180,13 +171,3 @@ function isValidEmail(email) {
 function isValidCUIT(cuit) {
   return /^(\d{11}|\d{2}-\d{8}-\d{1})$/.test(cuit);
 }
-
-
-function mostrarExito(mensaje) {
-  const alert = document.createElement("div");
-  alert.className = "alert success"; 
-  alert.textContent = mensaje;
-  document.body.appendChild(alert);
-  setTimeout(() => alert.remove(), 3000);
-}
-

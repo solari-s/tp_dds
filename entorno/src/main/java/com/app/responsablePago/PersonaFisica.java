@@ -1,12 +1,14 @@
 package com.app.responsablePago;
 
 import com.app.huesped.Huesped;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+
+import jakarta.persistence.*;
 
 @Entity
-public class PersonaFisica extends ResponsablePago {
+@Table(name = "personas_fisicas")
+public class PersonaFisica extends ResponsablePago {    
 
+    @Column(nullable = false, length = 100) //debe resolverse que PosicionIVA default es Consumidor final
     private String PosicionIVA;
     
     @OneToOne

@@ -3,9 +3,16 @@ package com.app.huesped;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.*;
+
+@Embeddable
 public class HuespedPK implements Serializable {
 
+    @Enumerated(EnumType.STRING) //hace que el tipo se guarde como string :D
+    @Column(nullable = false)
     private TipoDoc tipo_documento;
+
+    @Column(nullable = false, length = 10)
     private String nroDocumento;
 
     public HuespedPK() {}

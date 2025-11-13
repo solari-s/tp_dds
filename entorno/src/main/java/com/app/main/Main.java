@@ -1,8 +1,5 @@
 package com.app.main;
 
-import java.util.Scanner;
-
-import com.app.gestores.GestorHuesped;
 
 public class Main {
 

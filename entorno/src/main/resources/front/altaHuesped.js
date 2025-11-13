@@ -3,10 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensajeDiv = document.getElementById("mensaje"); // Lo mantenemos por si lo usas para 'mostrarExito'
   const btnCancelar = document.getElementById("btnCancelar");
 
-  btnCancelar.addEventListener("click", () => {
-    clearFieldErrors();
-    form.reset();
-  });
 
   form.addEventListener("submit", e => {
     e.preventDefault();
@@ -120,7 +116,44 @@ document.addEventListener("DOMContentLoaded", () => {
     campo.addEventListener("change", limpiarError);
   });
 
+  //POPUPS
+  //CANCELAR
+  btnCancelar.addEventListener("click", async () => {
+    
+    const resultado = await Swal.fire({
+      title: "¿Desea cancelar el alta del huésped?",
+      showCancelButton: true, // Muestra el botón de "cancelar"
+      confirmButtonText: "SÍ",
+      cancelButtonText: "NO",
+      confirmButtonColor: "#A8C6FA", 
+      cancelButtonColor: "#A8C6FA",  
+      background: "#D4E3FC",
+      color: "#000000",
+      width: '400px',
+      height: '184px',
+      reverseButtons: true
+    });
+
+    // Si el usuario hizo clic en SI
+    if (resultado.isConfirmed) {
+      clearFieldErrors();
+      form.reset();
+    }
+  });
+
+  Swal.fire({
+      title: "El huésped "+ nombresEl.value + " " + apellidoEl.value + "ha sido satisfactoriamente cargado al sistema.",
+      text: "¿Desea cargar otro?",
+      icon: "success",
+      confirmButtonText: "SI",
+      cancelButtonText: "NO"
+
+    });
+
+    // Limpiamos el formulario después del éxito
+    form.reset();
 }); 
+
 
 // --- FUNCIONES AUXILIARES MODIFICADAS ---
 
@@ -156,3 +189,4 @@ function mostrarExito(mensaje) {
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 3000);
 }
+

@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Scanner;
-import com.app.gestores.GestorHuesped;
-
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.app.main", "com.app.gestores", "com.app.huesped", "com.app.responsablePago" })
 @EnableJpaRepositories(basePackages = { "com.app.huesped", "com.app.responsablePago" })

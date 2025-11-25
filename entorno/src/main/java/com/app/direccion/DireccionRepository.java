@@ -1,4 +1,4 @@
-package com.app.huesped;
+package com.app.direccion;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

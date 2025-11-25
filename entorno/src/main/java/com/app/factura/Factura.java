@@ -1,7 +1,8 @@
 package com.app.factura;
 
 import com.app.responsablePago.ResponsablePago;
-
+import java.util.List;
+import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +14,7 @@ public class Factura {
     // pk para la persistencia
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -37,11 +38,25 @@ public class Factura {
     @OneToOne
     private ResponsablePago responsablePago; 
 
-    public Long getId() {
+    @OneToMany(orphanRemoval=true)
+    @JoinColumn(name="facturas_id")
+    private List<FormaDePago> formasDePago;
+
+    public Factura(){}
+
+    //creo q esto es lo mínimo idkkk
+    public Factura(ResponsablePago responsablePago, int valorEstadia, float totalAPagar){
+        this.responsablePago = responsablePago;
+        this.totalAPagar = totalAPagar;
+        this.valorEstadia = valorEstadia;
+        formasDePago = new ArrayList<>();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -91,6 +106,18 @@ public class Factura {
 
     public void setResponsablePago(ResponsablePago p){
         this.responsablePago = p;
+    }
+
+    public List<FormaDePago> getFormasDePago() {
+        return formasDePago;
+    }
+
+    public void setFormasDePago(List<FormaDePago> formasDePago) {
+        this.formasDePago = formasDePago;
+    }
+
+    public void agregarFormaDePago(FormaDePago f){
+        formasDePago.add(f);
     }
 
 }

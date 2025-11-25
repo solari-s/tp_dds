@@ -2,6 +2,7 @@ package com.app.huesped;
 
 import java.util.Date;
 import jakarta.persistence.*;
+import com.app.direccion.Direccion;
 
 @Entity
 @Table(name = "huespedes")
@@ -33,6 +34,10 @@ public class Huesped {
     @Column(nullable = false) 
     private boolean alojado; //indica si se ha alojado por lo menos una vez
 
+    @ManyToOne
+    @JoinColumn(name = "direccion_huesped")
+    private Direccion direccion;
+
     public Huesped(String nombre, String apellido, TipoDoc tipo_documento, String nroDocumento,
             Date fechaDeNacimiento, String nacionalidad, String email,
             String telefono, String ocupacion, boolean alojado) {
@@ -61,45 +66,14 @@ public class Huesped {
 
 
     // Getters
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public TipoDoc getTipo_documento() {
-        return id.getTipo_documento();
-    }
-
-    public String getNroDocumento() {
-        return id.getNroDocumento();
-    }
-
-    public Date getFechaDeNacimiento() {
-        return fechaDeNacimiento;
-    }
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getOcupacion() {
-        return ocupacion;
-    }
-
-    public boolean isAlojado() {
-        return alojado;
-    }
-
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public TipoDoc getTipo_documento() { return id.getTipo_documento(); }
+    public String getNroDocumento() { return id.getNroDocumento(); }
+    public Date getFechaDeNacimiento() { return fechaDeNacimiento; }
+    public String getNacionalidad() { return nacionalidad; }
+    public String getEmail() { return email; }
+    public String getTelefono() { return telefono; }
+    public String getOcupacion() { return ocupacion; }
+    public boolean isAlojado() { return alojado; }
 }

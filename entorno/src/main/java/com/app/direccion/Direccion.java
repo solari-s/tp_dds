@@ -1,6 +1,9 @@
-package com.app.huesped;
+package com.app.direccion;
 
 import jakarta.persistence.*;
+import com.app.huesped.Huesped;
+import java.util.List;
+import java.util.LinkedList;
 
 @Entity
 @Table(name = "direcciones")
@@ -21,6 +24,12 @@ public class Direccion {
     @Column(nullable = true, length = 100)
     private int piso;
 
+    @ManyToOne
+    @JoinColumn(name = "localidad_nombre")
+    private Localidad localidad;
+
+    @OneToMany(mappedBy = "direccion")
+    private List<Huesped> huespedes;
 
     public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal) {
         this.calle = calle;
@@ -28,6 +37,7 @@ public class Direccion {
         this.piso = piso;
         this.departamento = departamento;
         this.codigoPostal = codigoPostal;
+        huespedes = new LinkedList<>();
     }
     //Getters
     public String getCalle() { return calle; }
@@ -35,4 +45,15 @@ public class Direccion {
     public int getAltura() { return altura; }
     public int getPiso() { return piso; }
     public int getCodigoPostal() { return codigoPostal; }
+    public Localidad getLocalidad() { return localidad; }
+
+    //setters
+    public void setCalle(String calle) { this.calle = calle; }  
+    public void setDepartamento(String departamento) { this.departamento = departamento; }
+    public void setAltura(int altura) { this.altura = altura; }
+    public void setPiso(int piso) { this.piso = piso; }
+    public void setCodigoPostal(int codigoPostal) { this.codigoPostal = codigoPostal; }
+    public void setLocalidad(Localidad localidad){ this.localidad = localidad; }
+    
+
 }

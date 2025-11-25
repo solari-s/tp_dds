@@ -1,0 +1,29 @@
+package com.app.direccion;
+
+import jakarta.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
+
+@Entity
+@Table(name = "paises")
+public class Pais {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Provincia> provincias;
+
+    public Pais(){}
+
+    public Pais(String nombre){
+        this.nombre = nombre;
+        provincias = new ArrayList<>();
+    }
+
+
+}

@@ -10,8 +10,10 @@ public class Localidad {
     @Id
     private String nombre;
 
-    @OneToMany(mappedBy = "localidad", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Provincia> provincias;
+    // Muchas localidades pertenecen a una provincia
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "provincia_id")
+    private Provincia provincia;
 
 
 

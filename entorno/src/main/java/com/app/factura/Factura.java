@@ -42,6 +42,9 @@ public class Factura {
     @JoinColumn(name="facturas_id")
     private List<FormaDePago> formasDePago;
 
+    // @OneToOne
+
+
     public Factura(){}
 
     //creo q esto es lo mínimo idkkk

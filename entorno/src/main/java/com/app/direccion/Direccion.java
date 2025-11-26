@@ -3,7 +3,7 @@ package com.app.direccion;
 import jakarta.persistence.*;
 import com.app.huesped.Huesped;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "direcciones")
@@ -31,13 +31,14 @@ public class Direccion {
     @OneToMany(mappedBy = "direccion")
     private List<Huesped> huespedes;
 
-    public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal) {
+    public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal, Localidad localidad) {
         this.calle = calle;
         this.altura = altura;
         this.piso = piso;
         this.departamento = departamento;
         this.codigoPostal = codigoPostal;
-        huespedes = new LinkedList<>();
+        this.localidad = localidad;
+        huespedes = new ArrayList<>();
     }
     //Getters
     public String getCalle() { return calle; }

@@ -25,5 +25,7 @@ public class Pais {
         provincias = new ArrayList<>();
     }
 
+    public String getNombre(){ return nombre; }
+
 
 }

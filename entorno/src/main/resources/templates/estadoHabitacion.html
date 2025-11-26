@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Habitaciones</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #e9f0fa;
+            max-width: 1100px;
+            width: 100%;
+            height: auto;
+            min-height: 600px;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .window-controls {
+            position: absolute;
+            top: 15px; right: 15px; display: flex; gap: 10px;
+        }
+        .win-btn {
+            width: 30px; height: 30px; background: #d6eaf8;
+            border: 1px solid #a9cce3; border-radius: 4px; color: #4a90e2;
+            font-weight: bold; display: flex; justify-content: center; align-items: center; cursor: pointer;
+        }
+
+        h1 {
+            text-align: center; color: #333; margin-top: 10px; margin-bottom: 40px; font-size: 24px;
+        }
+
+        /* --- FORMULARIO SUPERIOR --- */
+        .search-bar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 20px;
+        }
+
+        .date-inputs {
+            display: flex; gap: 40px; align-items: center;
+        }
+
+        .input-group {
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        label { color: #333; font-weight: 500; font-size: 15px; }
+
+        /* --- ESTILOS "SELECCIONAR" (Idéntico a tu altaHuesped) --- */
+        .seleccionar {
+            position: relative;
+            display: block;
+            width: 180px; /* Ajusta el ancho según necesites */
+        }
+
+        /* Input modificado para Flatpickr */
+        .seleccionar input {
+            padding: 8px 12px;
+            padding-right: 40px; /* Espacio para el ícono */
+            border: 1px solid #a9cce3;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            background: white;
+            width: 100%;
+            cursor: pointer; /* Manito al pasar por encima */
+        }
+
+        .seleccionar input::placeholder {
+            color: #757575; /* Gris del placeholder */
+        }
+
+        /* Ícono de calendario (flecha/calendario) */
+        .seleccionar .flecha {
+            position: absolute;
+            top: 0; right: 0; bottom: 0;
+            width: 35px;
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none; /* Click atraviesa al input */
+            color: #5C5F62;
+            background-color: transparent; 
+            border-left: 1px solid transparent; /* Opcional: separador */
+        }
+
+        /* --- CLASES DE ERROR --- */
+        .input-error {
+            border: 2px solid #ff4d4d !important;
+            background-color: #fff0f0;
+        }
+
+        .btn-primary {
+            background-color: #d6eaf8; color: #333; border: 1px solid #a9cce3;
+            padding: 10px 30px; border-radius: 20px; font-size: 15px;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-primary:hover { background-color: #a9cce3; }
+
+        /* --- RESULTADOS --- */
+        .results-box {
+            border: 1px solid #a9cce3; background-color: #f0f8ff;
+            border-radius: 8px; padding: 20px; display: none; margin-top: 20px;
+        }
+        .results-box.show { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .results-box h3 { text-align: center; font-size: 16px; margin-bottom: 15px; font-weight: normal; color: #333; }
+
+        /* --- TABS & GRILLA --- */
+        .tabs-container { display: flex; gap: 2px; margin-bottom: 0; }
+        .tab {
+            background-color: #e0e0e0; border: 1px solid #999; border-bottom: none;
+            border-radius: 6px 6px 0 0; padding: 8px 15px; font-size: 13px; cursor: pointer; color: #333;
+        }
+        .tab.active { background-color: white; font-weight: bold; border-bottom: 1px solid white; position: relative; top: 1px; z-index: 5; }
+
+        .grid-wrapper {
+            background-color: #e6e6e6; border: 1px solid #999; height: 300px;
+            overflow-y: auto; position: relative;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th {
+            background-color: #f0f0f0; padding: 12px; text-align: center; font-weight: bold;
+            border-bottom: 1px solid #ccc; position: sticky; top: 0; z-index: 2;
+        }
+        td:first-child, th:first-child {
+            background-color: #f0f0f0; font-weight: bold; width: 120px; border-right: 1px solid #ccc;
+        }
+        td {
+            padding: 0; height: 40px; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc;
+            text-align: center; vertical-align: middle;
+        }
+        .status-gray { background-color: #bfbfbf; }
+        .status-green { background-color: #90ee90; }
+
+        /* Scrollbar */
+        .grid-wrapper::-webkit-scrollbar { width: 18px; }
+        .grid-wrapper::-webkit-scrollbar-track { background: #eaf2f8; border-left: 1px solid #a9cce3; }
+        .grid-wrapper::-webkit-scrollbar-thumb { background-color: #a9cce3; border-radius: 10px; border: 3px solid #eaf2f8; }
+
+        .bottom-action { display: flex; justify-content: flex-end; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="window-controls">
+            <div class="win-btn">_</div>
+            <div class="win-btn">X</div>
+        </div>
+
+        <h1>Estado de habitaciones</h1>
+
+        <form id="availabilityForm">
+            <div class="search-bar">
+                <div class="date-inputs">
+                    
+                    <div class="input-group">
+                        <label for="desde">Desde fecha:</label>
+                        <div class="seleccionar">
+                            <input type="text" id="desde" name="desde" placeholder="Seleccione fecha">
+                            <span class="flecha">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14c0 1.11 .89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.11 -.89-2 -2-2zm0 16H5V8h14v11z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="hasta">Hasta fecha:</label>
+                        <div class="seleccionar">
+                            <input type="text" id="hasta" name="hasta" placeholder="Seleccione fecha">
+                            <span class="flecha">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14c0 1.11 .89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.11 -.89-2 -2-2zm0 16H5V8h14v11z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="submit" class="btn-primary">Siguiente</button>
+            </div>
+        </form>
+
+        <div id="resultsArea" class="results-box">
+            <h3>Habitaciones disponibles</h3>
+
+            <div class="tabs-container">
+                <button class="tab active">Individual estándar</button>
+                <button class="tab">Doble estándar</button>
+                <button class="tab">Doble superior</button>
+                <button class="tab">Superior family plan</button>
+                <button class="tab">Suite doble</button>
+            </div>
+
+            <div class="grid-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>10/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
+                        <tr><td>11/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
+                        <tr><td>12/04/25</td><td class="status-gray"></td><td class="status-green"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
+                        <tr><td>13/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
+                        <tr><td>14/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bottom-action">
+                <button class="btn-primary">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Inicializar Flatpickr en los inputs
+            flatpickr("#desde", {
+                locale: "es",
+                dateFormat: "d/m/Y",
+                allowInput: false, // Evita escritura manual, solo calendario
+                disableMobile: "true" // Fuerza el calendario de flatpickr incluso en celular
+            });
+
+            flatpickr("#hasta", {
+                locale: "es",
+                dateFormat: "d/m/Y",
+                allowInput: false,
+                disableMobile: "true"
+            });
+
+            // 2. Lógica del formulario (Validación y Mostrar Tabla)
+            const form = document.getElementById('availabilityForm');
+            const resultsArea = document.getElementById('resultsArea');
+            const desdeInput = document.getElementById('desde');
+            const hastaInput = document.getElementById('hasta');
+
+            // Función para limpiar errores al seleccionar fecha
+            function clearError(e) {
+                e.target.classList.remove('input-error');
+            }
+            // flatpickr dispara 'change' al elegir fecha
+            desdeInput.addEventListener('change', clearError);
+            hastaInput.addEventListener('change', clearError);
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let valid = true;
+
+                if (!desdeInput.value) {
+                    desdeInput.classList.add('input-error');
+                    valid = false;
+                }
+                if (!hastaInput.value) {
+                    hastaInput.classList.add('input-error');
+                    valid = false;
+                }
+
+                if (valid) {
+                    resultsArea.classList.add('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

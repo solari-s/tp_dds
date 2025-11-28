@@ -1,9 +1,10 @@
 package com.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.app.habitacion.Reserva;
 
+import com.app.direccion.Pais;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservaRepository extends JpaRepository<Reserva,Integer>{}
+
+public interface PaisRepository extends JpaRepository<Pais,String> {}

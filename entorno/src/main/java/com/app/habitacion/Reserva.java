@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "reservas")
+@Entity(name = "reservas")
 public class Reserva {
     
     @Id
@@ -21,7 +20,11 @@ public class Reserva {
     private Date fechaEgreso;
     private String HoraEgreso;
 
-    // lista de habitaciones
+    @ManyToMany
+    @JoinTable(name = "habitaciones_reservadas", 
+    joinColumns = @JoinColumn(name = "reserva_id"), 
+    inverseJoinColumns = @JoinColumn(name = "habitacion_id"))
+    private List<Habitacion> habitacionesReservadas;
 
     @OneToOne(mappedBy = "reserva")
     private Estadia estadia;

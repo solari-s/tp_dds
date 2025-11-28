@@ -15,4 +15,8 @@ public class Habitacion {
     
     @OneToMany(mappedBy = "habitacion")
     private List<HistorialEstadoHabitacion> historialEstados;
+
+    @ManyToMany(mappedBy = "habitacionesReservadas")
+    private List<Reserva> reservas;
+
 }

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class Direccion {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false, length = 100)
     private int codigoPostal;
     
     @Column(nullable = false, length = 100)

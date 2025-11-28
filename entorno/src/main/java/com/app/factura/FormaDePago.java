@@ -12,26 +12,40 @@ public class FormaDePago {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    Banco tarjetaDeCredito;
+    private Banco tarjetaDeCredito;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    Banco tarjetaDeDebito;    
+    private Banco tarjetaDeDebito;    
 
     @Column(nullable = true)
-    boolean efectivo;
+    private boolean efectivo;
+
+    @Column(nullable = false)
+    private float monto;
+
+    @ManyToOne
+    @JoinColumn(name = "formas_de_pago")
+    private Factura factura;
 
     public FormaDePago(){}
 
-    //aca habria que hacer que solo uno sea != de null no?
-    //ponemos el monto?
-    public FormaDePago(Banco credito, Banco debito, boolean efectivo){
+    public FormaDePago(Banco credito, Banco debito, float monto){
         
         tarjetaDeCredito = credito;
         tarjetaDeDebito = debito;
-        this.efectivo = efectivo;
+        this.efectivo = false;
+        this.monto = monto;
 
     }
 
+    public FormaDePago(boolean efectivo,float monto){
+        
+        tarjetaDeCredito =null;
+        tarjetaDeDebito = null;
+        this.efectivo = efectivo;
+        this.monto = monto;
+
+    }    
 
 }

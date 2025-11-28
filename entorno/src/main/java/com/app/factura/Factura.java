@@ -9,8 +9,6 @@ import jakarta.persistence.*;
 @Table(name = "facturas")
 public class Factura {
 
-    //puede ser que la factura podría quedar a medio pagar o algo así?
-    
     // pk para la persistencia
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +36,7 @@ public class Factura {
     @OneToOne
     private ResponsablePago responsablePago; 
 
-    @OneToMany(orphanRemoval=true)
-    @JoinColumn(name="facturas_id")
+    @OneToMany(mappedBy = "factura")
     private List<FormaDePago> formasDePago;
 
     // @OneToOne

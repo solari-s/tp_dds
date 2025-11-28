@@ -7,12 +7,8 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "paises")
 public class Pais {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
+    @Id
     private String nombre;
 
     @OneToMany(mappedBy = "pais", cascade = CascadeType.ALL, orphanRemoval = true)

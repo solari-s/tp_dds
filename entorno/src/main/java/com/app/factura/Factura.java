@@ -33,7 +33,8 @@ public class Factura {
     @Column(nullable = false)
     private boolean pagado;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "responsable_pago")
     private ResponsablePago responsablePago; 
 
     @OneToMany(mappedBy = "factura")

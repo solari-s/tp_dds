@@ -1,11 +1,26 @@
 package com.app.estadias;
 
+import jakarta.persistence.*;
+
 public class Consumo {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(nullable = false)
     private TipoConsumo tipo;
+    
+    @Column(nullable = false)
     private float monto;
+    
+    @Column(nullable = false)
     private Moneda moneda;
 
+    @ManyToOne
+    @JoinColumn(name = "estadia_id")
+    private Estadia estadia;
+    
     //consutructores
     public Consumo(){}
     public Consumo(TipoConsumo tipo, float monto, Moneda moneda){

@@ -2,6 +2,7 @@ package com.app.estadias;
 
 import java.util.Date;
 import com.app.factura.*;
+import com.app.habitacion.Habitacion;
 import com.app.habitacion.Reserva;
 import com.app.habitacion.TipoHabitacion;
 import java.util.List;
@@ -17,9 +18,12 @@ public class Estadia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TipoHabitacion tipo;
+    @ManyToOne
+    @JoinColumns({
+        @JoinColumn(name = "habitacion_nombre", referencedColumnName = "nombre"),
+        @JoinColumn(name = "habitacion_tipo", referencedColumnName = "tipo")
+    })
+    private Habitacion habitacion;
 
     @Column(nullable = false)
     private float precio;
@@ -40,7 +44,7 @@ public class Estadia {
     @OneToMany (mappedBy = "estadia")
     private List<Consumo> consumos;
 
-    public void agregarConsumo(Consumo c){
+    public void agregarConsumo(Consumo c){//NO CONSIDERO QUE ESTÉN EN DISTINTAS MONEDAS
         consumos.add(c);
     }
 
@@ -71,7 +75,7 @@ public class Estadia {
 
     //getters
     public int getId() { return id; }
-    public TipoHabitacion getTipo() { return tipo; }
+    public TipoHabitacion geTipoHabitacion(){ return habitacion.getTipo(); }
     public float getPrecio() { return precio; }
     public Date getFechaInicio() { return fechaInicio; }
     public Date getFechaFin() { return fechaFin; }
@@ -79,8 +83,8 @@ public class Estadia {
     public Reserva getReserva() { return reserva; }
 
     //setters
-    public void setTipo(TipoHabitacion tipo) { this.tipo = tipo; }
     public void setPrecio(float precio) { this.precio = precio; }
+    public void geTipoHabitacion(TipoHabitacion t){ habitacion.setTipo(t); }
     public void setFechaInicio(Date fechaInicio) { this.fechaInicio = fechaInicio; }
     public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
     public void setFactura(Factura factura) { this.factura = factura; }

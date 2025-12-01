@@ -2,6 +2,9 @@ package com.app.habitacion;
 
 import java.util.Date;
 import java.util.List;
+
+import com.app.estadias.Estadia;
+
 import java.util.ArrayList;
 import jakarta.persistence.*;
 

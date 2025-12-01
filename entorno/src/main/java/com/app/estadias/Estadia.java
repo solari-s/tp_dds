@@ -1,7 +1,10 @@
-package com.app.habitacion;
+package com.app.estadias;
 
 import java.util.Date;
 import com.app.factura.*;
+import com.app.habitacion.Reserva;
+import com.app.habitacion.TipoHabitacion;
+
 import jakarta.persistence.*;
 
 @Entity

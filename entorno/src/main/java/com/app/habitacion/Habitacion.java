@@ -19,4 +19,35 @@ public class Habitacion {
     @ManyToMany(mappedBy = "habitacionesReservadas")
     private List<Reserva> reservas;
 
+    //constructores
+    public Habitacion(){}
+    
+    public Habitacion(String tipo, int numero,float costoNoche){
+        id.setTipo(TipoHabitacion.fromString(tipo)); 
+        id.setNumero(numero);
+        this.costoNoche = costoNoche;
+        historialEstados = new ArrayList<>();
+        reservas = new ArrayList<>();
+    }
+
+    public Habitacion(TipoHabitacion tipo, int numero,float costoNoche){
+        id.setTipo(tipo); 
+        id.setNumero(numero);
+        this.costoNoche = costoNoche;
+        historialEstados = new ArrayList<>();
+        reservas = new ArrayList<>();
+    }
+
+    //getters
+    public TipoHabitacion getTipo() { return id.getTipo(); }
+    public int getNumero() { return id.getNumero(); }
+    public float getCostoNoche() { return costoNoche; }
+    public List<HistorialEstadoHabitacion> getHistorialEstados() { return historialEstados; }
+    public List<Reserva> getReservas() { return reservas; }
+
+    //setters
+    public void setTipo(TipoHabitacion tipo) { id.setTipo(tipo); }
+    public void setNumero(int numero) { id.setNumero(numero); }    
+    public void setCostoNoche(float costoNoche) { this.costoNoche = costoNoche; }
+    public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
 }

@@ -2,8 +2,6 @@ package com.app.habitacion;
 
 import java.util.Date;
 import com.app.factura.*;
-import java.util.List;
-import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
@@ -33,6 +31,8 @@ public class Estadia {
     @OneToOne(optional = true)
     @JoinColumn(name = "reserva_id", nullable = true)
     private Reserva reserva;
+
+    public Estadia(){}
 
     //getters
     public int getId() { return id; }

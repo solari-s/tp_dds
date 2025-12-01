@@ -27,4 +27,11 @@ public class HabitacionPK implements Serializable {
         return Objects.hash(tipo, numero);
     }
 
+    //getter
+    public TipoHabitacion getTipo() { return tipo; }
+    public int getNumero() { return numero; }
+
+    //setter
+    public void setTipo(TipoHabitacion tipo) { this.tipo = tipo; }
+    public void setNumero(int numero) { this.numero = numero; }
 }

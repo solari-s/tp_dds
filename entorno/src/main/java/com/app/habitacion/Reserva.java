@@ -32,5 +32,26 @@ public class Reserva {
     @OneToOne(mappedBy = "reserva")
     private Estadia estadia;
     
-    //getters y setters
+    //getters
+    public int getId() { return id; }
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public int getTelefono() { return telefono; }
+    public Date getFechaIngreso() { return fechaIngreso; }
+    public String getHoraIngreso() { return HoraIngreso; }
+    public Date getFechaEgreso() { return fechaEgreso; }
+    public String getHoraEgreso() { return HoraEgreso; }
+    public List<Habitacion> getHabitacionesReservadas() { return habitacionesReservadas; }
+    public Estadia getEstadia() { return estadia; }
+
+    //setters
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setApellido(String apellido) { this.apellido = apellido; }
+    public void setTelefono(int telefono) { this.telefono = telefono; }
+    public void setFechaIngreso(Date fechaIngreso) { this.fechaIngreso = fechaIngreso; }
+    public void setHoraIngreso(String horaIngreso) { HoraIngreso = horaIngreso; }
+    public void setFechaEgreso(Date fechaEgreso) { this.fechaEgreso = fechaEgreso; }
+    public void setHoraEgreso(String horaEgreso) { HoraEgreso = horaEgreso; }
+    public void setHabitacionesReservadas(List<Habitacion> habitacionesReservadas) { this.habitacionesReservadas = habitacionesReservadas; }
+    public void setEstadia(Estadia estadia) { this.estadia = estadia; }
 }

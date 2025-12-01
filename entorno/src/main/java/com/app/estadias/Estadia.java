@@ -4,6 +4,8 @@ import java.util.Date;
 import com.app.factura.*;
 import com.app.habitacion.Reserva;
 import com.app.habitacion.TipoHabitacion;
+import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.*;
 
@@ -35,7 +37,37 @@ public class Estadia {
     @JoinColumn(name = "reserva_id", nullable = true)
     private Reserva reserva;
 
+    @OneToMany (mappedBy = "estadia")
+    private List<Consumo> consumos;
+
+    public void agregarConsumo(Consumo c){
+        consumos.add(c);
+    }
+
+    public float totalConsumos(){
+        float total = 0;
+        for(Consumo c  : consumos ){
+            total += c.getMonto();
+        }
+        return total; //NO CONSIDERO QUE ESTÉN EN DISTINTAS MONEDAS
+    }
+
+
+    //consutructores
     public Estadia(){}
+
+    public Estadia(Reserva reserva, Date fechaInicio){
+        this.reserva = reserva;
+        this.fechaInicio = fechaInicio;
+        consumos = new ArrayList<>();
+    }
+
+    public Estadia(Reserva reserva, Date fechaInicio, Date fechaFin){
+        this.reserva = reserva;
+        this.fechaInicio = fechaInicio;
+        consumos = new ArrayList<>();
+    }
+
 
     //getters
     public int getId() { return id; }

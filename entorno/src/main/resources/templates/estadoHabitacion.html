@@ -12,7 +12,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,16 +33,6 @@
             position: relative;
         }
 
-        .window-controls {
-            position: absolute;
-            top: 15px; right: 15px; display: flex; gap: 10px;
-        }
-        .win-btn {
-            width: 30px; height: 30px; background: #d6eaf8;
-            border: 1px solid #a9cce3; border-radius: 4px; color: #4a90e2;
-            font-weight: bold; display: flex; justify-content: center; align-items: center; cursor: pointer;
-        }
-
         h1 {
             text-align: center; color: #333; margin-top: 10px; margin-bottom: 40px; font-size: 24px;
         }
@@ -59,20 +49,25 @@
         .input-group {
             display: flex; align-items: center; gap: 10px;
         }
+        /* --- CLASES DE ERROR --- */
+        .input-error {
+            border: 2px solid #ff4d4d !important; /* Borde rojo forzado */
+            background-color: #fff0f0;            /* Fondo rojizo suave */
+            color: #d8000c;                       /* Texto rojo oscuro */
+        }
 
         label { color: #333; font-weight: 500; font-size: 15px; }
 
-        /* --- ESTILOS "SELECCIONAR" (Idéntico a tu altaHuesped) --- */
+        /* Estilos input fecha */
         .seleccionar {
             position: relative;
             display: block;
-            width: 180px; /* Ajusta el ancho según necesites */
+            width: 180px; 
         }
 
-        /* Input modificado para Flatpickr */
         .seleccionar input {
             padding: 8px 12px;
-            padding-right: 40px; /* Espacio para el ícono */
+            padding-right: 40px;
             border: 1px solid #a9cce3;
             border-radius: 6px;
             font-size: 14px;
@@ -80,29 +75,15 @@
             outline: none;
             background: white;
             width: 100%;
-            cursor: pointer; /* Manito al pasar por encima */
         }
 
-        .seleccionar input::placeholder {
-            color: #757575; /* Gris del placeholder */
-        }
-
-        /* Ícono de calendario (flecha/calendario) */
         .seleccionar .flecha {
             position: absolute;
             top: 0; right: 0; bottom: 0;
             width: 35px;
             display: flex; align-items: center; justify-content: center;
-            pointer-events: none; /* Click atraviesa al input */
+            pointer-events: none;
             color: #5C5F62;
-            background-color: transparent; 
-            border-left: 1px solid transparent; /* Opcional: separador */
-        }
-
-        /* --- CLASES DE ERROR --- */
-        .input-error {
-            border: 2px solid #ff4d4d !important;
-            background-color: #fff0f0;
         }
 
         .btn-primary {
@@ -122,7 +103,7 @@
 
         .results-box h3 { text-align: center; font-size: 16px; margin-bottom: 15px; font-weight: normal; color: #333; }
 
-        /* --- TABS & GRILLA --- */
+        /* --- TABS --- */
         .tabs-container { display: flex; gap: 2px; margin-bottom: 0; }
         .tab {
             background-color: #e0e0e0; border: 1px solid #999; border-bottom: none;
@@ -130,6 +111,7 @@
         }
         .tab.active { background-color: white; font-weight: bold; border-bottom: 1px solid white; position: relative; top: 1px; z-index: 5; }
 
+        /* --- TABLA --- */
         .grid-wrapper {
             background-color: #e6e6e6; border: 1px solid #999; height: 300px;
             overflow-y: auto; position: relative;
@@ -146,8 +128,10 @@
             padding: 0; height: 40px; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc;
             text-align: center; vertical-align: middle;
         }
-        .status-gray { background-color: #bfbfbf; }
-        .status-green { background-color: #90ee90; }
+        
+        /* Colores de estado (informativos) */
+        .status-gray { background-color: #bfbfbf; } /* Ocupada/Reservada/etc */
+        .status-green { background-color: #90ee90; } /* Disponible */
 
         /* Scrollbar */
         .grid-wrapper::-webkit-scrollbar { width: 18px; }
@@ -160,9 +144,9 @@
 <body>
 
     <div class="container">
-        <div class="window-controls">
-            <div class="win-btn">_</div>
-            <div class="win-btn">X</div>
+        <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px;">
+            <div style="width: 30px; height: 30px; background: #d6eaf8; border: 1px solid #a9cce3; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #4a90e2; font-weight: bold;">_</div>
+            <div style="width: 30px; height: 30px; background: #d6eaf8; border: 1px solid #a9cce3; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #4a90e2; font-weight: bold;">X</div>
         </div>
 
         <h1>Estado de habitaciones</h1>
@@ -170,7 +154,6 @@
         <form id="availabilityForm">
             <div class="search-bar">
                 <div class="date-inputs">
-                    
                     <div class="input-group">
                         <label for="desde">Desde fecha:</label>
                         <div class="seleccionar">
@@ -194,9 +177,8 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
-                <button type="submit" class="btn-primary">Siguiente</button>
+                <button type="submit" class="btn-primary">Buscar</button>
             </div>
         </form>
 
@@ -214,123 +196,146 @@
             <div class="grid-wrapper">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Fecha</th><th>X</th><th>X</th><th>X</th><th>X</th><th>X</th>
-                        </tr>
-                    </thead>
+                        </thead>
                     <tbody>
-                        <tr><td>10/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
-                        <tr><td>11/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
-                        <tr><td>12/04/25</td><td class="status-gray"></td><td class="status-green"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
-                        <tr><td>13/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
-                        <tr><td>14/04/25</td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td><td class="status-gray"></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
             <div class="bottom-action">
-                <button class="btn-primary">Siguiente</button>
+                <button id="btnIrACU4" class="btn-primary">Siguiente</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
-    <script>
-    // Variable global para guardar la selección. 
-    // Las claves serán SIEMPRE Strings para evitar errores de tipo.
-    let selecciones = {}; 
+<script>
     let datosHabitaciones = [];
     let listaFechas = [];
-    let claveSeleccionPendiente = null;
 
     document.addEventListener("DOMContentLoaded", function() {
 
-        // Flatpickr setup
+        // 1. Configuración de Calendarios
         flatpickr("#desde", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
         flatpickr("#hasta", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
 
         const form = document.getElementById('availabilityForm');
         const resultsArea = document.getElementById('resultsArea');
-        
-        // --- 1. LÓGICA DE BÚSQUEDA ---
+        const btnIrACU4 = document.getElementById('btnIrACU4');
+        const inputDesde = document.getElementById('desde');
+        const inputHasta = document.getElementById('hasta');
+
+        // --- VALIDACIÓN Y BÚSQUEDA ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-        
-            const desdeVal = document.getElementById('desde').value;
-            const hastaVal = document.getElementById('hasta').value;
+            
+            // 1. Limpiamos errores previos y ocultamos tabla por si acaso
+            limpiarErrores();
+            resultsArea.classList.remove('show');
 
+            const desdeVal = inputDesde.value;
+            const hastaVal = inputHasta.value;
+
+            // Validación básica de campos vacíos
             if (!desdeVal || !hastaVal) return alert("Por favor seleccione ambas fechas.");
 
+            // 2. Validación Lógica de Fechas (Desde <= Hasta)
+            const fechaInicio = parseDateLocal(desdeVal);
+            const fechaFin = parseDateLocal(hastaVal);
+
+            if (fechaInicio > fechaFin) {
+                alert("Error: La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'.");
+                
+                // Marcamos los bordes rojos
+                inputDesde.classList.add('input-error');
+                inputHasta.classList.add('input-error');
+                
+                return; // DETENEMOS LA EJECUCIÓN AQUÍ (No busca en BD)
+            }
+
+            // 3. Si pasa la validación, hacemos el Fetch
             fetch(`/api/habitaciones/estado?desde=${desdeVal}&hasta=${hastaVal}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la respuesta del servidor");
+                return response.json();
+            })
             .then(data => {
                 datosHabitaciones = data;
                 listaFechas = generarListaFechas(desdeVal, hastaVal);
 
-                // CORRECCIÓN 1: Usar data-tipo en lugar de textContent para evitar errores de texto
                 const tabActiva = document.querySelector('.tab.active');
-                // Si por error no hay tab activa, forzamos la primera
                 const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
                 
                 filtrarColumnasPorTipo(codigoTipo); 
-                
                 resultsArea.classList.add('show');
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Hubo un error al obtener la disponibilidad.");
             });
         });
 
-        // --- 2. RENDERIZADO DE TABLA ---
+        // --- FUNCIONES AUXILIARES ---
+
+        // Convierte "dd/mm/yyyy" a objeto Date (sin horas para comparar solo fechas)
+        function parseDateLocal(str) {
+            const [dia, mes, anio] = str.split('/');
+            // Mes en Date va de 0 a 11
+            return new Date(anio, mes - 1, dia);
+        }
+
+        // Quita el borde rojo
+        function limpiarErrores() {
+            inputDesde.classList.remove('input-error');
+            inputHasta.classList.remove('input-error');
+        }
+
+        // Listener para quitar el error apenas el usuario cambie la fecha
+        inputDesde.addEventListener('input', limpiarErrores);
+        inputHasta.addEventListener('input', limpiarErrores);
+
+
+        // --- LÓGICA DE TABLA Y PESTAÑAS (Igual que antes) ---
         function renderizarTabla(habitacionesFiltradas, fechas) {
-            const tableHead = document.querySelector("#resultsArea table thead tr");
+            const tableHead = document.querySelector("#resultsArea table thead");
             const tableBody = document.querySelector("#resultsArea table tbody");
 
+            tableHead.innerHTML = "";
+            tableBody.innerHTML = "";
+
             // Cabecera
-            tableHead.innerHTML = '<th>Fecha</th>';
+            const trHead = document.createElement("tr");
+            const thFecha = document.createElement("th");
+            thFecha.textContent = "Fecha";
+            trHead.appendChild(thFecha);
+
             habitacionesFiltradas.sort((a, b) => a.numero - b.numero);
 
-            habitacionesFiltradas.forEach((hab) => {
+            habitacionesFiltradas.forEach(hab => {
                 const th = document.createElement('th');
                 th.textContent = `Hab. ${hab.numero}`;
-                tableHead.appendChild(th);
+                trHead.appendChild(th);
             });
+            tableHead.appendChild(trHead);
 
             // Cuerpo
-            tableBody.innerHTML = '';
-
             fechas.forEach((fechaStr, diaIndex) => {
                 const tr = document.createElement('tr');
-                
                 const tdFecha = document.createElement('td');
                 tdFecha.textContent = fechaStr;
                 tr.appendChild(tdFecha);
 
-                habitacionesFiltradas.forEach((hab) => {
+                habitacionesFiltradas.forEach(hab => {
                     const td = document.createElement('td');
-                    const estado = hab.estadosPorDia[diaIndex]; 
-    
-                    const numeroHabStr = String(hab.numero);
-    
-                    const claveUnica = `${hab.tipo}_${numeroHabStr}`; 
+                    const estado = hab.estadosPorDia[diaIndex];
 
-                    td.dataset.numero = numeroHabStr;
-                    td.dataset.tipo = hab.tipo; // Guardamos el tipo también en el dataset por si acaso
-                    td.dataset.dia = diaIndex;
-                
                     if (estado === 'Disponible') {
                         td.classList.add('status-green');
-                        td.style.cursor = 'pointer';
-                        
-                        // Pasamos claveUnica a la lógica de selección
-                        td.onclick = () => manejarSeleccion(claveUnica, numeroHabStr, diaIndex, td);
-                        
-                        // Pasamos claveUnica para verificar si ya estaba seleccionado
-                        verificarYRestaurarEstilo(claveUnica, diaIndex, td);
-                
                     } else {
                         td.classList.add('status-gray');
-                        td.title = estado; 
-                        td.style.cursor = 'not-allowed';
+                        td.title = estado;
                     }
                     tr.appendChild(td);
                 });
@@ -338,230 +343,41 @@
             });
         }
 
-        // --- 3. LÓGICA DE SELECCIÓN ---
-    function manejarSeleccion(claveUnica, numeroHab, diaIndex, celda) {
-    
-    // --- VALIDACIÓN 1: Verificar si intenta seleccionar otra habitación ---
-    // Si hay una pendiente Y no es la misma que acabo de clickear...
-    if (claveSeleccionPendiente !== null && claveSeleccionPendiente !== claveUnica) {
-        
-        alert("Debe finalizar la selección en la misma habitación.");
-        
-        // Obtenemos el número de la habitación pendiente para resetearla visualmente
-        // (Asumimos que la clave es "TIPO_NUMERO")
-        const [_, numPendiente] = claveSeleccionPendiente.split('_');
-        
-        // Desaparece el marco
-        resetSeleccion(claveSeleccionPendiente, numPendiente);
-        
-        // Limpiamos la variable global
-        claveSeleccionPendiente = null;
-        
-        return; // Cortamos ejecución (el clic actual se ignora)
-    }
-
-    // Inicializamos el objeto si no existe
-    if (!selecciones[claveUnica]) {
-        selecciones[claveUnica] = { inicio: null, fin: null };
-    }
-    const sel = selecciones[claveUnica];
-
-    // --- LÓGICA DE CLICS ---
-
-    // Caso A: Primer clic (Inicio)
-    if (sel.inicio === null) {
-        sel.inicio = diaIndex;
-        celda.style.border = "3px solid #2e3d63"; 
-        
-        // Marcamos esta habitación como "En espera del segundo clic"
-        claveSeleccionPendiente = claveUnica;
-    } 
-    // Caso B: Segundo clic (Fin)
-    else if (sel.fin === null) {
-        
-        // --- VALIDACIÓN 2: Fecha posterior o igual ---
-        if (diaIndex < sel.inicio) {
-            alert("La fecha final debe ser igual o posterior a la inicial.");
-            
-            // Desaparece el marco
-            resetSeleccion(claveUnica, numeroHab);
-            claveSeleccionPendiente = null;
-            return;
-        }
-
-        // Validación de disponibilidad (la que ya tenías)
-        if (!validarRangoDisponible(claveUnica, sel.inicio, diaIndex)) {
-            alert("El rango seleccionado incluye días no disponibles.");
-            
-            resetSeleccion(claveUnica, numeroHab);
-            claveSeleccionPendiente = null;
-            return;
-        }
-
-        // Si pasa todas las validaciones: Éxito
-        sel.fin = diaIndex;
-        pintarRangoAzul(claveUnica, numeroHab, sel.inicio, sel.fin);
-        
-        // Ya no hay selección pendiente (se completó el rango)
-        claveSeleccionPendiente = null;
-    } 
-    // Caso C: Tercer clic (Reiniciar selección existente)
-    else {
-        limpiarEstilosRango(claveUnica, numeroHab);
-        
-        // Reseteamos para que este clic sea el nuevo inicio
-        selecciones[claveUnica] = { inicio: diaIndex, fin: null };
-        celda.style.border = "3px solid #2e3d63";
-        
-        // Volvemos a poner esta habitación en estado pendiente
-        claveSeleccionPendiente = claveUnica;
-    }
-}
-
-// --- FUNCIONES VISUALES ---
-
-function verificarYRestaurarEstilo(claveUnica, diaIndex, td) {
-    const sel = selecciones[claveUnica]; // Usamos la clave compuesta
-    if (!sel) return;
-
-    // Rango completo confirmado
-    if (sel.inicio !== null && sel.fin !== null) {
-        if (diaIndex >= sel.inicio && diaIndex <= sel.fin) {
-            aplicarEstiloAzul(td);
-        }
-    }
-    // Solo inicio seleccionado
-    else if (sel.inicio !== null && sel.fin === null) {
-        if (diaIndex === sel.inicio) {
-            td.style.border = "3px solid #2e3d63";
-        }
-    }
-}
-
-function pintarRangoAzul(claveUnica, numeroHab, inicio, fin) {
-    // Buscamos en el DOM por número (porque solo se muestra un tipo a la vez en pantalla)
-    const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
-    celdas.forEach(td => {
-        const dia = parseInt(td.dataset.dia);
-        if (dia >= inicio && dia <= fin) {
-            aplicarEstiloAzul(td);
-        }
-    });
-}
-
-function aplicarEstiloAzul(td) {
-    td.style.backgroundColor = '#4a90e2';
-    td.style.color = 'white';
-    td.style.border = 'none'; 
-}
-
-function limpiarEstilosRango(claveUnica, numeroHab) {
-    const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
-    celdas.forEach(td => {
-        const sel = selecciones[claveUnica];
-        const dia = parseInt(td.dataset.dia);
-        if (!sel) return;
-
-        // Solo limpiamos si estaba pintado de azul (rango completo)
-        if (sel.inicio !== null && sel.fin !== null) {
-            if (dia >= sel.inicio && dia <= sel.fin) {
-                td.style.backgroundColor = ''; // Vuelve al CSS original
-                td.style.color = '';
-                td.style.border = '';
-            }
-        }
-    });
-}
-
-function resetSeleccion(claveUnica, numeroHab) {
-    // 1. Buscamos TODAS las celdas de esa habitación específica
-    const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
-    
-    // 2. Les quitamos TODOS los estilos visuales agregados manualmente
-    celdas.forEach(td => {
-        td.style.backgroundColor = ''; // Quita el azul
-        td.style.color = '';           // Quita el texto blanco
-        td.style.border = '';          // IMPORTANTE: Quita el marco/borde azul oscuro
-    });
-
-    // 3. Reseteamos la lógica interna
-    selecciones[claveUnica] = { inicio: null, fin: null };
-}
-
-function validarRangoDisponible(claveUnica, inicio, fin) {
-    // Desglosamos la clave para buscar en el array de datos (ej: "IE_1" -> tipo="IE", num="1")
-    const [tipoKey, numKey] = claveUnica.split('_'); 
-
-    // Buscamos la habitación que coincida en NÚMERO y TIPO
-    const hab = datosHabitaciones.find(h => String(h.numero) === numKey && h.tipo === tipoKey); 
-    
-    if (!hab) return false;
-
-    for (let i = inicio; i <= fin; i++) {
-        if (hab.estadosPorDia[i] !== 'Disponible') return false;
-    }
-    return true;
-}
-
-        // --- FILTRADO POR TABS ---
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
                 e.preventDefault(); 
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
-                // CORRECCIÓN 4: Usar dataset.tipo en el evento click
                 filtrarColumnasPorTipo(tab.dataset.tipo);
             });
         });
 
-        // CORRECCIÓN 5: La función ahora recibe el CÓDIGO (IE, DE, etc), no el texto.
-        // Ya no necesitamos el mapaTipos aquí adentro.
         function filtrarColumnasPorTipo(codigoTipo) {
             const habitacionesFiltradas = datosHabitaciones.filter(h => h.tipo === codigoTipo);
             renderizarTabla(habitacionesFiltradas, listaFechas);
         }
 
-        // --- UTILS Y BOTON SIGUIENTE ---
-        const btnSiguiente = document.querySelector(".bottom-action button");
-if(btnSiguiente){
-    btnSiguiente.addEventListener("click", () => {
-        const reservasParaProcesar = [];
-        
-        // Iteramos sobre las claves compuestas (ej: "IE_1", "DE_2")
-        for (const [clave, sel] of Object.entries(selecciones)) {
-            if (sel.inicio !== null && sel.fin !== null) {
+        // Botón Siguiente
+        if(btnIrACU4){
+            btnIrACU4.addEventListener("click", () => {
+                const desdeVal = inputDesde.value;
+                const hastaVal = inputHasta.value;
+
+                if(!desdeVal || !hastaVal) {
+                    alert("No hay fechas seleccionadas para procesar.");
+                    return;
+                }
                 
-                // Separamos el tipo del número
-                const [tipo, numero] = clave.split('_');
-
-                reservasParaProcesar.push({
-                    tipoHabitacion: tipo,      // Agregamos el tipo para mayor precisión
-                    numeroHabitacion: numero,
-                    fechaInicio: listaFechas[sel.inicio],
-                    fechaFin: listaFechas[sel.fin]
-                });
-            }
+                // Aquí podrías validar de nuevo fechas por seguridad si quisieras
+                console.log("Transición al CU4");
+                alert(`Siguiente paso: Se enviarán las fechas (${desdeVal} - ${hastaVal}) y la tabla de disponibilidad al proceso de Reserva (CU4).`);
+            });
         }
-
-        if (reservasParaProcesar.length === 0) {
-            alert("No ha seleccionado ningún rango completo.");
-            return;
-        }
-        console.log("Enviando reservas:", reservasParaProcesar);
-        // Aquí podrías mostrar un alert más detallado
-        alert(`Se reservarán ${reservasParaProcesar.length} habitaciones.`);
-    });
-}
 
         function generarListaFechas(desde, hasta) {
-            const parseDate = (str) => {
-                const [d, m, y] = str.split('/');
-                return new Date(y, m - 1, d);
-            };
-            let actual = parseDate(desde);
-            const fin = parseDate(hasta);
+            let actual = parseDateLocal(desde);
+            const fin = parseDateLocal(hasta);
             const lista = [];
 
             while (actual <= fin) {
@@ -574,6 +390,4 @@ if(btnSiguiente){
             return lista;
         }
     });
-    </script>
-</body>
-</html>
+</script>

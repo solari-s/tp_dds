@@ -8,8 +8,12 @@ public class ControladorHuesped {
 
     @GetMapping("/")
     public String mostrarPaginaBusqueda() {
-        // Busca un archivo en src/main/resources/templates/
+        // Busca altaHuesped.html
         return "altaHuesped";
     }
-
+    @GetMapping("/estado") 
+    public String mostrarPaginaEstado() {
+        // Busca "estadoHabitacion.html" 
+        return "estadoHabitacion"; 
+    }
 }

@@ -1,9 +1,11 @@
-package com.app.habitacion;
+package com.app.main.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import com.app.gestores.GestorHabitaciones;
+import com.app.habitacion.HabitacionDTO;
+
 import java.util.Date;
 import java.util.List;
 

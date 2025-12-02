@@ -46,7 +46,7 @@ public class HabitacionDTO {
     public List<EstadoHabitacion> getEstadosPorDia() { return estadosPorDia; }
     public void setEstadosPorDia(List<EstadoHabitacion> estadosPorDia) { this.estadosPorDia = estadosPorDia; }
 
-    public void setHistorialEstados(HistorialEstadoHabitacion historialEstados) {
+    public void setHistorialEstados(HistorialEstadoHabitacionDTO historialEstados) {
         this.historialEstados = historialEstados;
     }
 

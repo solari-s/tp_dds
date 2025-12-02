@@ -5,7 +5,7 @@ public class HabitacionDTO {
     private TipoHabitacion tipo;
     private int numero;
     private float costoNoche;
-    private HistorialEstadoHabitacion historialEstados;
+    private HistorialEstadoHabitacionDTO historialEstados;
     private Reserva reservas;
 
     // Getter y Setter para tipo
@@ -36,11 +36,11 @@ public class HabitacionDTO {
     }
 
     // Getter y Setter para historialEstados
-    public HistorialEstadoHabitacion getHistorialEstados() {
+    public HistorialEstadoHabitacionDTO getHistorialEstados() {
         return historialEstados;
     }
 
-    public void setHistorialEstados(HistorialEstadoHabitacion historialEstados) {
+    public void setHistorialEstados(HistorialEstadoHabitacionDTO historialEstados) {
         this.historialEstados = historialEstados;
     }
 

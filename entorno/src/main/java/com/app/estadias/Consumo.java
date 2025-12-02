@@ -3,6 +3,7 @@ package com.app.estadias;
 import jakarta.persistence.*;
 
 @Entity
+@Table (name = "consumos")
 public class Consumo {
     
     @Id
@@ -10,12 +11,14 @@ public class Consumo {
     private int id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoConsumo tipo;
     
     @Column(nullable = false)
     private float monto;
     
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Moneda moneda;
 
     @ManyToOne

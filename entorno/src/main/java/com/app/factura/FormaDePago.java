@@ -30,23 +30,39 @@ public class FormaDePago {
 
     public FormaDePago(){}
 
-    public FormaDePago(Banco credito, Banco debito, float monto){
+    //lo hago aca pq no se usa en ningún lado
+    public boolean cargarFormaDePago(Banco credito, Banco debito, boolean efectivo, float monto){
         
-        tarjetaDeCredito = credito;
-        tarjetaDeDebito = debito;
+        if(credito == null && debito == null && efectivo){
+            this.efectivo = true;
+            this.monto = monto;
+            tarjetaDeCredito = tarjetaDeDebito = null;
+            return true;
+        }
+
+        if(credito != null && debito == null && !efectivo){
+            this.efectivo = false;
+            this.monto = monto;
+            tarjetaDeCredito = credito;
+            tarjetaDeDebito = null;
+            return true;
+        }
+
+        if(credito == null && debito != null && !efectivo){
+            this.efectivo = false;
+            this.monto = monto;
+            tarjetaDeCredito = null;
+            tarjetaDeDebito = debito;
+            return true;
+        }
+
+        tarjetaDeCredito = tarjetaDeDebito = null;
         this.efectivo = false;
         this.monto = monto;
 
-    }
+        return false;
 
-    public FormaDePago(boolean efectivo,float monto){
-        
-        tarjetaDeCredito =null;
-        tarjetaDeDebito = null;
-        this.efectivo = efectivo;
-        this.monto = monto;
-
-    }    
+    }  
 
     public FormaDePago(FormaDePagoDTO fpDTO){
         this.tarjetaDeCredito = fpDTO.getTarjetaDeCredito();

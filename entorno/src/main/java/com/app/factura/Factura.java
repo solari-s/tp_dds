@@ -40,8 +40,9 @@ public class Factura {
     @OneToMany(mappedBy = "factura")
     private List<FormaDePago> formasDePago;
 
-    // @OneToOne
-
+    @ManyToOne
+    @JoinColumn( name = "nota_cancela")
+    private NotaDeCredito notaDeCredito;
 
     public Factura(){}
 

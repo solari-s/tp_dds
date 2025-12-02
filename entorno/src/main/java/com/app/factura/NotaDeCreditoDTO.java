@@ -1,19 +1,22 @@
 package com.app.factura;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 public class NotaDeCreditoDTO {
     
     private Date fechaEmision;
     private float monto;
-    private Factura facturaAsociada;
+    private List<Factura> facturasAsociada;
 
     //constructores
     public NotaDeCreditoDTO(){}   
-    public NotaDeCreditoDTO(Date fechaEmision, float monto, Factura facturaAsociada){
+    public NotaDeCreditoDTO(Date fechaEmision, float monto, Factura facturasAsociada){
         this.fechaEmision = fechaEmision;
         this.monto = monto;
-        this.facturaAsociada = facturaAsociada;
+        this.facturasAsociada = new ArrayList<>();
+        this.facturasAsociada.add(facturasAsociada);
     }
 
     //getters y setters
@@ -21,6 +24,6 @@ public class NotaDeCreditoDTO {
     public void setFechaEmision(Date fechaEmision) { this.fechaEmision = fechaEmision; }
     public float getMonto() { return monto; }
     public void setMonto(float monto) { this.monto = monto; }
-    public Factura getFacturaAsociada() { return facturaAsociada; }
-    public void setFacturaAsociada(Factura facturaAsociada) { this.facturaAsociada = facturaAsociada; }
+    public List<Factura> getFacturasAsociadas() { return facturasAsociada; }
+    public void addFacturaAsociada(Factura facturaAsociada) { this.facturasAsociada.add(facturaAsociada); }
 }

@@ -37,7 +37,7 @@ public class Estadia {
     @OneToOne
     private Factura factura;
 
-    @OneToOne(optional = true)
+    @OneToOne(optional = true) //puede no tneer una reserva asociada 
     @JoinColumn(name = "reserva_id", nullable = true)
     private Reserva reserva;
 

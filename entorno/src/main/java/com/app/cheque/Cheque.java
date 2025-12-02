@@ -11,10 +11,20 @@ public class Cheque {
     @Id
     private int id;
 
+    @Column(nullable = false)
     private int nro;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 100)
     private Banco banco;
+    
+    @Column(nullable = false, length = 100)
     private String plaza;
+    
+    @Column(nullable = false)
     private float monto;
+    
+    @Column(nullable = false)
     private Date fechaCobro;
 
     //constructores

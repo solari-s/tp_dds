@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import jakarta.persistence.*;
 
-@Entity@Table (name = "habitaciones")
+@Entity
+@Table (name = "habitaciones")
 public class Habitacion {
 
     @EmbeddedId

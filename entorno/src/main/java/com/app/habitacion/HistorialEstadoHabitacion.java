@@ -33,6 +33,10 @@ public class HistorialEstadoHabitacion {
 
     public HistorialEstadoHabitacion(){}
 
+    public HistorialEstadoHabitacion(HistorialEstadoHabitacionDTO h){
+        id.setTipo(h.getTipo());
+    }
+
     public HistorialEstadoHabitacion(Habitacion h, String horaInicio, Date fechaInicio, EstadoHabitacion estado){
 
         this.habitacion = h;

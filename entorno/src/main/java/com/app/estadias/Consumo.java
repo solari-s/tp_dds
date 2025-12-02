@@ -2,6 +2,7 @@ package com.app.estadias;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Consumo {
     
     @Id

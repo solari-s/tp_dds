@@ -24,7 +24,10 @@ public class Reserva {
     @ManyToMany
     @JoinTable(name = "habitaciones_reservadas", 
     joinColumns = @JoinColumn(name = "reserva_id"), 
-    inverseJoinColumns = @JoinColumn(name = "habitacion_id"))
+    inverseJoinColumns = {
+        @JoinColumn(name = "habitacion_numero", referencedColumnName = "numero"),
+        @JoinColumn(name = "habitacion_tipo", referencedColumnName = "tipo")
+    })
     private List<Habitacion> habitacionesReservadas;
 
     @OneToOne(mappedBy = "reserva")

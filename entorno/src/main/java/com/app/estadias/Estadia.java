@@ -20,7 +20,7 @@ public class Estadia {
 
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "habitacion_nombre", referencedColumnName = "nombre"),
+        @JoinColumn(name = "habitacion_numero", referencedColumnName = "numero"),
         @JoinColumn(name = "habitacion_tipo", referencedColumnName = "tipo")
     })
     private Habitacion habitacion;

@@ -8,8 +8,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface ChequeRepository extends JpaRepository<Cheque,Integer> {
-
-    List<Cheque> findByFechaBetween(Date desde,Date hasta);
-
-}
+public interface ChequeRepository extends JpaRepository<Cheque,Integer> {}

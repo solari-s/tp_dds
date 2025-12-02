@@ -2,8 +2,8 @@ package com.app.responsablePago;
 
 import jakarta.persistence.*;
 
-
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ResponsablePago {
     
     @Id

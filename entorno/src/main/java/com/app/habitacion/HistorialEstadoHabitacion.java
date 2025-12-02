@@ -35,6 +35,13 @@ public class HistorialEstadoHabitacion {
 
     public HistorialEstadoHabitacion(HistorialEstadoHabitacionDTO h){
         id.setTipo(h.getTipo());
+        id.setNumero(h.getNumero());
+        id.setFecha(h.getFecha());
+        this.habitacion = h.getHabitacion();
+        this.horaInicio = h.getHoraInicio();
+        this.fechaFin = h.getFechaFin();
+        this.horaFin = h.getHoraFin();
+        this.estado = h.getEstado();
     }
 
     public HistorialEstadoHabitacion(Habitacion h, String horaInicio, Date fechaInicio, EstadoHabitacion estado){

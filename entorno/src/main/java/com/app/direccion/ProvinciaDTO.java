@@ -1,37 +1,25 @@
 package com.app.direccion;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "provincias")
-public class Provincia {
+public class ProvinciaDTO {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
     private String nombre;
-
     // Muchas provincias pertenecen a un mismo país
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "pais_id")
     private Pais pais;
-
     // Una provincia tiene muchas localidades
-    @OneToMany(mappedBy = "provincia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Localidad> localidades = new ArrayList<>();
 
-    public Provincia() {}
+    public ProvinciaDTO() {}
 
-    public Provincia(String nombre, Pais pais) {
+    public ProvinciaDTO(String nombre, Pais pais) {
         this.nombre = nombre;
         this.pais = pais;
     }
 
     // Getters y setters
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 

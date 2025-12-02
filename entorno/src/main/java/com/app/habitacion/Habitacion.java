@@ -21,6 +21,14 @@ public class Habitacion {
 
     //constructores
     public Habitacion(){}
+
+    public Habitacion(HabitacionDTO h){
+        id.setTipo(h.getTipo());
+        id.setNumero(h.getNumero());
+        this.costoNoche = h.getCostoNoche();
+        this.historialEstados = new ArrayList<>();
+        this.reservas = new ArrayList<>();
+    }
     
     public Habitacion(String tipo, int numero,float costoNoche){
         id.setTipo(TipoHabitacion.fromString(tipo)); 

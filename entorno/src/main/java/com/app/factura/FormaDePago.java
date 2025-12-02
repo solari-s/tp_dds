@@ -48,4 +48,12 @@ public class FormaDePago {
 
     }    
 
+    public FormaDePago(FormaDePagoDTO fpDTO){
+        this.tarjetaDeCredito = fpDTO.getTarjetaDeCredito();
+        this.tarjetaDeDebito = fpDTO.getTarjetaDeDebito();
+        this.efectivo = fpDTO.isEfectivo();
+        this.monto = fpDTO.getMonto();
+        this.factura = fpDTO.getFactura();
+    }
+
 }

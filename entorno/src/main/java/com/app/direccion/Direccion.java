@@ -44,6 +44,11 @@ public class Direccion {
         this.localidad = localidad;
         huespedes = new ArrayList<>();
     }
+
+    public void agregarHuesped(Huesped h){
+        huespedes.add(h);
+    }
+
     //Getters
     public String getCalle() { return calle; }
     public String getDepartamento() { return departamento; }

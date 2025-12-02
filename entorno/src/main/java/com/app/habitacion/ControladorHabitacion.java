@@ -1,0 +1,23 @@
+package com.app.habitacion;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import com.app.gestores.GestorHabitaciones;
+import java.util.Date;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/habitaciones")
+public class ControladorHabitacion {
+
+    @Autowired
+    private GestorHabitaciones gestorHabitaciones;
+
+    @GetMapping("/estado")
+    public List<HabitacionDTO> getEstadoHabitaciones(
+            @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date desde,
+            @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date hasta) {
+        return gestorHabitaciones.mostrarEstadoHabitaciones(desde, hasta);
+    }
+}

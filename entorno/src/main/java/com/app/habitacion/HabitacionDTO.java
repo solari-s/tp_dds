@@ -1,4 +1,5 @@
 package com.app.habitacion;
+import java.util.List;
 
 public class HabitacionDTO {
 
@@ -7,6 +8,7 @@ public class HabitacionDTO {
     private float costoNoche;
     private HistorialEstadoHabitacionDTO historialEstados;
     private Reserva reservas;
+    private List<EstadoHabitacion> estadosPorDia;
 
     // Getter y Setter para tipo
     public TipoHabitacion getTipo() {
@@ -40,7 +42,11 @@ public class HabitacionDTO {
         return historialEstados;
     }
 
-    public void setHistorialEstados(HistorialEstadoHabitacionDTO historialEstados) {
+    // Getter y Setter para Estados
+    public List<EstadoHabitacion> getEstadosPorDia() { return estadosPorDia; }
+    public void setEstadosPorDia(List<EstadoHabitacion> estadosPorDia) { this.estadosPorDia = estadosPorDia; }
+
+    public void setHistorialEstados(HistorialEstadoHabitacion historialEstados) {
         this.historialEstados = historialEstados;
     }
 

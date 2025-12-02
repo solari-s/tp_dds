@@ -46,6 +46,21 @@ public class Habitacion {
         reservas = new ArrayList<>();
     }
 
+    public EstadoHabitacion getEstadoEnFecha(java.util.Date fecha) {
+        if (this.historialEstados == null || this.historialEstados.isEmpty()) {
+            return EstadoHabitacion.Disponible;
+        }
+
+        for (HistorialEstadoHabitacion historial : this.historialEstados) {
+            // Verificar si la fecha cae dentro del rango del historial
+            // Nota: Asegúrate de comparar ignorando horas si es necesario, aquí uso comparación directa de Date
+            if (!fecha.before(historial.getFechaInicio()) && !fecha.after(historial.getFechaFin())) {
+                return historial.getEstado();
+            }
+        }
+        return EstadoHabitacion.Disponible;
+    }
+
     //getters
     public TipoHabitacion getTipo() { return id.getTipo(); }
     public int getNumero() { return id.getNumero(); }

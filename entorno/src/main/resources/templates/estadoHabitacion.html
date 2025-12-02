@@ -204,11 +204,11 @@
             <h3>Habitaciones disponibles</h3>
 
             <div class="tabs-container">
-                <button class="tab active">Individual estándar</button>
-                <button class="tab">Doble estándar</button>
-                <button class="tab">Doble superior</button>
-                <button class="tab">Superior family plan</button>
-                <button class="tab">Suite doble</button>
+                <button class="tab active" data-tipo="IE">Individual estándar</button>
+                <button class="tab" data-tipo="DE">Doble estándar</button>
+                <button class="tab" data-tipo="DS">Doble superior</button>
+                <button class="tab" data-tipo="SFP">Superior family plan</button>
+                <button class="tab" data-tipo="SD">Suite doble</button>
             </div>
 
             <div class="grid-wrapper">
@@ -238,201 +238,235 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
     <script>
-        // Variable global para guardar la selección actual { numHabitacion: { inicio: 'indexFila', fin: 'indexFila' } }
-        let selecciones = {}; 
-        // Variable para guardar los datos traídos del backend y usarlos en la lógica
-        let datosHabitaciones = [];
-        let listaFechas = [];
+    // Variable global para guardar la selección. 
+    // Las claves serán SIEMPRE Strings para evitar errores de tipo.
+    let selecciones = {}; 
+    let datosHabitaciones = [];
+    let listaFechas = [];
 
-        document.addEventListener("DOMContentLoaded", function() {
-    
-        // Configuración de Flatpickr (ya existente en tu código)
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // Flatpickr setup
         flatpickr("#desde", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
         flatpickr("#hasta", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
 
         const form = document.getElementById('availabilityForm');
         const resultsArea = document.getElementById('resultsArea');
-        const tableHead = document.querySelector("#resultsArea table thead tr");
-        const tableBody = document.querySelector("#resultsArea table tbody");
-
-        // --- 1. ENVÍO DEL FORMULARIO Y BUSQUEDA ---
+        
+        // --- 1. LÓGICA DE BÚSQUEDA ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
         
             const desdeVal = document.getElementById('desde').value;
             const hastaVal = document.getElementById('hasta').value;
 
-            if (!desdeVal || !hastaVal) {
-                alert("Por favor seleccione ambas fechas.");
-                return;
-            }
+            if (!desdeVal || !hastaVal) return alert("Por favor seleccione ambas fechas.");
 
-            // Llamada al Backend
             fetch(`/api/habitaciones/estado?desde=${desdeVal}&hasta=${hastaVal}`)
-                .then(response => {
-                    if(!response.ok) throw new Error("Error de red");
-                    return response.json();
-                })
-                .then(data => {
-                    datosHabitaciones = data; // Guardamos DTOs
-                    listaFechas = generarListaFechas(desdeVal, hastaVal); // Generar strings de fechas para la columna 1
-                    renderizarTabla(datosHabitaciones, listaFechas);
-                    resultsArea.classList.add('show');
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Error al consultar disponibilidad.");
-                });
+            .then(response => response.json())
+            .then(data => {
+                datosHabitaciones = data;
+                listaFechas = generarListaFechas(desdeVal, hastaVal);
+
+                // CORRECCIÓN 1: Usar data-tipo en lugar de textContent para evitar errores de texto
+                const tabActiva = document.querySelector('.tab.active');
+                // Si por error no hay tab activa, forzamos la primera
+                const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
+                
+                filtrarColumnasPorTipo(codigoTipo); 
+                
+                resultsArea.classList.add('show');
+            });
         });
 
         // --- 2. RENDERIZADO DE TABLA ---
-        function renderizarTabla(habitaciones, fechas) {
-            // A. Renderizar Cabecera (Números de Habitación)
-            // Limpiamos todo excepto la primera columna "Fecha"
-            tableHead.innerHTML = '<th>Fecha</th>';
-        
-            // Ordenamos habitaciones por número para que se vean ordenadas
-            habitaciones.sort((a, b) => a.numero - b.numero);
+        function renderizarTabla(habitacionesFiltradas, fechas) {
+            const tableHead = document.querySelector("#resultsArea table thead tr");
+            const tableBody = document.querySelector("#resultsArea table tbody");
 
-            habitaciones.forEach((hab, index) => {
+            // Cabecera
+            tableHead.innerHTML = '<th>Fecha</th>';
+            habitacionesFiltradas.sort((a, b) => a.numero - b.numero);
+
+            habitacionesFiltradas.forEach((hab) => {
                 const th = document.createElement('th');
                 th.textContent = `Hab. ${hab.numero}`;
-                th.dataset.index = index; // Guardamos índice del array
-                th.dataset.numero = hab.numero;
                 tableHead.appendChild(th);
             });
 
-            // B. Renderizar Cuerpo (Filas por Fecha)
+            // Cuerpo
             tableBody.innerHTML = '';
 
-            // Iteramos por CADA DÍA del rango (N días)
             fechas.forEach((fechaStr, diaIndex) => {
                 const tr = document.createElement('tr');
                 
-                // Celda 1: La fecha
                 const tdFecha = document.createElement('td');
                 tdFecha.textContent = fechaStr;
                 tr.appendChild(tdFecha);
 
-                // Celdas siguientes: Estado de cada habitación para este día
-                habitaciones.forEach((hab, habIndex) => {
+                habitacionesFiltradas.forEach((hab) => {
                     const td = document.createElement('td');
-                    // El backend devuelve 'estadosPorDia', una lista de ENUMS
                     const estado = hab.estadosPorDia[diaIndex]; 
                     
-                    td.dataset.habIndex = habIndex; // índice en el array datosHabitaciones
-                    td.dataset.diaIndex = diaIndex; // índice de la fecha (fila)
-                    td.dataset.numero = hab.numero;
+                    // CORRECCIÓN 2: Convertir numero a String para consistencia
+                    const numeroHabStr = String(hab.numero);
 
-                    // Clases CSS según estado
+                    td.dataset.numero = numeroHabStr;
+                    td.dataset.dia = diaIndex;
+
                     if (estado === 'Disponible') {
                         td.classList.add('status-green');
                         td.style.cursor = 'pointer';
-                        // Evento de clic para seleccionar
-                        td.onclick = () => manejarSeleccion(hab.numero, diaIndex, td);
+                        
+                        // Pasamos el String a la función
+                        td.onclick = () => manejarSeleccion(numeroHabStr, diaIndex, td);
+                        
+                        // IMPORTANTE: Aquí recuperamos el estado visual si cambiamos de tab
+                        verificarYRestaurarEstilo(numeroHabStr, diaIndex, td);
+
                     } else {
                         td.classList.add('status-gray');
-                        td.title = estado; // Tooltip: "Ocupada", "Reservada", etc.
+                        td.title = estado; 
                         td.style.cursor = 'not-allowed';
                     }
-
                     tr.appendChild(td);
                 });
-
                 tableBody.appendChild(tr);
             });
         }
 
-        // --- 3. LÓGICA DE SELECCIÓN (Día inicial y final) ---
+        // --- 3. LÓGICA DE SELECCIÓN ---
         function manejarSeleccion(numeroHab, diaIndex, celda) {
-            // Inicializar objeto de selección para esta habitación si no existe
+            // Aseguramos que numeroHab sea String
+            numeroHab = String(numeroHab);
+
             if (!selecciones[numeroHab]) {
                 selecciones[numeroHab] = { inicio: null, fin: null };
             }
-
             const sel = selecciones[numeroHab];
 
-            // Caso A: Primer clic (definir inicio)
+            // Caso A: Primer clic (Inicio)
             if (sel.inicio === null) {
                 sel.inicio = diaIndex;
-                celda.style.border = "2px solid blue"; // Feedback visual temporal
-                console.log(`Habitación ${numeroHab}: Inicio seleccionado en día ${diaIndex}`);
+                celda.style.border = "3px solid #2e3d63"; 
             } 
-            // Caso B: Segundo clic (definir fin y cerrar rango)
+            // Caso B: Segundo clic (Fin)
             else if (sel.fin === null) {
-                // Validar que el fin sea después del inicio
                 if (diaIndex < sel.inicio) {
                     alert("La fecha final debe ser posterior a la inicial.");
-                    resetSeleccion(numeroHab);
-                    return;
+                    return resetSeleccion(numeroHab);
                 }
-                
-                // Validar que no haya días ocupados (gris) en el medio
                 if (!validarRangoDisponible(numeroHab, sel.inicio, diaIndex)) {
-                    alert("No puede seleccionar un rango que incluye días no disponibles.");
-                    resetSeleccion(numeroHab);
-                    return;
+                    alert("El rango incluye días no disponibles.");
+                    return resetSeleccion(numeroHab);
                 }
 
                 sel.fin = diaIndex;
-                marcarSeleccionVisual(numeroHab, sel.inicio, sel.fin);
-                console.log(`Habitación ${numeroHab}: Rango confirmado ${sel.inicio} a ${sel.fin}`);
+                pintarRangoAzul(numeroHab, sel.inicio, sel.fin);
             } 
-            // Caso C: Tercer clic (Reiniciar selección)
+            // Caso C: Tercer clic (Reset)
             else {
-                resetSeleccion(numeroHab);
-                // Inicia nueva selección inmediatamente
-                selecciones[numeroHab].inicio = diaIndex;
-                celda.style.border = "2px solid blue";
+                limpiarEstilosRango(numeroHab);
+                selecciones[numeroHab] = { inicio: diaIndex, fin: null };
+                celda.style.border = "3px solid #2e3d63";
             }
         }
 
-        function validarRangoDisponible(numeroHab, inicio, fin) {
-            // Buscamos la habitación en los datos originales
-            const hab = datosHabitaciones.find(h => h.numero === numeroHab);
-            for (let i = inicio; i <= fin; i++) {
-                if (hab.estadosPorDia[i] !== 'Disponible') {
-                    return false;
+        // --- FUNCIONES VISUALES ---
+
+        function verificarYRestaurarEstilo(numeroHab, diaIndex, td) {
+            // CORRECCIÓN 3: Buscamos usando String
+            const sel = selecciones[String(numeroHab)];
+            if (!sel) return;
+
+            // Rango completo confirmado
+            if (sel.inicio !== null && sel.fin !== null) {
+                if (diaIndex >= sel.inicio && diaIndex <= sel.fin) {
+                    aplicarEstiloAzul(td);
                 }
             }
-            return true;
+            // Solo inicio seleccionado
+            else if (sel.inicio !== null && sel.fin === null) {
+                if (diaIndex === sel.inicio) {
+                    td.style.border = "3px solid #2e3d63";
+                }
+            }
         }
 
-        function marcarSeleccionVisual(numeroHab, inicio, fin) {
-            // Recorrer todas las filas y pintar de azul las celdas de esta habitación en el rango
-            const filas = tableBody.querySelectorAll('tr');
-            filas.forEach((tr, index) => {
-                if (index >= inicio && index <= fin) {
-                    // Buscamos la celda que corresponde a esta habitación
-                    const celda = tr.querySelector(`td[data-numero='${numeroHab}']`);
-                    if (celda) {
-                        celda.style.backgroundColor = '#4a90e2'; // Azul de selección
-                        celda.style.color = 'white';
+        function pintarRangoAzul(numeroHab, inicio, fin) {
+            // Buscamos celdas en el DOM actual (la pestaña visible)
+            const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
+            celdas.forEach(td => {
+                const dia = parseInt(td.dataset.dia);
+                if (dia >= inicio && dia <= fin) {
+                    aplicarEstiloAzul(td);
+                }
+            });
+        }
+
+        function aplicarEstiloAzul(td) {
+            // Usamos !important en JS style o aseguramos que sobrescriba status-green
+            td.style.backgroundColor = '#4a90e2';
+            td.style.color = 'white';
+            td.style.border = 'none'; 
+        }
+
+        function limpiarEstilosRango(numeroHab) {
+            const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
+            celdas.forEach(td => {
+                const sel = selecciones[String(numeroHab)];
+                const dia = parseInt(td.dataset.dia);
+                if (!sel) return;
+
+                if (sel.inicio !== null && sel.fin !== null) {
+                    if (dia >= sel.inicio && dia <= sel.fin) {
+                        td.style.backgroundColor = ''; // Vuelve al CSS (status-green)
+                        td.style.color = '';
+                        td.style.border = '';
                     }
                 }
             });
         }
 
         function resetSeleccion(numeroHab) {
-            selecciones[numeroHab] = { inicio: null, fin: null };
-            // Restaurar color verde visualmente
-            const celdas = tableBody.querySelectorAll(`td[data-numero='${numeroHab}']`);
-            celdas.forEach(celda => {
-                if (celda.classList.contains('status-green')) {
-                    celda.style.backgroundColor = ''; // Volver al color CSS original (verde)
-                    celda.style.border = '';
-                    celda.style.color = '';
-                }
-            });
+            limpiarEstilosRango(numeroHab);
+            selecciones[String(numeroHab)] = { inicio: null, fin: null };
         }
 
-        // --- 4. ACCIÓN BOTÓN SIGUIENTE ---
-        const btnSiguienteFinal = document.querySelector(".bottom-action .btn-primary");
-        if(btnSiguienteFinal){
-            btnSiguienteFinal.addEventListener("click", () => {
-                // Recopilar todas las selecciones completas
-                const reservasParaProcesar = [];
+        function validarRangoDisponible(numeroHab, inicio, fin) {
+            // == permite comparar "101" string con 101 number si fuera necesario
+            const hab = datosHabitaciones.find(h => h.numero == numeroHab); 
+            for (let i = inicio; i <= fin; i++) {
+                if (hab.estadosPorDia[i] !== 'Disponible') return false;
+            }
+            return true;
+        }
+
+        // --- FILTRADO POR TABS ---
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
                 
+                // CORRECCIÓN 4: Usar dataset.tipo en el evento click
+                filtrarColumnasPorTipo(tab.dataset.tipo);
+            });
+        });
+
+        // CORRECCIÓN 5: La función ahora recibe el CÓDIGO (IE, DE, etc), no el texto.
+        // Ya no necesitamos el mapaTipos aquí adentro.
+        function filtrarColumnasPorTipo(codigoTipo) {
+            const habitacionesFiltradas = datosHabitaciones.filter(h => h.tipo === codigoTipo);
+            renderizarTabla(habitacionesFiltradas, listaFechas);
+        }
+
+        // --- UTILS Y BOTON SIGUIENTE ---
+        const btnSiguiente = document.querySelector(".bottom-action button");
+        if(btnSiguiente){
+            btnSiguiente.addEventListener("click", () => {
+                const reservasParaProcesar = [];
                 for (const [num, sel] of Object.entries(selecciones)) {
                     if (sel.inicio !== null && sel.fin !== null) {
                         reservasParaProcesar.push({
@@ -442,77 +476,34 @@
                         });
                     }
                 }
-
                 if (reservasParaProcesar.length === 0) {
-                    alert("No ha seleccionado ningún rango de fechas completo.");
+                    alert("No ha seleccionado ningún rango completo.");
                     return;
                 }
-
-                console.log("Reservando:", reservasParaProcesar);
-                alert("Redirigiendo a confirmación de reserva...");
-                // Aquí harías un POST al backend o redirigirías guardando en localStorage
-                // window.location.href = "/confirmarReserva";
+                console.log("Enviando reservas:", reservasParaProcesar);
+                alert(`Se reservarán ${reservasParaProcesar.length} habitaciones.`);
             });
         }
 
-        // --- UTILS ---
         function generarListaFechas(desde, hasta) {
-            // Parse dd/mm/yyyy a Date object
             const parseDate = (str) => {
                 const [d, m, y] = str.split('/');
                 return new Date(y, m - 1, d);
             };
-            
             let actual = parseDate(desde);
             const fin = parseDate(hasta);
             const lista = [];
 
             while (actual <= fin) {
-                // Formato dd/mm/yyyy para mostrar
-                const dia = actual.getDate().toString().padStart(2, '0');
-                const mes = (actual.getMonth() + 1).toString().padStart(2, '0');
-                const anio = actual.getFullYear().toString().slice(-2); // 25
-                lista.push(`${dia}/${mes}/${anio}`);
-                
+                const d = String(actual.getDate()).padStart(2, '0');
+                const m = String(actual.getMonth() + 1).padStart(2, '0');
+                const y = String(actual.getFullYear()).slice(-2);
+                lista.push(`${d}/${m}/${y}`);
                 actual.setDate(actual.getDate() + 1);
             }
             return lista;
         }
-        
-        // Filtro por Tabs (Tipo de Habitación)
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevenir submit si es button dentro de form
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const tipoSeleccionado = tab.textContent.trim();
-                filtrarColumnasPorTipo(tipoSeleccionado);
-            });
-        });
-
-        function filtrarColumnasPorTipo(tipoTexto) {
-            // Mapeo Texto Tab -> Enum TipoHabitacion (ajustar según tus Enums en Java)
-            // Valores Enum Java: IE, DE, DS, SFP, SD
-            const mapaTipos = {
-                "Individual estándar": "IE",
-                "Doble estándar": "DE",
-                "Doble superior": "DS",
-                "Superior family plan": "SFP",
-                "Suite doble": "SD"
-            };
-            const codigoTipo = mapaTipos[tipoTexto];
-
-            // Lógica visual para ocultar/mostrar columnas
-            // Iterar cabeceras y celdas y ocultar las que no coincidan con 'codigoTipo'
-            // Esto requiere que al renderizar guardemos el 'tipo' en el dataset de la columna
-            // (Implementación simplificada: recargar tabla filtrando datosHabitaciones)
-            
-            const habitacionesFiltradas = datosHabitaciones.filter(h => h.tipo === codigoTipo);
-            renderizarTabla(habitacionesFiltradas, listaFechas);
-        }
-        });
+    });
     </script>
 </body>
 </html>

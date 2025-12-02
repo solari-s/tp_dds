@@ -1,5 +1,5 @@
 package com.app.gestores;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -7,6 +7,7 @@ public class GestorHabitaciones {
     @org.springframework.beans.factory.annotation.Autowired
     private com.app.repository.HabitacionRepository habitacionRepository;
 
+    @Transactional(readOnly = true)
     public java.util.List<com.app.habitacion.HabitacionDTO> mostrarEstadoHabitaciones(java.util.Date fechaInicio, java.util.Date fechaFin) {
         java.util.List<com.app.habitacion.Habitacion> habitaciones = habitacionRepository.findAll();
         java.util.List<com.app.habitacion.HabitacionDTO> dtos = new java.util.ArrayList<>();

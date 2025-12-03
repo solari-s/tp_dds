@@ -1,5 +1,13 @@
 package com.app.gestores;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.app.habitacion.EstadoHabitacion;
+import com.app.habitacion.Habitacion;
+import com.app.habitacion.HistorialEstadoHabitacion;
+import com.app.habitacion.TipoHabitacion;
+import com.app.repository.HistorialEstadoHabitacionRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +40,57 @@ public class GestorHabitaciones {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    @Autowired
+    private HistorialEstadoHabitacionRepository historialRepository;
+
+    @Transactional
+    public void ocuparHabitacion(int numero, TipoHabitacion tipo,
+                                 java.util.Date fechaInicio, String horaInicio,
+                                 java.util.Date fechaFin, String horaFin) {
+
+        // Buscar la habitación
+        Habitacion habitacion = habitacionRepository
+                .findByNumeroAndTipo(numero, tipo)
+                .orElseThrow(() -> new RuntimeException("Habitación no encontrada"));
+
+        // Crear historial
+        HistorialEstadoHabitacion historial =
+                new HistorialEstadoHabitacion(
+                        habitacion,
+                        horaInicio,
+                        fechaInicio,
+                        horaFin,
+                        fechaFin,
+                        EstadoHabitacion.Ocupada
+                );
+
+        historialRepository.save(historial);
+    }
+
+    @Transactional
+    public void reservarHabitacion(int numero, TipoHabitacion tipo,
+                                 java.util.Date fechaInicio, String horaInicio,
+                                 java.util.Date fechaFin, String horaFin) {
+
+        // Buscar la habitación
+        Habitacion habitacion = habitacionRepository
+                .findByNumeroAndTipo(numero, tipo)
+                .orElseThrow(() -> new RuntimeException("Habitación no encontrada"));
+
+        // Crear historial
+        HistorialEstadoHabitacion historial =
+                new HistorialEstadoHabitacion(
+                        habitacion,
+                        horaInicio,
+                        fechaInicio,
+                        horaFin,
+                        fechaFin,
+                        EstadoHabitacion.Reservada
+                );
+
+        historialRepository.save(historial);
     }
 
     // Método auxiliar para generar fechas consecutivas

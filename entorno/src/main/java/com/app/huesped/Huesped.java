@@ -38,6 +38,8 @@ public class Huesped {
     @JoinColumn(name = "direccion_huesped")
     private Direccion direccion;
 
+    public Huesped(){}
+
     public Huesped(String nombre, String apellido, TipoDoc tipo_documento, String nroDocumento,
             Date fechaDeNacimiento, String nacionalidad, String email,
             String telefono, String ocupacion, boolean alojado) {

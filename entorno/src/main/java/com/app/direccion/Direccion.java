@@ -35,6 +35,8 @@ public class Direccion {
     @OneToMany(mappedBy = "direccion")
     private List<Huesped> huespedes;
 
+    public Direccion(){}
+
     public Direccion(String calle, String departamento, int altura, int piso, int codigoPostal, Localidad localidad) {
         this.calle = calle;
         this.altura = altura;

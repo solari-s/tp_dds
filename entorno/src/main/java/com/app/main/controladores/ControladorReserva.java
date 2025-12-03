@@ -1,4 +1,4 @@
-package com.app.controllers;
+package com.app.main.controladores;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import com.app.gestores.GestorReservas;
 @RestController
 @RequestMapping("/api/reservas")
 @CrossOrigin(origins = "*")
-public class ReservaControlador {
+public class ControladorReserva {
 
     @Autowired
     private GestorReservas gestorReservas;

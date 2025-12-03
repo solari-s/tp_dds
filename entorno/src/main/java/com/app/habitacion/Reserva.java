@@ -33,7 +33,10 @@ public class Reserva {
     @OneToOne(mappedBy = "reserva")
     private Estadia estadia;
 
-    //all args constructor
+    //constructores
+
+    public Reserva(){}
+    
     public Reserva(String nombre, String apellido, int telefono, Date fechaIngreso, String horaIngreso, Date fechaEgreso, String horaEgreso, List<Habitacion> habitacionesReservadas) {
         this.nombre = nombre;
         this.apellido = apellido;

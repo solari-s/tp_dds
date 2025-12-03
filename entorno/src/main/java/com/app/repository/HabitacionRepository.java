@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface HabitacionRepository extends JpaRepository<Habitacion,HabitacionPK>{
 
     
-    Optional<Habitacion> findByNumeroAndTipo(Integer numero, TipoHabitacion tipo);
+    Optional<Habitacion> findByIdNumeroAndIdTipo(Integer numero, TipoHabitacion tipo);
 }

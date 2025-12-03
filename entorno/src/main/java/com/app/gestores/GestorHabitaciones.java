@@ -52,7 +52,7 @@ public class GestorHabitaciones {
 
         // Buscar la habitación
         Habitacion habitacion = habitacionRepository
-                .findByNumeroAndTipo(numero, tipo)
+                .findByIdNumeroAndIdTipo(numero, tipo)
                 .orElseThrow(() -> new RuntimeException("Habitación no encontrada"));
 
         // Crear historial
@@ -76,7 +76,7 @@ public class GestorHabitaciones {
 
         // Buscar la habitación
         Habitacion habitacion = habitacionRepository
-                .findByNumeroAndTipo(numero, tipo)
+                .findByIdNumeroAndIdTipo(numero, tipo)
                 .orElseThrow(() -> new RuntimeException("Habitación no encontrada"));
 
         // Crear historial

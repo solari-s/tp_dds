@@ -210,56 +210,111 @@ td{
 </div>
 
 <script>
-/* ---------------------- SIMULACIÓN DE DATOS ---------------------- */
-const fechas = [
-    "10/04/25","11/04/25","12/04/25","13/04/25"
-];
+    // URL base de tu API Spring Boot
+    const API_URL = "http://localhost:8080/api/reservas";
 
-// matriz: true = disponible, false = no disponible
-const disponibilidad = [
-    [true,false],
-    [false,true],
-    [true,true],
-    [true,true]
-];
+    /* ---------------------- FUNCION BUSCAR (GET) ---------------------- */
+    async function buscar() {
+        const combo = document.getElementById("tipo");
+        const tipo = combo.value;
 
-/* ---------------------- CARGAR TABLA ---------------------- */
-function cargarTabla(){
-    const tbody = document.querySelector("#tabla tbody");
-    tbody.innerHTML = "";
+        // Validación
+        if (tipo === "Select") {
+            alert("Por favor, selecciona un tipo de habitación.");
+            return;
+        }
 
-    for(let i=0;i<fechas.length;i++){
-        const tr = document.createElement("tr");
+        try {
+            // Llamada al Backend (Controller -> Gestor -> BDD)
+            const response = await fetch(`${API_URL}/buscar?tipo=${tipo}`);
 
-        tr.innerHTML = `
-            <td>${fechas[i]}</td>
-            <td class="${disponibilidad[i][0] ? "disp":"no-disp"}"></td>
-            <td class="${disponibilidad[i][1] ? "disp":"no-disp"}"></td>
-        `;
-
-        tbody.appendChild(tr);
+            if (response.ok) {
+                const datos = await response.json();
+                cargarTabla(datos);
+            } else {
+                alert("Error al obtener datos del servidor.");
+            }
+        } catch (e) {
+            console.error("Error de conexión:", e);
+            alert("No se pudo conectar con el servidor (Revisa que Spring Boot esté corriendo).");
+        }
     }
-}
-cargarTabla();
 
-/* ---------------------- TABS ---------------------- */
-document.querySelectorAll(".tab").forEach(t=>{
-    t.addEventListener("click", ()=>{
-        document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-        t.classList.add("active");
+    /* ---------------------- CARGAR TABLA ---------------------- */
+    function cargarTabla(datos) {
+        const tbody = document.querySelector("#tabla tbody");
+        tbody.innerHTML = ""; // Limpiar tabla anterior
 
-        // cambiar contenido si necesitás
+        if (datos.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='3'>No hay datos disponibles para estas fechas.</td></tr>";
+            return;
+        }
+
+        datos.forEach(item => {
+            const tr = document.createElement("tr");
+
+            // Usamos las claves del MAPA de Java: fecha, sd1 (hab1), sd2 (hab2)
+            tr.innerHTML = `
+                <td>${item.fecha}</td>
+                <td class="${item.sd1 ? 'disp' : 'no-disp'}">H1</td>
+                <td class="${item.sd2 ? 'disp' : 'no-disp'}">H2</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    /* ---------------------- FUNCION RESERVAR (POST) ---------------------- */
+    async function reservar() {
+        // Como tu HTML no tiene campos para fecha/habitación, los pedimos por ventana emergente
+        const tipo = document.getElementById("tipo").value;
+        
+        if (tipo === "Select") {
+            alert("Primero selecciona un tipo de habitación.");
+            return;
+        }
+
+        const fecha = prompt("Ingresa la fecha a reservar (dd/MM/yy):", "10/04/25");
+        if (!fecha) return; // Si cancela, salimos
+
+        const numHab = prompt("Ingresa el número de habitación (1 o 2):", "1");
+        if (!numHab) return;
+
+        try {
+            // Preparamos los datos para enviar
+            // Usamos URLSearchParams para simular un formulario simple (@RequestParam en Java)
+            const params = new URLSearchParams();
+            params.append("tipo", tipo);
+            params.append("fecha", fecha);
+            params.append("numero", numHab);
+
+            // Enviamos la petición POST para GUARDAR
+            const response = await fetch(`${API_URL}/crear`, {
+                method: "POST",
+                body: params
+            });
+
+            if (response.ok) {
+                const mensaje = await response.text();
+                alert(mensaje); // "Reserva exitosa"
+                buscar(); // Recargamos la tabla para ver que ahora aparece roja (ocupada)
+            } else {
+                alert("Error al reservar. Puede que la habitación ya esté ocupada.");
+            }
+
+        } catch (e) {
+            console.error(e);
+            alert("Error de conexión al intentar reservar.");
+        }
+    }
+
+    /* ---------------------- TABS VISUALES ---------------------- */
+    document.querySelectorAll(".tab").forEach(t => {
+        t.addEventListener("click", () => {
+            document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+            t.classList.add("active");
+            // Aquí podrías sincronizar el select si quisieras
+        });
     });
-});
-
-/* ---------------------- BOTONES ---------------------- */
-function buscar(){
-    alert("Buscando disponibilidad...");
-}
-
-function reservar(){
-    alert("Reserva iniciada (aquí va la lógica)");
-}
 </script>
 
 </body>

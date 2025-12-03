@@ -12,15 +12,17 @@ public class HistorialHabitacionPK implements Serializable {
     private HabitacionPK habitacionPK;
 
     @Column(nullable = false)
-    private Date fecha;//inicio del estado  
+    private Date fecha;// inicio del estado
 
-    //hashcode y equals
+    // hashcode y equals
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HistorialHabitacionPK)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof HistorialHabitacionPK))
+            return false;
         HistorialHabitacionPK that = (HistorialHabitacionPK) o;
-       return Objects.equals(habitacionPK, that.habitacionPK) && Objects.equals(fecha, that.fecha);
+        return Objects.equals(habitacionPK, that.habitacionPK) && Objects.equals(fecha, that.fecha);
     }
 
     @Override
@@ -28,23 +30,41 @@ public class HistorialHabitacionPK implements Serializable {
         return Objects.hash(habitacionPK, fecha);
     }
 
-    //constructores
-    public HistorialHabitacionPK(){}
+    // constructores
+    public HistorialHabitacionPK() {
+        this.habitacionPK = new HabitacionPK();
+    }
 
-    public HistorialHabitacionPK(TipoHabitacion tipo, int numero, Date fecha){
-        habitacionPK.setTipo(tipo); 
+    public HistorialHabitacionPK(TipoHabitacion tipo, int numero, Date fecha) {
+        this.habitacionPK = new HabitacionPK();
+        habitacionPK.setTipo(tipo);
         habitacionPK.setNumero(numero);
         this.fecha = fecha;
     }
 
-    
-    //getter
-    public TipoHabitacion getTipo() { return habitacionPK.getTipo(); }
-    public int getNumero() { return habitacionPK.getNumero();  }
-    public Date getFecha(){ return fecha;}
+    // getter
+    public TipoHabitacion getTipo() {
+        return habitacionPK.getTipo();
+    }
 
-    //setter
-    public void setTipo(TipoHabitacion tipo) { habitacionPK.setTipo(tipo); }
-    public void setNumero(int numero) { habitacionPK.setNumero(numero); }
-    public void setFecha(Date fecha){this.fecha = fecha;}
+    public int getNumero() {
+        return habitacionPK.getNumero();
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    // setter
+    public void setTipo(TipoHabitacion tipo) {
+        habitacionPK.setTipo(tipo);
+    }
+
+    public void setNumero(int numero) {
+        habitacionPK.setNumero(numero);
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 }

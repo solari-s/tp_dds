@@ -25,7 +25,7 @@ public class FormaDePago {
     private float monto;
 
     @ManyToOne
-    @JoinColumn(name = "formas_de_pago")
+    @JoinColumn(name = "factura_id")
     private Factura factura;
 
     public FormaDePago(){}

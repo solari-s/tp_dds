@@ -1,0 +1,111 @@
+CONSULTAR TABLA
+
+SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'HABITACIONES';
+
+CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO');
+ALTER TABLE estados ALTER COLUMN tipo TYPE tipo_habitacion USING tipo::smallint::tipo_habitacion;
+
+INSERT INTO direcciones (
+    calle, altura, piso, departamento, codigo_postal, localidad_nombre
+) VALUES
+('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),
+('Calle 50', 23, NULL, NULL, 50021, NULL),
+('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),
+('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),
+('San Martín', 567, NULL, NULL, 5500, NULL),
+('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),
+('Calle 7', 45, 12, NULL, 111711, NULL),
+('25 de Mayo', 890, NULL, NULL, 2000, NULL),
+('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),
+('Florida', 1234, NULL, NULL, 7600, NULL),
+('Calle 85', 19, 8, '801', 110221, NULL),
+('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),
+('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),
+('Pellegrini', 234, NULL, NULL, 4400, NULL),
+('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL);
+
+INSERT INTO huespedes (
+    direccion_huesped,
+    fecha_de_nacimiento,
+    nro_documento,
+    telefono,
+    apellido,
+    email,
+    nacionalidad,
+    nombre,
+    ocupacion,
+    tipo_documento,
+    alojado
+) VALUES
+(1,  '1988-05-12', '33456789',     '+541112345678', 'García',    'juan.garcia@gmail.com',      'Argentina', 'Juan Carlos',      'Ingeniero en sistemas', 'DNI',       true),
+(2,  '1992-09-20', '1034567890',   '+573001234567', 'Rodríguez', 'maria.rodriguez@outlook.com','Colombia',  'María Alejandra',  'Diseñadora gráfica',    'PASAPORTE', false),
+(3,  '1975-03-15', '24567890',     '+543512468135', 'Fernández', 'carlosf75@hotmail.com',      'Argentina', 'Carlos Alberto',   'Médico',                'DNI',       true),
+(4,  '1990-11-30', '4567890123',   '+5511987654321','Silva',     'pedro.silva@gmail.com',      'Brasil',    'Pedro Henrique',   'Empresario',            'PASAPORTE', true),
+(5,  '1995-07-08', '41234567',     '+542615579924', 'López',     'sofia.lopez92@gmail.com',    'Argentina', 'Sofía Valentina',  'Estudiante',            'DNI',       false),
+(6,  '1983-01-25', '48765432',     '+59899123456',  'Martínez',  'diego.martinez@uruguay.com','Uruguay',   'Diego Andrés',     'Contador',              'LC',        true),
+(7,  '1987-12-04', '987654321',    '+573102468135', 'Gómez',     'laura.gomez87@gmail.com',    'Colombia',  'Laura Camila',     'Abogada',               'PASAPORTE', false),
+(8,  '1991-06-18', '37890123',     '+543414567890', 'Pérez',     'facundo.perez@gmail.com',    'Argentina', 'Facundo Ezequiel', 'Programador',           'DNI',       true),
+(9,  '1980-10-10', '184567895',    '+56987654321',  'Sánchez',   'camila.sanchez@outlook.cl',  'Chile',     'Camila Ignacia',   'Arquitecta',            'OTRO',      true),
+(10, '1969-04-22', '17654321',     '+542234567890', 'Romero',    'oscar.romero69@gmail.com',   'Argentina', 'Oscar Rubén',      'Jubilado',              'LE',        false),
+(11, '1994-02-14', '1013456789',   '+573157894561', 'Torres',    'valentina.torres94@gmail.com','Colombia', 'Valentina',        'Chef',                  'PASAPORTE', true),
+(12, '1986-08-30', '32567890',     '+541198745632', 'Díaz',      'natalia.diaz@gmail.com',     'Argentina', 'Natalia Soledad',  'Psicóloga',             'DNI',       false),
+(13, '1993-03-05', '72345678',     '+51987654321',  'Castillo',  'jose.castillo@peru.com',     'Perú',      'José Luis',        'Ingeniero civil',       'PASAPORTE', true),
+(14, '1978-11-11', '26789012',     '+543874562314', 'Álvarez',   'gabriela.alvarez@gmail.com', 'Argentina', 'Gabriela Noemí',   'Docente universitaria', 'DNI',       true),
+(15, '1985-09-17', 'DE8765432',    '+4917654321',   'Müller',    'hans.mueller@gmx.de',        'Alemania',  'Hans Peter',       'Turista',               'PASAPORTE', false);
+
+INSERT INTO habitaciones (numero, tipo, costo_noche) VALUES
+
+(101, 'IE', 50800), (102, 'IE', 50800), (103, 'IE', 50800), (104, 'IE', 50800), (105, 'IE', 50800),
+(106, 'IE', 50800), (107, 'IE', 50800), (108, 'IE', 50800), (109, 'IE', 50800), (110, 'IE', 50800),
+(201, 'DE', 70230), (202, 'DE', 70230), (203, 'DE', 70230), (204, 'DE', 70230), (205, 'DE', 70230),
+(206, 'DE', 70230), (207, 'DE', 70230), (208, 'DE', 70230), (209, 'DE', 70230), (210, 'DE', 70230),
+(211, 'DE', 70230), (212, 'DE', 70230), (213, 'DE', 70230), (214, 'DE', 70230), (215, 'DE', 70230),
+(216, 'DE', 70230), (217, 'DE', 70230), (218, 'DE', 70230),
+(301, 'DS', 90560), (302, 'DS', 90560), (303, 'DS', 90560), (304, 'DS', 90560),
+(305, 'DS', 90560), (306, 'DS', 90560), (307, 'DS', 90578), (308, 'DS', 90560),
+(401, 'SFP', 110500), (402, 'SFP', 110500), (403, 'SFP', 110500), (404, 'SFP', 110500), (405, 'SFP', 110500),
+(406, 'SFP', 110500), (407, 'SFP', 110500), (408, 'SFP', 110500), (409, 'SFP', 110500), (410, 'SFP', 110500),
+(501, 'SD', 128600), (502, 'SD', 128600);
+
+INSERT INTO ESTADOS
+    (numero, tipo, fecha, fecha_fin, hora_inicio, hora_fin, estado)
+VALUES
+(101, 'IE', '2025-11-25 14:00:00', '2025-11-28 12:00:00', '14:00', '12:00', 'ocupada'),
+(101, 'IE', '2025-11-20 15:00:00', '2025-11-25 12:00:00', '15:00', '12:00', 'reservada'),
+(101, 'IE', '2025-11-15 00:00:00', '2025-11-18 23:59:59', '12:00',    '12:00',    'fueradeservicio'),
+(201, 'DE', '2025-12-01 16:00:00', '2025-12-05 11:00:00', '16:00', '11:00', 'ocupada'),
+(201, 'DE', '2025-11-28 15:00:00', '2025-12-01 12:00:00', '15:00', '12:00', 'reservada'),
+(201, 'DE', '2025-11-10 00:00:00', '2025-11-14 23:59:59', '12:00',    '13:00',    'fueradeservicio'),
+(301, 'DS', '2025-12-03 17:00:00', '2025-12-04 17:00:00' ,                 '17:00', '12:00',    'ocupada'),
+(301, 'DS', '2025-11-29 14:00:00', '2025-12-03 12:00:00', '14:00', '12:00', 'reservada'),
+(301, 'DS', '2025-11-20 15:00:00', '2025-11-23 12:00:00', '15:00', '12:00', 'ocupada'),
+(502, 'SD', '2025-12-20 18:00:00', '2025-12-27 12:00:00', '18:00', '12:00', 'reservada'),
+(502, 'SD', '2025-12-10 16:00:00', '2025-12-15 11:00:00', '16:00', '11:00', 'ocupada'),
+(502, 'SD', '2025-11-30 00:00:00', '2025-12-05 23:59:59', '12:00',    '12:00',    'fueradeservicio'),
+(502, 'SD', '2025-11-25 15:00:00', '2025-11-28 12:00:00', '15:00', '12:00', 'reservada');
+
+INSERT INTO ESTADIAS(
+    id, factura_id, habitacion_numero, habitacion_tipo,
+    reserva_id, fecha_inicio, fecha_fin, precio
+) VALUES
+(1, null, 101, 'IE',  1, '2025-12-15 15:00:00', '2025-12-18 12:00:00', 50800 * 3),  
+(2, null, 201, 'DE',  2, '2025-12-20 16:00:00', '2025-12-24 11:00:00', 70230 * 4),   
+(3, null, 301, 'DS',  3, '2025-12-12 17:00:00', '2025-12-16 12:00:00', 90560 * 4),
+(4, null, 401, 'SFP', 4, '2025-12-26 14:00:00', '2025-12-30 12:00:00', 110500 * 4),
+(5, null, 502, 'SD',  5, '2025-12-22 18:00:00', '2025-12-28 12:00:00', 128600 * 6),  
+(6, null, 105, 'IE',  6, '2025-12-10 15:00:00', '2025-12-13 12:00:00', 50800 * 3),
+(7, null, 208, 'DE',  7, '2025-12-18 16:00:00', '2025-12-22 11:00:00', 70230 * 4),
+(8, null, 305, 'DS',  8, '2025-12-14 17:00:00', '2025-12-19 12:00:00', 90560 * 5),
+
+(9,  null, 102, 'IE',  NULL, '2025-12-03 14:30:00', '2025-12-06 12:00:00', 50800 * 3), 
+(10, null, 205, 'DE',  NULL, '2025-12-05 16:00:00', '2025-12-09 11:00:00', 70230 * 4),
+(11, null, 402, 'SFP', NULL, '2025-12-08 15:00:00', '2025-12-12 12:00:00', 110500 * 4),
+(12, null, 501, 'SD',  NULL, '2025-12-01 19:00:00', '2025-12-04 12:00:00', 128600 * 3);
+
+INSERT INTO estados (numero, tipo, fecha, fecha_fin, hora_inicio, hora_fin, estado) VALUES
+(102, 'IE',  '2025-12-03 14:30:00', '2025-12-06 12:00:00', '14:30', '12:00', 'ocupada'),
+(205, 'DE',  '2025-12-05 16:00:00', '2025-12-09 11:00:00', '16:00', '11:00', 'ocupada'),
+(402, 'SFP', '2025-12-08 15:00:00', '2025-12-12 12:00:00', '15:00', '12:00', 'ocupada'),
+(501, 'SD',  '2025-12-01 19:00:00', '2025-12-04 12:00:00', '19:00', '12:00', 'ocupada');

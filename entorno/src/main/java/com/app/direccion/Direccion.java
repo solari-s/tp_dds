@@ -19,10 +19,10 @@ public class Direccion {
     @Column(nullable = false, length = 100)
     private String calle;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     private String departamento;
 
-    @Column(nullable = true, length = 100)
+    @Column(nullable = false, length = 100)
     private int altura;
 
     @Column(nullable = true, length = 100)

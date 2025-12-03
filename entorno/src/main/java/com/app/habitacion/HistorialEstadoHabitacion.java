@@ -21,10 +21,10 @@ public class HistorialEstadoHabitacion {
     @Column(nullable = false)
     private String horaInicio;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fechaFin;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String horaFin;
 
     @Column(nullable = false)

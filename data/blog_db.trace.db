@@ -2054,3 +2054,2067 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 16:54:24.758108-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyForeignKeys(AbstractSchemaMigrator.java:448)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:269)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 16:54:48.253145-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE_NAME" no encontrada
+Column "TYPE_NAME" not found; SQL statement:
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    TYPE_NAME,
+    CHARACTER_MAXIMUM_LENGTH,
+    IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'CHEQUES' [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 16:55:09.212294-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE_NAME" no encontrada
+Column "TYPE_NAME" not found; SQL statement:
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    TYPE_NAME,
+    CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+ORDER BY TABLE_NAME, ORDINAL_POSITION [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 16:55:18.644435-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE_NAME" no encontrada
+Column "TYPE_NAME" not found; SQL statement:
+SELECT 
+    TABLE_NAME,
+    COLUMN_NAME,
+    TYPE_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+ORDER BY TABLE_NAME [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 16:56:02.872101-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE_NAME" no encontrada
+Column "TYPE_NAME" not found; SQL statement:
+SELECT COLUMN_NAME, TYPE_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'CHEQUES' [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1228)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 17:06:04.207030-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "'Av. Corrientes 3456, CABA' (HUESPEDES: ""DIRECCION_HUESPED"" BIGINT)"
+Data conversion error converting "'Av. Corrientes 3456, CABA' (HUESPEDES: ""DIRECCION_HUESPED"" BIGINT)"; SQL statement:
+INSERT INTO huespedes (
+    alojado,
+    direccion_huesped, 
+    fecha_de_nacimiento, 
+    nro_documento, 
+    telefono, 
+    apellido, 
+    email, 
+    nacionalidad, 
+    nombre, 
+    ocupacion, 
+    tipo_documento
+) VALUES
+('true','Av. Corrientes 3456, CABA', '1988-05-12 00:00:00', '33456789', '+541112345678', 'García', 'juan.garcia@gmail.com', 'Argentina', 'Juan Carlos', 'Ingeniero en sistemas', 'DNI') [22018-232]
+2025-12-03 17:09:38.708043-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "CALLE_NUMERO" no encontrada
+Column "CALLE_NUMERO" not found; SQL statement:
+-- Primero creamos algunas direcciones (suponiendo que la tabla se llama "direcciones")
+INSERT INTO direcciones (calle_numero, localidad, provincia_estado, codigo_postal, pais) VALUES
+('Av. Corrientes 3456, C1043 CABA', 'Ciudad Autónoma de Buenos Aires', 'Buenos Aires', 'C1043AAJ', 'Argentina') RETURNING id_direccion,
+('Calle 50 #23-45', 'Medellín', 'Antioquia', '050021', 'Colombia') RETURNING id_direccion,
+('Santiago del Estero 1234', 'Córdoba', 'Córdoba', 'X5000', 'Argentina') RETURNING id_direccion,
+('Rua Augusta 890, Consolação', 'São Paulo', 'São Paulo', '01304-001', 'Brasil') RETURNING id_direccion,
+('Calle San Martín 567', 'Mendoza', 'Mendoza', 'M5500', 'Argentina') RETURNING id_direccion,
+('Av. Libertador 2345', 'Montevideo', 'Montevideo', '11800', 'Uruguay') RETURNING id_direccion,
+('Calle 7 #45-67, La Candelaria', 'Bogotá', 'Bogotá D.C.', '111711', 'Colombia') RETURNING id_direccion,
+('25 de Mayo 890', 'Rosario', 'Santa Fe', 'S2000', 'Argentina') RETURNING id_direccion,
+('Av. Boyacá 456', 'Santiago', 'Región Metropolitana', '8320000', 'Chile') RETURNING id_direccion,
+('Calle Florida 1234', 'Mar del Plata', 'Buenos Aires', 'B7600', 'Argentina') RETURNING id_direccion,
+('Calle 85 #19-45, Chapinero', 'Bogotá', 'Bogotá D.C.', '110221', 'Colombia') RETURNING id_direccion,
+('Av. Rivadavia 7890, Flores', 'Ciudad Autónoma de Buenos Aires', 'C1406', 'Argentina') RETURNING id_direccion,
+('Jr. de la Unión 567', 'Lima', 'Lima', '15001', 'Perú') RETURNING id_direccion,
+('Pellegrini 234', 'Salta', 'Salta', 'A4400', 'Argentina') RETURNING id_direccion,
+('Av. 9 de Julio 555', 'Ciudad Autónoma de Buenos Aires', 'Buenos Aires', 'C1043AAJ', 'Argentina') RETURNING id_direccion [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseInsert(Parser.java:1530)
+	at org.h2.command.Parser.parsePrepared(Parser.java:698)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 17:15:13.316761-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- 15 direcciones reales con localidad_nombre = NULL\000d\000aINSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"
+Syntax error in SQL statement "-- 15 direcciones reales con localidad_nombre = NULL\000d\000aINSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"; SQL statement:
+-- 15 direcciones reales con localidad_nombre = NULL
+INSERT INTO direcciones (
+    calle, altura, piso, departamento, codigo_postal, localidad_nombre
+) VALUES
+('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),
+('Calle 50', 23, NULL, NULL, 50021, NULL),
+('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),
+('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),
+('San Martín', 567, NULL, NULL, 5500, NULL),
+('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),
+('Calle 7', 45, 12, NULL, 111711, NULL),
+('25 de Mayo', 890, NULL, NULL, 2000, NULL),
+('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),
+('Florida', 1234, NULL, NULL, 7600, NULL),
+('Calle 85', 19, 8, '801', 110221, NULL),
+('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),
+('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),
+('Pellegrini', 234, NULL, NULL, 4400, NULL),
+('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)
+RETURNING id [42000-232]
+2025-12-03 17:15:22.319779-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"; SQL statement:
+INSERT INTO direcciones (
+    calle, altura, piso, departamento, codigo_postal, localidad_nombre
+) VALUES
+('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),
+('Calle 50', 23, NULL, NULL, 50021, NULL),
+('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),
+('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),
+('San Martín', 567, NULL, NULL, 5500, NULL),
+('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),
+('Calle 7', 45, 12, NULL, 111711, NULL),
+('25 de Mayo', 890, NULL, NULL, 2000, NULL),
+('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),
+('Florida', 1234, NULL, NULL, 7600, NULL),
+('Calle 85', 19, 8, '801', 110221, NULL),
+('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),
+('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),
+('Pellegrini', 234, NULL, NULL, 4400, NULL),
+('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)
+RETURNING id [42000-232]
+2025-12-03 17:29:32.777567-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:576)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:516)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyForeignKeys(AbstractSchemaMigrator.java:448)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:269)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:29:59.384556-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"; SQL statement:
+INSERT INTO direcciones (
+    calle, altura, piso, departamento, codigo_postal, localidad_nombre
+) VALUES
+('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),
+('Calle 50', 23, NULL, NULL, 50021, NULL),
+('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),
+('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),
+('San Martín', 567, NULL, NULL, 5500, NULL),
+('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),
+('Calle 7', 45, 12, NULL, 111711, NULL),
+('25 de Mayo', 890, NULL, NULL, 2000, NULL),
+('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),
+('Florida', 1234, NULL, NULL, 7600, NULL),
+('Calle 85', 19, 8, '801', 110221, NULL),
+('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),
+('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),
+('Pellegrini', 234, NULL, NULL, 4400, NULL),
+('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)
+RETURNING id [42000-232]
+2025-12-03 17:31:12.273287-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:31:36.094256-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"
+Syntax error in SQL statement "INSERT INTO direcciones (\000d\000a    calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a) VALUES\000d\000a('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),\000d\000a('Calle 50', 23, NULL, NULL, 50021, NULL),\000d\000a('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),\000d\000a('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),\000d\000a('San Martín', 567, NULL, NULL, 5500, NULL),\000d\000a('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),\000d\000a('Calle 7', 45, 12, NULL, 111711, NULL),\000d\000a('25 de Mayo', 890, NULL, NULL, 2000, NULL),\000d\000a('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),\000d\000a('Florida', 1234, NULL, NULL, 7600, NULL),\000d\000a('Calle 85', 19, 8, '801', 110221, NULL),\000d\000a('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),\000d\000a('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),\000d\000a('Pellegrini', 234, NULL, NULL, 4400, NULL),\000d\000a('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)\000d\000a[*]RETURNING id"; SQL statement:
+INSERT INTO direcciones (
+    calle, altura, piso, departamento, codigo_postal, localidad_nombre
+) VALUES
+('Av. Corrientes', 3456, NULL, '3B', 1043, NULL),
+('Calle 50', 23, NULL, NULL, 50021, NULL),
+('Santiago del Estero', 1234, NULL, NULL, 5000, NULL),
+('Rua Augusta', 890, 5, 'Apt 51', 1304001, NULL),
+('San Martín', 567, NULL, NULL, 5500, NULL),
+('Av. Libertador', 2345, NULL, 'Torre 2', 11800, NULL),
+('Calle 7', 45, 12, NULL, 111711, NULL),
+('25 de Mayo', 890, NULL, NULL, 2000, NULL),
+('Av. Boyacá', 456, NULL, NULL, 8320000, NULL),
+('Florida', 1234, NULL, NULL, 7600, NULL),
+('Calle 85', 19, 8, '801', 110221, NULL),
+('Av. Rivadavia', 7890, NULL, NULL, 1406, NULL),
+('Jr. de la Unión', 567, NULL, NULL, 15001, NULL),
+('Pellegrini', 234, NULL, NULL, 4400, NULL),
+('Av. 9 de Julio', 555, NULL, '15C', 1004, NULL)
+RETURNING id [42000-232]
+2025-12-03 17:34:04.252922-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- =============================================================\000d\000a-- 15 direcciones + 15 huéspedes con ALOJADO aleatorio\000d\000a-- =============================================================\000d\000aWITH nuevas_direcciones AS (\000d\000a    [*]INSERT INTO direcciones (\000d\000a        calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a    ) VALUES\000d\000a        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),\000d\000a        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),\000d\000a        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),\000d\000a        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),\000d\000a        ('San Martín',          567,  NULL, NULL,   5500,    NULL),\000d\000a        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),\000d\000a        ('Calle 7',             45,   12,   NULL,   111711,  NULL),\000d\000a        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),\000d\000a        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),\000d\000a        ('Florida',             1234, NULL, NULL,   7600,    NULL),\000d\000a        ('Calle 85',            19,   8,    '801',  110221,  NULL),\000d\000a        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),\000d\000a        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),\000d\000a        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),\000d\000a        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)\000d\000a    RETURNING id\000d\000a),\000d\000adirecciones_con_fila AS (\000d\000a    SELECT id, row_number() OVER () AS fila\000d\000a    FROM nuevas_direcciones\000d\000a)\000d\000aINSERT INTO huespedes (\000d\000a    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,\000d\000a    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado\000d\000a)\000d\000aSELECT \000d\000a    d.id,\000d\000a    fechas_nac.fecha_nac,\000d\000a    docs.nro_doc,\000d\000a    tels.telefono,\000d\000a    datos.apellido,\000d\000a    datos.email,\000d\000a    datos.nacionalidad,\000d\000a    datos.nombre,\000d\000a    datos.ocupacion,\000d\000a    docs.tipo_doc,\000d\000a    -- ALOJADO aleatorio true/false\000d\000a    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado\000d\000aFROM direcciones_con_fila d\000d\000aCROSS JOIN LATERAL (VALUES\000d\000a    (1,  '1988-05-12'::date, '33456789',"; se esperaba "WITH, (, SELECT, TABLE, VALUES"
+Syntax error in SQL statement "-- =============================================================\000d\000a-- 15 direcciones + 15 huéspedes con ALOJADO aleatorio\000d\000a-- =============================================================\000d\000aWITH nuevas_direcciones AS (\000d\000a    [*]INSERT INTO direcciones (\000d\000a        calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a    ) VALUES\000d\000a        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),\000d\000a        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),\000d\000a        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),\000d\000a        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),\000d\000a        ('San Martín',          567,  NULL, NULL,   5500,    NULL),\000d\000a        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),\000d\000a        ('Calle 7',             45,   12,   NULL,   111711,  NULL),\000d\000a        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),\000d\000a        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),\000d\000a        ('Florida',             1234, NULL, NULL,   7600,    NULL),\000d\000a        ('Calle 85',            19,   8,    '801',  110221,  NULL),\000d\000a        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),\000d\000a        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),\000d\000a        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),\000d\000a        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)\000d\000a    RETURNING id\000d\000a),\000d\000adirecciones_con_fila AS (\000d\000a    SELECT id, row_number() OVER () AS fila\000d\000a    FROM nuevas_direcciones\000d\000a)\000d\000aINSERT INTO huespedes (\000d\000a    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,\000d\000a    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado\000d\000a)\000d\000aSELECT \000d\000a    d.id,\000d\000a    fechas_nac.fecha_nac,\000d\000a    docs.nro_doc,\000d\000a    tels.telefono,\000d\000a    datos.apellido,\000d\000a    datos.email,\000d\000a    datos.nacionalidad,\000d\000a    datos.nombre,\000d\000a    datos.ocupacion,\000d\000a    docs.tipo_doc,\000d\000a    -- ALOJADO aleatorio true/false\000d\000a    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado\000d\000aFROM direcciones_con_fila d\000d\000aCROSS JOIN LATERAL (VALUES\000d\000a    (1,  '1988-05-12'::date, '33456789',"; expected "WITH, (, SELECT, TABLE, VALUES"; SQL statement:
+-- =============================================================
+-- 15 direcciones + 15 huéspedes con ALOJADO aleatorio
+-- =============================================================
+WITH nuevas_direcciones AS (
+    INSERT INTO direcciones (
+        calle, altura, piso, departamento, codigo_postal, localidad_nombre
+    ) VALUES
+        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),
+        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),
+        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),
+        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),
+        ('San Martín',          567,  NULL, NULL,   5500,    NULL),
+        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),
+        ('Calle 7',             45,   12,   NULL,   111711,  NULL),
+        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),
+        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),
+        ('Florida',             1234, NULL, NULL,   7600,    NULL),
+        ('Calle 85',            19,   8,    '801',  110221,  NULL),
+        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),
+        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),
+        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),
+        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)
+    RETURNING id
+),
+direcciones_con_fila AS (
+    SELECT id, row_number() OVER () AS fila
+    FROM nuevas_direcciones
+)
+INSERT INTO huespedes (
+    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,
+    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado
+)
+SELECT 
+    d.id,
+    fechas_nac.fecha_nac,
+    docs.nro_doc,
+    tels.telefono,
+    datos.apellido,
+    datos.email,
+    datos.nacionalidad,
+    datos.nombre,
+    datos.ocupacion,
+    docs.tipo_doc,
+    -- ALOJADO aleatorio true/false
+    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado
+FROM direcciones_con_fila d
+CROSS JOIN LATERAL (VALUES
+    (1,  '1988-05-12'::date, '33456789', [42001-232]
+2025-12-03 17:34:28.383586-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "WITH nuevas_direcciones AS (\000d\000a    [*]INSERT INTO direcciones (\000d\000a        calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a    ) VALUES\000d\000a        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),\000d\000a        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),\000d\000a        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),\000d\000a        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),\000d\000a        ('San Martín',          567,  NULL, NULL,   5500,    NULL),\000d\000a        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),\000d\000a        ('Calle 7',             45,   12,   NULL,   111711,  NULL),\000d\000a        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),\000d\000a        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),\000d\000a        ('Florida',             1234, NULL, NULL,   7600,    NULL),\000d\000a        ('Calle 85',            19,   8,    '801',  110221,  NULL),\000d\000a        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),\000d\000a        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),\000d\000a        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),\000d\000a        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)\000d\000a    RETURNING id\000d\000a),\000d\000adirecciones_con_fila AS (\000d\000a    SELECT id, row_number() OVER () AS fila\000d\000a    FROM nuevas_direcciones\000d\000a)\000d\000aINSERT INTO huespedes (\000d\000a    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,\000d\000a    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado\000d\000a)\000d\000aSELECT \000d\000a    d.id,\000d\000a    fechas_nac.fecha_nac,\000d\000a    docs.nro_doc,\000d\000a    tels.telefono,\000d\000a    datos.apellido,\000d\000a    datos.email,\000d\000a    datos.nacionalidad,\000d\000a    datos.nombre,\000d\000a    datos.ocupacion,\000d\000a    docs.tipo_doc,\000d\000a    -- ALOJADO aleatorio true/false\000d\000a    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado\000d\000aFROM direcciones_con_fila d\000d\000aCROSS JOIN LATERAL (VALUES\000d\000a    (1,  '1988-05-12'::date, '33456789',"; se esperaba "WITH, (, SELECT, TABLE, VALUES"
+Syntax error in SQL statement "WITH nuevas_direcciones AS (\000d\000a    [*]INSERT INTO direcciones (\000d\000a        calle, altura, piso, departamento, codigo_postal, localidad_nombre\000d\000a    ) VALUES\000d\000a        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),\000d\000a        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),\000d\000a        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),\000d\000a        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),\000d\000a        ('San Martín',          567,  NULL, NULL,   5500,    NULL),\000d\000a        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),\000d\000a        ('Calle 7',             45,   12,   NULL,   111711,  NULL),\000d\000a        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),\000d\000a        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),\000d\000a        ('Florida',             1234, NULL, NULL,   7600,    NULL),\000d\000a        ('Calle 85',            19,   8,    '801',  110221,  NULL),\000d\000a        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),\000d\000a        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),\000d\000a        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),\000d\000a        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)\000d\000a    RETURNING id\000d\000a),\000d\000adirecciones_con_fila AS (\000d\000a    SELECT id, row_number() OVER () AS fila\000d\000a    FROM nuevas_direcciones\000d\000a)\000d\000aINSERT INTO huespedes (\000d\000a    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,\000d\000a    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado\000d\000a)\000d\000aSELECT \000d\000a    d.id,\000d\000a    fechas_nac.fecha_nac,\000d\000a    docs.nro_doc,\000d\000a    tels.telefono,\000d\000a    datos.apellido,\000d\000a    datos.email,\000d\000a    datos.nacionalidad,\000d\000a    datos.nombre,\000d\000a    datos.ocupacion,\000d\000a    docs.tipo_doc,\000d\000a    -- ALOJADO aleatorio true/false\000d\000a    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado\000d\000aFROM direcciones_con_fila d\000d\000aCROSS JOIN LATERAL (VALUES\000d\000a    (1,  '1988-05-12'::date, '33456789',"; expected "WITH, (, SELECT, TABLE, VALUES"; SQL statement:
+WITH nuevas_direcciones AS (
+    INSERT INTO direcciones (
+        calle, altura, piso, departamento, codigo_postal, localidad_nombre
+    ) VALUES
+        ('Av. Corrientes',      3456, NULL, '3B',   1043,    NULL),
+        ('Calle 50',            23,   NULL, NULL,   50021,   NULL),
+        ('Santiago del Estero', 1234, NULL, NULL,   5000,    NULL),
+        ('Rua Augusta',         890,   5,   '51',   1304001, NULL),
+        ('San Martín',          567,  NULL, NULL,   5500,    NULL),
+        ('Av. Libertador',      2345, NULL, 'Torre2',11800,  NULL),
+        ('Calle 7',             45,   12,   NULL,   111711,  NULL),
+        ('25 de Mayo',          890,  NULL, NULL,   2000,    NULL),
+        ('Av. Boyacá',          456,  NULL, NULL,   8320000, NULL),
+        ('Florida',             1234, NULL, NULL,   7600,    NULL),
+        ('Calle 85',            19,   8,    '801',  110221,  NULL),
+        ('Av. Rivadavia',       7890, NULL, NULL,   1406,    NULL),
+        ('Jr. de la Unión',     567,  NULL, NULL,   15001,   NULL),
+        ('Pellegrini',          234,  NULL, NULL,   4400,    NULL),
+        ('Av. 9 de Julio',      555,  NULL, '15C',  1004,    NULL)
+    RETURNING id
+),
+direcciones_con_fila AS (
+    SELECT id, row_number() OVER () AS fila
+    FROM nuevas_direcciones
+)
+INSERT INTO huespedes (
+    direccion_huesped, fecha_de_nacimiento, nro_documento, telefono,
+    apellido, email, nacionalidad, nombre, ocupacion, tipo_documento, alojado
+)
+SELECT 
+    d.id,
+    fechas_nac.fecha_nac,
+    docs.nro_doc,
+    tels.telefono,
+    datos.apellido,
+    datos.email,
+    datos.nacionalidad,
+    datos.nombre,
+    datos.ocupacion,
+    docs.tipo_doc,
+    -- ALOJADO aleatorio true/false
+    CASE WHEN random() < 0.6 THEN true ELSE false END AS alojado
+FROM direcciones_con_fila d
+CROSS JOIN LATERAL (VALUES
+    (1,  '1988-05-12'::date, '33456789', [42001-232]
+2025-12-03 17:36:28.029013-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM DIRECCIONES"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM DIRECCIONES"; expected "identifier"; SQL statement:
+DELETE * FROM DIRECCIONES [42001-232]
+2025-12-03 17:59:41.920468-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HT_RESPONSABLE_PAGO" ya existe
+Table "HT_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HT_responsable_pago(cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:41.922782-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_RESPONSABLE_PAGO" ya existe
+Table "HTE_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HTE_responsable_pago(posicioniva varchar(100), razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:41.923292-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_JURIDICAS" ya existe
+Table "HTE_PERSONAS_JURIDICAS" already exists; SQL statement:
+create global temporary table HTE_personas_juridicas(razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:41.931494-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_FISICAS" ya existe
+Table "HTE_PERSONAS_FISICAS" already exists; SQL statement:
+create global temporary table HTE_personas_fisicas(ref_huesped_nro_documento varchar(10), posicioniva varchar(100), cuit varchar(255) not null, ref_huesped_tipo_documento enum ('DNI','LC','LE','OTRO','PASAPORTE'), primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:42.056575-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table estadias (factura_id integer unique, habitacion_numero integer, id integer generated by default as identity, precio float(24) not null, reserva_id integer unique, fecha_fin timestamp(6) not null, fecha_inicio timestamp(6) not null, habitacion_tipo tipo_habitacion, primary key (id)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:42.074024-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones (costo_noche float(24) not null, numero integer not null, tipo tipo_habitacion not null, primary key (numero, tipo)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:42.088587-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones_reservadas (habitacion_numero integer not null, reserva_id integer not null, habitacion_tipo tipo_habitacion not null) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:42.122463-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ESTADIAS" no encontrada
+Table "ESTADIAS" not found; SQL statement:
+alter table if exists consumos add constraint FKmu592mpa8l4p5pvgaigu85ir2 foreign key (estadia_id) references estadias [42102-232]
+2025-12-03 17:59:42.140225-03:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HABITACIONES" no encontrada
+Table "HABITACIONES" not found; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [42102-232]
+2025-12-03 17:59:46.347429-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HT_RESPONSABLE_PAGO" ya existe
+Table "HT_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HT_responsable_pago(cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:46.347936-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_RESPONSABLE_PAGO" ya existe
+Table "HTE_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HTE_responsable_pago(posicioniva varchar(100), razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:46.349944-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_JURIDICAS" ya existe
+Table "HTE_PERSONAS_JURIDICAS" already exists; SQL statement:
+create global temporary table HTE_personas_juridicas(razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:46.352319-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_FISICAS" ya existe
+Table "HTE_PERSONAS_FISICAS" already exists; SQL statement:
+create global temporary table HTE_personas_fisicas(ref_huesped_nro_documento varchar(10), posicioniva varchar(100), cuit varchar(255) not null, ref_huesped_tipo_documento enum ('DNI','LC','LE','OTRO','PASAPORTE'), primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 17:59:46.449617-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table estadias (factura_id integer unique, habitacion_numero integer, id integer generated by default as identity, precio float(24) not null, reserva_id integer unique, fecha_fin timestamp(6) not null, fecha_inicio timestamp(6) not null, habitacion_tipo tipo_habitacion, primary key (id)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:46.468679-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones (costo_noche float(24) not null, numero integer not null, tipo tipo_habitacion not null, primary key (numero, tipo)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:46.478906-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones_reservadas (habitacion_numero integer not null, reserva_id integer not null, habitacion_tipo tipo_habitacion not null) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 17:59:46.502568-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ESTADIAS" no encontrada
+Table "ESTADIAS" not found; SQL statement:
+alter table if exists consumos add constraint FKmu592mpa8l4p5pvgaigu85ir2 foreign key (estadia_id) references estadias [42102-232]
+2025-12-03 17:59:46.521900-03:00 jdbc[30]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HABITACIONES" no encontrada
+Table "HABITACIONES" not found; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [42102-232]
+2025-12-03 18:01:09.171619-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table estadias (factura_id integer unique, habitacion_numero integer, id integer generated by default as identity, precio float(24) not null, reserva_id integer unique, fecha_fin timestamp(6) not null, fecha_inicio timestamp(6) not null, habitacion_tipo tipo_habitacion, primary key (id)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:01:09.201585-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones (costo_noche float(24) not null, numero integer not null, tipo tipo_habitacion not null, primary key (numero, tipo)) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:01:09.214524-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Tipo de dato desconocido : "TIPO_HABITACION"
+Unknown data type: "TIPO_HABITACION"; SQL statement:
+create table habitaciones_reservadas (habitacion_numero integer not null, reserva_id integer not null, habitacion_tipo tipo_habitacion not null) [50004-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:5860)
+	at org.h2.command.Parser.readIfDataType(Parser.java:5698)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5680)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5559)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8876)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:01:09.268877-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ESTADIAS" no encontrada
+Table "ESTADIAS" not found; SQL statement:
+alter table if exists consumos add constraint FKmu592mpa8l4p5pvgaigu85ir2 foreign key (estadia_id) references estadias [42102-232]
+2025-12-03 18:01:09.296595-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HABITACIONES" no encontrada
+Table "HABITACIONES" not found; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [42102-232]
+2025-12-03 18:02:19.089012-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HABITACIONES" no encontrada
+Table "HABITACIONES" not found; SQL statement:
+INSERT INTO habitaciones (numero, tipo, costo_noche) VALUES
+
+(101, 'IE', 50800), (102, 'IE', 50800), (103, 'IE', 50800), (104, 'IE', 50800), (105, 'IE', 50800),
+(106, 'IE', 50800), (107, 'IE', 50800), (108, 'IE', 50800), (109, 'IE', 50800), (110, 'IE', 50800),
+(201, 'DE', 70230), (202, 'DE', 70230), (203, 'DE', 70230), (204, 'DE', 70230), (205, 'DE', 70230),
+(206, 'DE', 70230), (207, 'DE', 70230), (208, 'DE', 70230), (209, 'DE', 70230), (210, 'DE', 70230),
+(211, 'DE', 70230), (212, 'DE', 70230), (213, 'DE', 70230), (214, 'DE', 70230), (215, 'DE', 70230),
+(216, 'DE', 70230), (217, 'DE', 70230), (218, 'DE', 70230),
+(301, 'DS', 90560), (302, 'DS', 90560), (303, 'DS', 90560), (304, 'DS', 90560),
+(305, 'DS', 90560), (306, 'DS', 90560), (307, 'DS', 90578), (308, 'DS', 90560),
+(401, 'SFP', 110500), (402, 'SFP', 110500), (403, 'SFP', 110500), (404, 'SFP', 110500), (405, 'SFP', 110500),
+(406, 'SFP', 110500), (407, 'SFP', 110500), (408, 'SFP', 110500), (409, 'SFP', 110500), (410, 'SFP', 110500),
+(501, 'SD', 128600), (502, 'SD', 128600) [42102-232]
+2025-12-03 18:03:54.636927-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:11:47.004123-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HABITACIONES [*]SELECT COLUMN_NAME, DATA_TYPE\000d\000aFROM INFORMATION_SCHEMA.COLUMNS\000d\000aWHERE TABLE_NAME = 'HABITACIONES'"
+Syntax error in SQL statement "SELECT * FROM HABITACIONES [*]SELECT COLUMN_NAME, DATA_TYPE\000d\000aFROM INFORMATION_SCHEMA.COLUMNS\000d\000aWHERE TABLE_NAME = 'HABITACIONES'"; SQL statement:
+SELECT * FROM HABITACIONES SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'HABITACIONES' [42000-232]
+2025-12-03 18:12:03.747083-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM HABITACIONES [*]SELECT COLUMN_NAME, DATA_TYPE\000d\000aFROM INFORMATION_SCHEMA.COLUMNS\000d\000aWHERE TABLE_NAME = 'HABITACIONES'"
+Syntax error in SQL statement "SELECT * FROM HABITACIONES [*]SELECT COLUMN_NAME, DATA_TYPE\000d\000aFROM INFORMATION_SCHEMA.COLUMNS\000d\000aWHERE TABLE_NAME = 'HABITACIONES'"; SQL statement:
+SELECT * FROM HABITACIONES SELECT COLUMN_NAME, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'HABITACIONES' [42000-232]
+2025-12-03 18:17:21.342533-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HT_RESPONSABLE_PAGO" ya existe
+Table "HT_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HT_responsable_pago(cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:17:21.346912-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_RESPONSABLE_PAGO" ya existe
+Table "HTE_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HTE_responsable_pago(posicioniva varchar(100), razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:17:21.346912-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_JURIDICAS" ya existe
+Table "HTE_PERSONAS_JURIDICAS" already exists; SQL statement:
+create global temporary table HTE_personas_juridicas(razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:17:21.357160-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_FISICAS" ya existe
+Table "HTE_PERSONAS_FISICAS" already exists; SQL statement:
+create global temporary table HTE_personas_fisicas(ref_huesped_nro_documento varchar(10), posicioniva varchar(100), cuit varchar(255) not null, ref_huesped_tipo_documento enum ('DNI','LC','LE','OTRO','PASAPORTE'), primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:17:21.661674-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:17:56.876791-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:24:30.576838-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HISTORIAL_ESTADOS_HABITACION" no encontrada
+Table "HISTORIAL_ESTADOS_HABITACION" not found; SQL statement:
+INSERT INTO historial_estados_habitacion 
+    (numero, tipo, fecha, fecha_fin, hora_inicio, hora_fin, estado)
+VALUES
+(101, 'IE', '2025-11-25 14:00:00', '2025-11-28 12:00:00', '14:00', '12:00', 'ocupada'),
+(101, 'IE', '2025-11-20 15:00:00', '2025-11-25 12:00:00', '15:00', '12:00', 'reservada'),
+(101, 'IE', '2025-11-15 00:00:00', '2025-11-18 23:59:59', NULL,    NULL,    'fueradeservicio'),
+(201, 'DE', '2025-12-01 16:00:00', '2025-12-05 11:00:00', '16:00', '11:00', 'ocupada'),
+(201, 'DE', '2025-11-28 15:00:00', '2025-12-01 12:00:00', '15:00', '12:00', 'reservada'),
+(201, 'DE', '2025-11-10 00:00:00', '2025-11-14 23:59:59', NULL,    NULL,    'fueradeservicio'),
+(301, 'DS', '2025-12-03 17:00:00', NULL,                 '17:00', NULL,    'ocupada'),
+(301, 'DS', '2025-11-29 14:00:00', '2025-12-03 12:00:00', '14:00', '12:00', 'reservada'),
+(301, 'DS', '2025-11-20 15:00:00', '2025-11-23 12:00:00', '15:00', '12:00', 'ocupada'),
+(502, 'SD', '2025-12-20 18:00:00', '2025-12-27 12:00:00', '18:00', '12:00', 'reservada'),
+(502, 'SD', '2025-12-10 16:00:00', '2025-12-15 11:00:00', '16:00', '11:00', 'ocupada'),
+(502, 'SD', '2025-11-30 00:00:00', '2025-12-05 23:59:59', NULL,    NULL,    'fueradeservicio'),
+(502, 'SD', '2025-11-25 15:00:00', '2025-11-28 12:00:00', '15:00', '12:00', 'reservada') [42102-232]
+2025-12-03 18:30:29.389251-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HT_RESPONSABLE_PAGO" ya existe
+Table "HT_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HT_responsable_pago(cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:30:29.391619-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_RESPONSABLE_PAGO" ya existe
+Table "HTE_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HTE_responsable_pago(posicioniva varchar(100), razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:30:29.393131-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_JURIDICAS" ya existe
+Table "HTE_PERSONAS_JURIDICAS" already exists; SQL statement:
+create global temporary table HTE_personas_juridicas(razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:30:29.397232-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_FISICAS" ya existe
+Table "HTE_PERSONAS_FISICAS" already exists; SQL statement:
+create global temporary table HTE_personas_fisicas(ref_huesped_nro_documento varchar(10), posicioniva varchar(100), cuit varchar(255) not null, ref_huesped_tipo_documento enum ('DNI','LC','LE','OTRO','PASAPORTE'), primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 18:30:29.534113-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-03 18:42:58.281635-03:00 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Dominio "TIPO_HABITACION" ya existe
+Domain "TIPO_HABITACION" already exists; SQL statement:
+CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO') [90119-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateDomain.update(CreateDomain.java:82)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 18:43:39.486546-03:00 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]RESERVAS"; se esperaba "ROLLBACK, REVOKE, RUNSCRIPT, RELEASE, REFRESH"
+Syntax error in SQL statement "[*]RESERVAS"; expected "ROLLBACK, REVOKE, RUNSCRIPT, RELEASE, REFRESH"; SQL statement:
+RESERVAS [42001-232]
+2025-12-03 18:49:04.647370-03:00 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "RESERVA" no encontrada
+Table "RESERVA" not found; SQL statement:
+INSERT INTO reserva (
+    id, telefono, fecha_ingreso, fecha_egreso, hora_ingreso, hora_egreso, apellido, nombre
+) VALUES
+(1, 1123456789, '2025-12-15 15:00:00', '2025-12-18 12:00:00', '15:00', '12:00', 'García',      'Juan Carlos'),
+(2, 1134567890, '2025-12-20 16:00:00', '2025-12-24 11:00:00', '16:00', '11:00', 'Rodríguez',   'María Alejandra'),
+(3, 1145678901, '2025-12-12 17:00:00', '2025-12-16 12:00:00', '17:00', '12:00', 'Fernández',   'Carlos Alberto'),
+(4, 1156789012, '2025-12-26 14:00:00', '2025-12-30 12:00:00', '14:00', '12:00', 'López',       'Sofía Valentina'),
+(5, 1167890123, '2025-12-22 18:00:00', '2025-12-28 12:00:00', '18:00', '12:00', 'Müller',      'Hans Peter'),
+(6, 1178901234, '2025-12-10 15:00:00', '2025-12-13 12:00:00', '15:00', '12:00', 'Pérez',       'Facundo Ezequiel'),
+(7, 1189012345, '2025-12-18 16:00:00', '2025-12-22 11:00:00', '16:00', '11:00', 'Díaz',        'Natalia Soledad'),
+(8, 1190123456, '2025-12-14 17:00:00', '2025-12-19 12:00:00', '17:00', '12:00', 'Álvarez',     'Gabriela Noemí') [42102-232]
+2025-12-03 18:50:20.627432-03:00 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "FECHA_INGRESO" no encontrada
+Column "FECHA_INGRESO" not found; SQL statement:
+INSERT INTO HABITACIONES_RESERVADAS
+    (reserva_id, habitacion_numero, habitacion_tipo, fecha_ingreso, fecha_egreso)
+VALUES
+(1, 101, 'IE',  '2025-12-15 15:00:00', '2025-12-18 12:00:00'),
+(2, 201, 'DE',  '2025-12-20 16:00:00', '2025-12-24 11:00:00'),
+(3, 301, 'DS',  '2025-12-12 17:00:00', '2025-12-16 12:00:00'),
+(4, 401, 'SFP', '2025-12-26 14:00:00', '2025-12-30 12:00:00'),
+(5, 502, 'SD',  '2025-12-22 18:00:00', '2025-12-28 12:00:00'),
+(6, 105, 'IE',  '2025-12-10 15:00:00', '2025-12-13 12:00:00'),
+(7, 208, 'DE',  '2025-12-18 16:00:00', '2025-12-22 11:00:00'),
+(8, 305, 'DS',  '2025-12-14 17:00:00', '2025-12-19 12:00:00') [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseInsert(Parser.java:1530)
+	at org.h2.command.Parser.parsePrepared(Parser.java:698)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-03 18:51:44.051199-03:00 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]Con esto ya tenés:"; se esperaba "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT"
+Syntax error in SQL statement "[*]Con esto ya tenés:"; expected "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT"; SQL statement:
+Con esto ya tenés: [42001-232]
+2025-12-03 19:45:23.553180-03:00 jdbc[46]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HT_RESPONSABLE_PAGO" ya existe
+Table "HT_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HT_responsable_pago(cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 19:45:23.556237-03:00 jdbc[46]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_RESPONSABLE_PAGO" ya existe
+Table "HTE_RESPONSABLE_PAGO" already exists; SQL statement:
+create global temporary table HTE_responsable_pago(posicioniva varchar(100), razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 19:45:23.558236-03:00 jdbc[46]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_JURIDICAS" ya existe
+Table "HTE_PERSONAS_JURIDICAS" already exists; SQL statement:
+create global temporary table HTE_personas_juridicas(razon_social varchar(100), cuit varchar(255) not null, primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 19:45:23.561640-03:00 jdbc[46]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "HTE_PERSONAS_FISICAS" ya existe
+Table "HTE_PERSONAS_FISICAS" already exists; SQL statement:
+create global temporary table HTE_personas_fisicas(ref_huesped_nro_documento varchar(10), posicioniva varchar(100), cuit varchar(255) not null, ref_huesped_tipo_documento enum ('DNI','LC','LE','OTRO','PASAPORTE'), primary key (cuit)) TRANSACTIONAL [42101-232]
+2025-12-03 19:45:23.828444-03:00 jdbc[46]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
+alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.TypeInfo.checkComparable(TypeInfo.java:766)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:167)
+	at org.h2.expression.condition.ConditionAndOr.optimize(ConditionAndOr.java:137)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.expression.condition.PredicateWithSubquery.optimize(PredicateWithSubquery.java:37)
+	at org.h2.expression.condition.ExistsPredicate.optimize(ExistsPredicate.java:16)
+	at org.h2.expression.condition.ConditionNot.optimize(ConditionNot.java:54)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1235)
+	at org.h2.command.query.Query.prepare(Query.java:232)
+	at org.h2.command.Parser.prepare(Parser.java:453)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:593)
+	at org.h2.engine.SessionLocal.prepare(SessionLocal.java:575)
+	at org.h2.constraint.ConstraintReferential.checkExistingData(ConstraintReferential.java:607)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:307)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:253)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1873)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:973)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.app.main.Main.main(Main.java:18)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)

@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 @Embeddable
 public class HabitacionPK implements Serializable {
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private TipoHabitacion tipo;
 
     @Column(nullable = false)

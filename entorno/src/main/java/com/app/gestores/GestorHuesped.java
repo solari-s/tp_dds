@@ -23,12 +23,6 @@ public class GestorHuesped{
         else return null;
     }
 
-    public Huesped buscarHuespedPorDoc(HuespedPK id) {
-        if(id!=null)
-        return huespedRepository.findById(id).orElse(null);
-        else return null;
-    }
-
     public List<Huesped> buscarHuespedes(String apellido, String nombre, String dni, String tipoDocumento) {
         Specification<Huesped> spec = Specification.unrestricted(); // base vacía
 

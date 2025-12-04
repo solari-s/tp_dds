@@ -1,10 +1,19 @@
-CONSULTAR TABLA
-
+-------------------------
+CONSULTAR FORMATO TABLAS:
+-------------------------
 SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'HABITACIONES';
 
+
+-------------------------------------------
+SOLO UNA VEZ AL PPIO PARA SACAR EL TINYINT:
+-------------------------------------------
 CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO');
 ALTER TABLE estados ALTER COLUMN tipo TYPE tipo_habitacion USING tipo::smallint::tipo_habitacion;
 
+
+-----------------------------------------
+BACK UP SENTENCIAS DE CARGA DE REGISTROS:
+-----------------------------------------
 INSERT INTO direcciones (
     calle, altura, piso, departamento, codigo_postal, localidad_nombre
 ) VALUES

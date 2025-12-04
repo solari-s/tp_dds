@@ -33,7 +33,7 @@ public class GestorHuesped{
         String apellido = filtro.getApellido();
         String nombre = filtro.getNombre();
         String dni = filtro.getNroDocumento();
-        String tipoDocumento = filtro.getTipo_documento().toString();
+        //String tipoDocumento = filtro.getTipo_documento().toString();
 
         if (apellido != null && !apellido.isEmpty()) {
             spec = spec.and((root, query, cb) -> 
@@ -53,10 +53,9 @@ public class GestorHuesped{
             );
         }
 
-        if (tipoDocumento != null && !tipoDocumento.isEmpty()) {
+        if (filtro.getTipo_documento() != null) {
             spec = spec.and((root, query, cb) -> 
-                // Si falla con String, prueba pasar directamente filtro.getTipo_documento() sin toString()
-                cb.equal(root.get("id").get("tipo_documento").as(String.class), tipoDocumento)
+                cb.equal(root.get("id").get("tipo_documento"), filtro.getTipo_documento())
             );
         }
 

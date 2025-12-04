@@ -20,14 +20,14 @@ public class Estadia {
 
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "habitacion_numero", referencedColumnName = "numero"),
-        @JoinColumn(name = "habitacion_tipo", referencedColumnName = "tipo")
+            @JoinColumn(name = "habitacion_numero", referencedColumnName = "numero"),
+            @JoinColumn(name = "habitacion_tipo", referencedColumnName = "tipo")
     })
     private Habitacion habitacion;
 
     @Column(nullable = false)
     private float precio;
-    
+
     @Column(nullable = false)
     private Date fechaInicio;
 
@@ -37,57 +37,93 @@ public class Estadia {
     @OneToOne
     private Factura factura;
 
-    @OneToOne(optional = true) //puede no tneer una reserva asociada 
+    @OneToOne(optional = true) // puede no tneer una reserva asociada
     @JoinColumn(name = "reserva_id", nullable = true)
     private Reserva reserva;
 
-    @OneToMany (mappedBy = "estadia")
+    @OneToMany(mappedBy = "estadia")
     private List<Consumo> consumos;
 
-    public void agregarConsumo(Consumo c){//NO CONSIDERO QUE ESTÉN EN DISTINTAS MONEDAS
+    public void agregarConsumo(Consumo c) {
         consumos.add(c);
     }
 
-    public float totalConsumos(){
+    public float totalConsumos() {
         float total = 0;
-        for(Consumo c  : consumos ){
+        for (Consumo c : consumos) {
             total += c.getMonto();
         }
-        return total; //NO CONSIDERO QUE ESTÉN EN DISTINTAS MONEDAS
+        return total;
     }
 
+    // consutructores
+    public Estadia() {
+    }
 
-    //consutructores
-    public Estadia(){}
-
-    public Estadia(Reserva reserva, Date fechaInicio){
+    public Estadia(Reserva reserva, Date fechaInicio) {
         this.reserva = reserva;
         this.fechaInicio = fechaInicio;
         consumos = new ArrayList<>();
     }
 
-    public Estadia(Reserva reserva, Date fechaInicio, Date fechaFin){
+    public Estadia(Reserva reserva, Date fechaInicio, Date fechaFin) {
         this.reserva = reserva;
         this.fechaInicio = fechaInicio;
         consumos = new ArrayList<>();
     }
 
+    // getters
+    public int getId() {
+        return id;
+    }
 
-    //getters
-    public int getId() { return id; }
-    public TipoHabitacion geTipoHabitacion(){ return habitacion.getTipo(); }
-    public float getPrecio() { return precio; }
-    public Date getFechaInicio() { return fechaInicio; }
-    public Date getFechaFin() { return fechaFin; }
-    public Factura getFactura() { return factura; }
-    public Reserva getReserva() { return reserva; }
+    public TipoHabitacion geTipoHabitacion() {
+        return habitacion.getTipo();
+    }
 
-    //setters
-    public void setPrecio(float precio) { this.precio = precio; }
-    public void geTipoHabitacion(TipoHabitacion t){ habitacion.setTipo(t); }
-    public void setFechaInicio(Date fechaInicio) { this.fechaInicio = fechaInicio; }
-    public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
-    public void setFactura(Factura factura) { this.factura = factura; }
-    public void setReserva(Reserva reserva) { this.reserva = reserva; }
+    public float getPrecio() {
+        return precio;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    // setters
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public void geTipoHabitacion(TipoHabitacion t) {
+        habitacion.setTipo(t);
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
+    }
 
 }

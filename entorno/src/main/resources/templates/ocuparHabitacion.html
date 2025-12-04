@@ -20,10 +20,10 @@
         th { background: #f0f0f0; position: sticky; top: 0; }
         
         /* ESTADOS */
-        .st-disponible { background-color: #90ee90; cursor: pointer; } /* Verde */
-        .st-reservada { background-color: #ffcccb; cursor: pointer; }  /* Rojo */
-        .st-ocupada { background-color: #d3d3d3; color: #777; cursor: not-allowed; } /* Gris */
-        .st-seleccionada { background-color: #4a90e2 !important; color: white; } /* Azul */
+        .st-disponible { background-color: #90ee90; cursor: pointer; }
+        .st-reservada { background-color: #ffcccb; cursor: pointer; }
+        .st-ocupada { background-color: #d3d3d3; color: #777; cursor: not-allowed; }
+        .st-seleccionada { background-color: #4a90e2 !important; color: white; } 
 
         /* CONTROLES */
         .search-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 10px; margin-bottom: 20px; }
@@ -103,13 +103,12 @@
 </div>
 
 <script>
-    // --- ESTADO GLOBAL ---
+
     let datosGrid = [];
     let fechasGrid = [];
     let seleccion = null; 
     let huespedesSeleccionados = []; 
 
-    // --- INICIO ---
     document.addEventListener("DOMContentLoaded", () => {
         flatpickr("#desde", { dateFormat: "d/m/Y" });
         flatpickr("#hasta", { dateFormat: "d/m/Y" });
@@ -123,7 +122,6 @@
         });
     });
 
-    // --- PASO 1 ---
     async function buscarDisponibilidad() {
         const desde = document.getElementById("desde").value;
         const hasta = document.getElementById("hasta").value;
@@ -163,7 +161,6 @@
                     td.onclick = () => procesarClick(h.numero, h.tipo, i, false);
                 } else if (estado === "Reservada") {
                     td.className = "st-reservada"; 
-                    // Pasamos true en el flag 'esReservada'
                     td.onclick = () => procesarClick(h.numero, h.tipo, i, true);
                 } else {
                     td.className = "st-ocupada"; 
@@ -178,7 +175,6 @@
         });
     }
 
-    // LÓGICA DE CLICK CON VALIDACIÓN DE RESERVA
     function procesarClick(numero, tipo, index, esReservada) {
         if (esReservada) {
             Swal.fire({
@@ -192,13 +188,10 @@
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Si dice SI, procedemos a seleccionar pintando de azul
                     ejecutarSeleccion(numero, tipo, index);
                 }
-                // Si dice NO, no hacemos nada (se mantiene en la misma pantalla)
             });
         } else {
-            // Si es verde, selección directa
             ejecutarSeleccion(numero, tipo, index);
         }
     }
@@ -209,8 +202,6 @@
         } else {
             if (index < seleccion.idxInicio) seleccion = { numero, tipo, idxInicio: index, idxFin: index };
             else {
-                // Permitimos seleccionar sobre ROJO ahora, así que relajamos la validación
-                // Solo bloqueamos si hay GRIS (Ocupada/FueraServicio) en el medio
                 if (rangoSinGrises(numero, seleccion.idxInicio, index)) {
                     seleccion.idxFin = index;
                 } else {
@@ -226,13 +217,11 @@
         const hab = datosGrid.find(h => h.numero === num);
         for(let k=ini; k<=fin; k++) {
             let est = hab.estadosPorDia[k];
-            // Permitimos Disponible y Reservada. Bloqueamos Ocupada/Mantenimiento
             if (est !== "Disponible" && est !== "Reservada") return false;
         }
         return true;
     }
 
-    // --- TRANSICIÓN ---
     function irPaso2() {
         document.getElementById("paso1").classList.remove("activa");
         document.getElementById("paso2").classList.add("activa");
@@ -243,14 +232,12 @@
         document.getElementById("paso1").classList.add("activa");
     }
 
-    // --- PASO 2 ---
     async function buscarHuesped() {
         const nombre = document.getElementById("hNombre").value;
         const apellido = document.getElementById("hApellido").value;
         const tipo = document.getElementById("hTipoDoc").value;
         const doc = document.getElementById("hDoc").value;
 
-        // Construir query string dinámicamente para evitar parámetros vacíos molestos
         let params = new URLSearchParams();
         if(nombre) params.append("nombre", nombre);
         if(apellido) params.append("apellido", apellido);
@@ -260,7 +247,6 @@
         const res = await fetch(`/api/huespedes/buscar?${params.toString()}`);
         let data = await res.json();
 
-        // Filtro visual
         data = data.filter(h => !huespedesSeleccionados.some(sel => sel.nroDocumento === h.nroDocumento));
 
         const tbody = document.querySelector("#tablaHuespedes tbody");
@@ -291,7 +277,6 @@
         });
     }
 
-    // --- GUARDAR ---
     async function confirmarOcupacion() {
         if (!seleccion || huespedesSeleccionados.length === 0) {
             return Swal.fire("Atención", "Seleccione habitación y huéspedes.", "warning");
@@ -317,7 +302,6 @@
         } catch (err) { Swal.fire("Error", err.message, "error"); }
     }
 
-    // UTILS
     function dmyToIso(dateStr) { const [d, m, y] = dateStr.split('/'); return `${y}-${m}-${d}`; }
     function generarRangoFechas(desde, hasta) {
         let dates = [];

@@ -11,7 +11,7 @@ public class HistorialEstadoHabitacion {
     private HistorialHabitacionPK id;
 
     @ManyToOne
-    @MapsId("habitacionPK") // dice: esto forma parte de mi PK
+    @MapsId("habitacionPK")
     @JoinColumns({
             @JoinColumn(name = "numero", referencedColumnName = "numero"),
             @JoinColumn(name = "tipo", referencedColumnName = "tipo")

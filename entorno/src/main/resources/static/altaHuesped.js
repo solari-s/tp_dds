@@ -112,9 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let dtoPersonaFisica = null;
     if (cuitEl.value.trim() !== "") {
         dtoPersonaFisica = {
-            cuit: cuitEl.value.trim(),      // Asegúrate que coincida con el campo en Java (CUIT o cuit)
+            cuit: cuitEl.value.trim(),
             posicionIVA: ivaEl.value
-            // refHuesped no se manda, se asigna en el backend
         };
     }
 
@@ -127,13 +126,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch('/api/huespedes/crear', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) // Enviamos el wrapper
+            body: JSON.stringify(payload)
         });
         
 
         if (!response.ok) throw new Error('Error en la respuesta del servidor');
 
-        // 3. Mostrar Popup de Éxito SOLO si se guardó correctamente
         const resultado = await Swal.fire({
             title: `El huésped ${nombresEl.value} ${apellidoEl.value} ha sido cargado correctamente.`,
             text: "¿Desea cargar otro?",
@@ -153,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearFieldErrors();
             form.reset();
         } else {
-            window.location.href = "/"; // O redirigir a donde quieras
+            window.location.href = "/";
         }
 
     } catch (error) {
@@ -215,17 +213,12 @@ function isValidEmail(email) {
 
 
 function isValidCUIT(cuit) {
-  if (!cuit) return true; // Si es opcional y está vacío, es válido
+  if (!cuit) return true; 
   
-  // 1. Eliminamos guiones, espacios y cualquier cosa que no sea número
   const limpio = cuit.toString().replace(/[^0-9]/g, "");
-  
-  // 2. Verificamos que tenga exactamente 11 números
+
   if (limpio.length !== 11) return false;
 
-  // (Opcional) Si quieres validar el dígito verificador real de AFIP, 
-  // podés agregar esa lógica aquí, pero por ahora con validar longitud basta 
-  // para que no te de el error "en rojo" con un número correcto.
   return true;
 }
 

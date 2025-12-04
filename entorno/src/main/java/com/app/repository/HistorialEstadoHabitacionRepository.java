@@ -12,36 +12,29 @@ import com.app.habitacion.HistorialHabitacionPK;
 import com.app.habitacion.TipoHabitacion;
 
 public interface HistorialEstadoHabitacionRepository
-                extends JpaRepository<HistorialEstadoHabitacion, HistorialHabitacionPK> {
+    extends JpaRepository<HistorialEstadoHabitacion, HistorialHabitacionPK> {
 
-        // ---------------------------------------------------------
-        // Para buscar todos los estados de UNA habitación en un día
-        // ---------------------------------------------------------
-        @Query("SELECT h FROM HistorialEstadoHabitacion h " +
-                        "WHERE h.id.numero = :numero AND h.id.tipo = :tipo")
-        List<HistorialEstadoHabitacion> findByHabitacion(
-                        @Param("numero") int numero,
-                        @Param("tipo") TipoHabitacion tipo);
+  @Query("SELECT h FROM HistorialEstadoHabitacion h " +
+      "WHERE h.id.numero = :numero AND h.id.tipo = :tipo")
+  List<HistorialEstadoHabitacion> findByHabitacion(
+      @Param("numero") int numero,
+      @Param("tipo") TipoHabitacion tipo);
 
-        // ---------------------------------------------------------
-        // Método necesario por GestorHabitaciones.verificarDisponibilidad()
-        // Devuelve todos los registros cuyo rango se superpone
-        // ---------------------------------------------------------
-        @Query("""
-                        SELECT h FROM HistorialEstadoHabitacion h
-                        WHERE h.id.numero = :numero
-                          AND h.id.tipo = :tipo
-                          AND (
-                                (h.id.fecha BETWEEN :inicio AND :fin)
-                                OR
-                                (h.fechaFin IS NOT NULL AND h.fechaFin BETWEEN :inicio AND :fin)
-                                OR
-                                (h.id.fecha <= :inicio AND h.fechaFin >= :fin)
-                              )
-                        """)
-        List<HistorialEstadoHabitacion> buscarEstadosEnRango(
-                        @Param("numero") int numero,
-                        @Param("tipo") TipoHabitacion tipo,
-                        @Param("inicio") Date inicio,
-                        @Param("fin") Date fin);
+  @Query("""
+      SELECT h FROM HistorialEstadoHabitacion h
+      WHERE h.id.numero = :numero
+        AND h.id.tipo = :tipo
+        AND (
+              (h.id.fecha BETWEEN :inicio AND :fin)
+              OR
+              (h.fechaFin IS NOT NULL AND h.fechaFin BETWEEN :inicio AND :fin)
+              OR
+              (h.id.fecha <= :inicio AND h.fechaFin >= :fin)
+            )
+      """)
+  List<HistorialEstadoHabitacion> buscarEstadosEnRango(
+      @Param("numero") int numero,
+      @Param("tipo") TipoHabitacion tipo,
+      @Param("inicio") Date inicio,
+      @Param("fin") Date fin);
 }

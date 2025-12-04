@@ -42,20 +42,14 @@ public class GestorHabitaciones {
     public void registrarOcupacion(OcuparDTO ocupacion) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        // 1. Convertir Fechas
         Date inicio = sdf.parse(ocupacion.getFechaInicio());
         Date fin = sdf.parse(ocupacion.getFechaFin());
         TipoHabitacion tipo = TipoHabitacion.valueOf(ocupacion.getTipoHabitacion());
 
-        // 2. Buscar Habitación
         Habitacion hab = habitacionRepository.findByIdNumeroAndIdTipo(ocupacion.getNumeroHabitacion(), tipo);
         if (hab == null)
             throw new RuntimeException("Habitación no encontrada");
 
-        // 3. Crear Registro en Historial (ESTADOS)
-        // Usamos horaInicio 00:00 y horaFin 23:59 como pediste, o las del constructor
-        // El constructor HistorialEstadoHabitacion(Habitacion, String horaIn, Date
-        // fechaIn, String horaFn, Date fechaFn, Estado) existe
         HistorialEstadoHabitacion nuevoEstado = new HistorialEstadoHabitacion(
                 hab,
                 "00:00",
@@ -65,7 +59,6 @@ public class GestorHabitaciones {
                 EstadoHabitacion.Ocupada);
         historialRepository.save(nuevoEstado);
 
-        // 4. Actualizar Huéspedes (Alojado = TRUE)
         for (HuespedDTO hDto : ocupacion.getHuespedes()) {
             HuespedPK pk = new HuespedPK(hDto.getTipo_documento(), hDto.getNroDocumento());
             Huesped huesped = huespedRepository.findById(pk).orElse(null);
@@ -77,9 +70,8 @@ public class GestorHabitaciones {
         }
     }
 
-    // --------------------------------------------------------
     // 1) MOSTRAR ESTADO DE HABITACIONES ENTRE FECHAS
-    // --------------------------------------------------------
+
     @Transactional(readOnly = true)
     public List<HabitacionDTO> mostrarEstadoHabitaciones(LocalDate fechaInicio, LocalDate fechaFin) {
 
@@ -108,9 +100,7 @@ public class GestorHabitaciones {
         return dtos;
     }
 
-    // --------------------------------------------------------
     // 2) OCUPAR HABITACIÓN
-    // --------------------------------------------------------
     @Transactional
     public void ocuparHabitacion(int numero, TipoHabitacion tipo,
             Date fechaInicio, String horaInicio,
@@ -133,9 +123,7 @@ public class GestorHabitaciones {
         historialRepository.save(historial);
     }
 
-    // --------------------------------------------------------
     // 3) RESERVAR HABITACIÓN
-    // --------------------------------------------------------
     @Transactional
     public void reservarHabitacion(int numero, TipoHabitacion tipo,
             Date fechaInicio, String horaInicio,
@@ -158,9 +146,7 @@ public class GestorHabitaciones {
         historialRepository.save(historial);
     }
 
-    // --------------------------------------------------------
     // 4) VERIFICAR DISPONIBILIDAD ENTRE FECHAS
-    // --------------------------------------------------------
     @Transactional(readOnly = true)
     public EstadoHabitacion verificarDisponibilidad(
             HistorialHabitacionPK id,
@@ -185,9 +171,7 @@ public class GestorHabitaciones {
         return EstadoHabitacion.Disponible;
     }
 
-    // --------------------------------------------------------
     // 5) GENERAR LISTA DE FECHAS ENTRE INICIO–FIN
-    // --------------------------------------------------------
     private List<Date> generarRangoFechas(LocalDate start, LocalDate end) {
         List<Date> dates = new ArrayList<>();
         LocalDate current = start;

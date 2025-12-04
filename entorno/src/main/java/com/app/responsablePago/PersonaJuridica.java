@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "personas_juridicas")
 public class PersonaJuridica extends ResponsablePago {
 
-    @Column(nullable = false, length = 100) 
+    @Column(nullable = false, length = 100)
     private String RazonSocial;
-
-    //siempre si es tercero es pj entonces no tiene huesped asociado?
 
 }

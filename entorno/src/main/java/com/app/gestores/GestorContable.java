@@ -10,7 +10,7 @@ import com.app.repository.PersonaJuridicaRepository;
 import com.app.repository.ResponsablePagoRepository;
 
 @Service
-public class GestorContable{
+public class GestorContable {
 
     @Autowired
     private PersonaFisicaRepository personaFisicaRepository;
@@ -20,13 +20,14 @@ public class GestorContable{
     private ResponsablePagoRepository responsablePagoRepository;
 
     public ResponsablePago registrarResponsable(ResponsablePago responsable) {
-        
+
         ResponsablePago respp;
-        if (responsable instanceof PersonaFisica fisica) 
+        if (responsable instanceof PersonaFisica fisica)
             respp = personaFisicaRepository.save(fisica);
-        else if (responsable instanceof PersonaJuridica juridica) 
+        else if (responsable instanceof PersonaJuridica juridica)
             respp = personaJuridicaRepository.save(juridica);
-        else return null;
+        else
+            return null;
 
         responsablePagoRepository.save(new ResponsablePago(respp.getCUIT()));
 
@@ -34,28 +35,22 @@ public class GestorContable{
     }
 
     public void registrarPersonaFisica(PersonaFisicaDTO pfDto, Huesped huespedReferencia) {
-        if (pfDto == null || pfDto.getCUIT() == null) return;
+        if (pfDto == null || pfDto.getCUIT() == null)
+            return;
 
-        // 1. Formatear CUIT si viene sucio del front (opcional, buena práctica)
         String cuitLimpio = pfDto.getCUIT().replaceAll("[^0-9]", "");
-        String cuitFormateado = cuitLimpio; 
+        String cuitFormateado = cuitLimpio;
         if (cuitLimpio.length() == 11) {
-             cuitFormateado = cuitLimpio.substring(0, 2) + "-" + 
-                              cuitLimpio.substring(2, 10) + "-" + 
-                              cuitLimpio.substring(10, 11);
+            cuitFormateado = cuitLimpio.substring(0, 2) + "-" +
+                    cuitLimpio.substring(2, 10) + "-" +
+                    cuitLimpio.substring(10, 11);
         }
 
-        // 2. Crear la entidad
-        // Nota: Al usar herencia JOINED, guardar la hija (PersonaFisica) 
-        // automáticamente inserta en la tabla padre (ResponsablePago).
         PersonaFisica nuevaPF = new PersonaFisica(
-            pfDto.getPosicionIVA(),
-            cuitFormateado,
-            huespedReferencia // Aquí vinculamos el huesped que nos pasan
-        );
+                pfDto.getPosicionIVA(),
+                cuitFormateado,
+                huespedReferencia);
 
-        // 3. Guardar
         personaFisicaRepository.save(nuevaPF);
     }
 }
-

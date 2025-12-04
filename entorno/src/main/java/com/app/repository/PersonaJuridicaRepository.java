@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonaJuridicaRepository extends JpaRepository<PersonaJuridica, String> {
-    //los métodos CRUD ya están implementados por JpaRepository
 }

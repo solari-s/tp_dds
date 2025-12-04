@@ -87,7 +87,7 @@
         .search-btn-container {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 30px; /* Espacio antes de la tabla */
+            margin-bottom: 30px; 
         }
 
         button.btn-primary {
@@ -108,11 +108,11 @@
 
         /* --- Estilos de la Tabla de Resultados --- */
         .results-container {
-            display: none; /* Oculto por defecto */
+            display: none;
             border: 1px solid #a9cce3;
             border-radius: 8px;
             padding: 15px;
-            background-color: #f0f8ff; /* Azul muy clarito de fondo */
+            background-color: #f0f8ff;
             position: relative;
         }
 
@@ -129,7 +129,7 @@
         }
 
         .table-wrapper {
-            height: 250px; /* Altura fija para el scroll */
+            height: 250px;
             overflow-y: auto;
             background-color: white;
             border: 1px solid #a9cce3;
@@ -150,7 +150,7 @@
             text-align: center;
             border-bottom: 2px solid #a9cce3;
             border-right: 1px solid #a9cce3;
-            position: sticky; /* Cabecera fija */
+            position: sticky; 
             top: 0;
             z-index: 1;
             font-size: 14px;
@@ -164,17 +164,16 @@
             padding: 8px;
             border-bottom: 1px solid #a9cce3;
             border-right: 1px solid #a9cce3;
-            height: 35px; /* Altura mínima para filas vacías */
+            height: 35px; 
             color: #333;
             font-size: 14px;
-            text-align: center; /* Alineación centrada para datos */
+            text-align: center; 
         }
 
         td:last-child {
             border-right: none;
         }
 
-        /* Estilo personalizado para el scrollbar */
         .table-wrapper::-webkit-scrollbar {
             width: 15px;
         }
@@ -196,11 +195,11 @@
         }
 
         button.btn-secondary {
-            background-color: #d6eaf8; /* Azul más claro */
+            background-color: #d6eaf8; 
             color: #333;
             border: 1px solid #a9cce3;
             padding: 8px 30px;
-            border-radius: 20px; /* Bordes muy redondos */
+            border-radius: 20px; 
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -288,14 +287,11 @@
         const tipoDoc = document.getElementById('tipoDocumento').value;
         const nroDocumento = document.getElementById('nroDocumento').value.trim();
 
-        // 1. SOLUCIÓN PROBLEMA "NULL": Si no puso nada, ir directo a Alta Huesped
         if (!nombre && !apellido && !tipoDoc && !nroDocumento) {
-            // Opcional: podrías preguntar antes con un confirm(), pero pediste redirigir directo.
             window.location.href = '/altaHuesped';
             return;
         }
 
-        // Preparar parámetros
         const params = new URLSearchParams();
         if(nombre) params.append('nombre', nombre);
         if(apellido) params.append('apellido', apellido);
@@ -311,9 +307,7 @@
 
             const data = await response.json();
 
-            // Si no hay resultados, ir a Alta Huesped
             if (!data || data.length === 0) {
-                // Usamos SweetAlert para que sea más bonito antes de redirigir
                 Swal.fire({
                     icon: 'info',
                     title: 'No encontrado',
@@ -330,7 +324,6 @@
 
         } catch (error) {
             console.error('Error:', error);
-            // Si hubo un error real de conexión, lo mostramos
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -347,7 +340,6 @@
         const tbody = document.getElementById('tablaCuerpo');
         const inputHidden = document.getElementById('selectedHuespedId');
         
-        // Limpiar tabla y selección previa
         tbody.innerHTML = ''; 
         inputHidden.value = ''; 
         cantidadSpan.textContent = `(${huespedes.length})`;
@@ -355,8 +347,7 @@
         huespedes.forEach(h => {
             const row = document.createElement('tr');
             row.style.cursor = 'pointer';
-            
-            // Usamos nroDocumento como ID (asegúrate que sea único o usa un ID de base de datos)
+
             const valorId = h.nroDocumento; 
 
             row.innerHTML = `
@@ -368,13 +359,11 @@
                 <td>${h.email || '-'}</td>
                 <td>${h.telefono}</td>
             `;
-            
-            // 2. SOLUCIÓN PROBLEMA SELECCIÓN: Toggle (Seleccionar / Deseleccionar)
+
             row.onclick = function() {
                 const radio = this.querySelector('input[type="radio"]');
                 const yaEstabaSeleccionado = (inputHidden.value === String(valorId));
 
-                // Reseteamos estilos de TODAS las filas primero
                 const filas = tbody.querySelectorAll('tr');
                 filas.forEach(f => {
                     f.style.backgroundColor = 'white';
@@ -382,15 +371,13 @@
                 });
 
                 if (yaEstabaSeleccionado) {
-                    // DESELECCIONAR: Si clicamos el que ya estaba marcado
-                    inputHidden.value = ''; // Borramos el ID guardado
-                    radio.checked = false;  // Visualmente desmarcado
-                    this.style.backgroundColor = 'white'; // Fondo normal
+                    inputHidden.value = '';
+                    radio.checked = false; 
+                    this.style.backgroundColor = 'white';
                 } else {
-                    // SELECCIONAR NUEVO
                     inputHidden.value = valorId;
                     radio.checked = true;
-                    this.style.backgroundColor = '#eaf2f8'; // Color de selección
+                    this.style.backgroundColor = '#eaf2f8';
                 }
             };
 
@@ -400,15 +387,12 @@
         contenedor.style.display = 'block';
     }
 
-    // --- FUNCIÓN SIGUIENTE (Popup Mockup) ---
     function siguiente() {
         const idSeleccionado = document.getElementById('selectedHuespedId').value;
 
-        // Si no seleccionó nada -> Ir a Alta Huesped
         if (!idSeleccionado) {
             window.location.href = '/altaHuesped';
         } else {
-            // 3. SOLUCIÓN PROBLEMA ERROR SIGUIENTE: Popup de "En proceso"
             Swal.fire({
                 title: 'Funcionalidad en desarrollo',
                 text: 'Ahora se debería ejecutar modificar huésped, implementación en proceso...',
@@ -417,7 +401,6 @@
                 confirmButtonColor: '#4a90e2',
                 background: '#e9f0fa'
             }).then((result) => {
-                // Al tocar OK, recargamos o limpiamos la selección
                 if (result.isConfirmed) {
                     
                     window.location.reload(); 

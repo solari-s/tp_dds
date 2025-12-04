@@ -8,14 +8,15 @@ import jakarta.persistence.*;
 @Embeddable
 public class HuespedPK implements Serializable {
 
-    @Enumerated(EnumType.STRING) //hace que el tipo se guarde como string :D
+    @Enumerated(EnumType.STRING) // hace que el tipo se guarde como string :D
     @Column(nullable = false)
     private TipoDoc tipo_documento;
 
     @Column(nullable = false, length = 10)
     private String nroDocumento;
 
-    public HuespedPK() {}
+    public HuespedPK() {
+    }
 
     public HuespedPK(TipoDoc tipo_documento, String nroDocumento) {
         this.tipo_documento = tipo_documento;
@@ -39,13 +40,14 @@ public class HuespedPK implements Serializable {
         this.nroDocumento = nroDocumento;
     }
 
-    // equals() y hashCode() obligatorios
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HuespedPK)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof HuespedPK))
+            return false;
         HuespedPK that = (HuespedPK) o;
-       return Objects.equals(tipo_documento, that.tipo_documento) && Objects.equals(nroDocumento, that.nroDocumento);
+        return Objects.equals(tipo_documento, that.tipo_documento) && Objects.equals(nroDocumento, that.nroDocumento);
     }
 
     @Override
@@ -53,4 +55,3 @@ public class HuespedPK implements Serializable {
         return Objects.hash(tipo_documento, nroDocumento);
     }
 }
-

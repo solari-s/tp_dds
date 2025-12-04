@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProvinciaDTO {
-    
+
     private String nombre;
-    // Muchas provincias pertenecen a un mismo país
     private Pais pais;
-    // Una provincia tiene muchas localidades
     private List<Localidad> localidades = new ArrayList<>();
 
-    public ProvinciaDTO() {}
+    public ProvinciaDTO() {
+    }
 
     public ProvinciaDTO(String nombre, Pais pais) {
         this.nombre = nombre;
@@ -20,12 +19,27 @@ public class ProvinciaDTO {
 
     // Getters y setters
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public Pais getPais() { return pais; }
-    public void setPais(Pais pais) { this.pais = pais; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public List<Localidad> getLocalidades() { return localidades; }
-    public void setLocalidades(List<Localidad> localidades) { this.localidades = localidades; }
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public List<Localidad> getLocalidades() {
+        return localidades;
+    }
+
+    public void setLocalidades(List<Localidad> localidades) {
+        this.localidades = localidades;
+    }
 }

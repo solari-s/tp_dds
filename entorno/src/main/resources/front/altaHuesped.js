@@ -1,17 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formHuesped");
-  const mensajeDiv = document.getElementById("mensaje"); // Lo mantenemos por si lo usas para 'mostrarExito'
+  const mensajeDiv = document.getElementById("mensaje"); 
   const btnCancelar = document.getElementById("btnCancelar");
 
 
   form.addEventListener("submit", e => {
     e.preventDefault();
-    clearFieldErrors(); // Llama a la nueva función (ver abajo)
+    clearFieldErrors();
     
     let hayErrores = false;
-
-    // --- VALIDACIONES ---
-    // (Ahora solo añadimos .campo-error y ponemos hayErrores = true)
 
     const apellidoEl = document.getElementById("apellido");
     if (!apellidoEl.value.trim()) {
@@ -54,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       nacimientoEl.classList.add("campo-error");
       nacimientoEl.closest('.seleccionar')?.querySelector('.flecha')?.classList.add('cajon-error');
       hayErrores = true;
-    } else if (new Date(nacimiento) > new Date()) { // Asumiendo que flatpickr no lo previene
+    } else if (new Date(nacimiento) > new Date()) { 
       nacimientoEl.classList.add("campo-error");
       hayErrores = true;
     }
@@ -97,16 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- RESULTADO ---
     if (hayErrores) {
       console.log("Formulario inválido, campos marcados en rojo.");
-      return; // Detiene el envío, pero no muestra ningún mensaje de texto
+      return; 
     }
 
-    // Si todo está bien
     mostrarExito(`✅ El huésped se cargó correctamente.`);
     form.reset();
   });
 
-  // --- [NUEVO] LIMPIEZA AUTOMÁTICA DE ERRORES ---
-  // Esto quita el borde rojo en cuanto el usuario empieza a escribir o cambia una opción.
   form.querySelectorAll("input, select").forEach(campo => {
     const limpiarError = () => {
       campo.classList.remove("campo-error");
@@ -122,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const resultado = await Swal.fire({
       title: "¿Desea cancelar el alta del huésped?",
-      showCancelButton: true, // Muestra el botón de "cancelar"
+      showCancelButton: true,
       confirmButtonText: "SÍ",
       cancelButtonText: "NO",
       confirmButtonColor: "#A8C6FA", 
@@ -134,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
       reverseButtons: true
     });
 
-    // Si el usuario hizo clic en SI
     if (resultado.isConfirmed) {
       clearFieldErrors();
       form.reset();
@@ -149,21 +142,17 @@ document.addEventListener("DOMContentLoaded", () => {
       cancelButtonText: "NO"
 
     });
-
-    // Limpiamos el formulario después del éxito
     form.reset();
 }); 
 
 
-// --- FUNCIONES AUXILIARES MODIFICADAS ---
+// --- FUNCIONES AUXILIARES  ---
 
 function clearFieldErrors() {
-  // Busca TODOS los campos y les quita la clase de error
   document.querySelectorAll("input, select").forEach(el => {
     el.classList.remove("campo-error");
   });
   
-  // Sigue limpiando el div de mensajes por si 'mostrarExito' lo usó
   const mensajeDiv = document.getElementById("mensaje");
   if (mensajeDiv) mensajeDiv.textContent = "";
 

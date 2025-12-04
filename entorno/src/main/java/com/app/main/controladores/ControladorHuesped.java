@@ -41,15 +41,12 @@ public class ControladorHuesped {
         return "redirect:/";
     }
 
-    // Método para cargar la vista inicial
     @GetMapping("/buscarHuesped")
     public String buscarHuesped(Model model) {
         model.addAttribute("tiposDocumento", TipoDoc.values());
         return "buscarHuesped";
     }
 
-    // NUEVO: Endpoint API para realizar la búsqueda dinámica
-    // Retorna JSON para ser consumido por el JavaScript de la vista
     @GetMapping("/api/huespedes/buscar")
     @ResponseBody
     public ResponseEntity<List<HuespedDTO>> buscarHuespedesAPI(
@@ -60,7 +57,6 @@ public class ControladorHuesped {
 
         HuespedDTO filtro = new HuespedDTO();
 
-        // Asignamos solo si no están vacíos para que el Gestor filtre correctamente
         if (nombre != null && !nombre.isEmpty())
             filtro.setNombre(nombre);
         if (apellido != null && !apellido.isEmpty())
@@ -69,7 +65,6 @@ public class ControladorHuesped {
             try {
                 filtro.setTipo_documento(TipoDoc.valueOf(tipoDocumento));
             } catch (IllegalArgumentException e) {
-                // Si el tipo de documento no es válido, lo ignoramos o manejamos el error
                 System.out.println("Tipo de documento inválido: " + tipoDocumento);
             }
         }
@@ -82,25 +77,19 @@ public class ControladorHuesped {
 
     @GetMapping("/estado")
     public String mostrarPaginaEstado() {
-        // Busca "estadoHabitacion.html"
         return "estadoHabitacion";
     }
 
     @GetMapping("/reservar")
     public String mostrarPaginaReserva() {
-        return "reservarHabitacion"; // Busca reservarHabitacion.html
+        return "reservarHabitacion";
     }
 
-    // Endpoint para recibir el JSON desde el fetch de JavaScript
     @PostMapping("/api/huespedes/crear")
     @ResponseBody
-    public ResponseEntity<?> crearHuespedAPI(@RequestBody ContenedorDeAltaHuesped request) { // <-- CAMBIO AQUÍ
+    public ResponseEntity<?> crearHuespedAPI(@RequestBody ContenedorDeAltaHuesped request) {
         try {
-            // PASO 1: Registrar Huésped (GestorHuesped)
             Huesped huespedGuardado = gestorHuesped.darDeAltaHuesped(request.getHuesped());
-
-            // PASO 2: Registrar Responsable Fiscal (GestorContable)
-            // Solo si mandaron datos de persona física
             if (request.getPersonaFisica() != null &&
                     request.getPersonaFisica().getCUIT() != null &&
                     !request.getPersonaFisica().getCUIT().isEmpty()) {
@@ -111,7 +100,7 @@ public class ControladorHuesped {
             return ResponseEntity.ok().body("{\"message\": \"Huesped y Responsable creados exitosamente\"}");
 
         } catch (Exception e) {
-            e.printStackTrace(); // Útil para ver errores en consola del servidor
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }

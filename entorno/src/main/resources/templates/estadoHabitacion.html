@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <style>
-        /* --- ESTILOS GENERALES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -37,7 +36,6 @@
             text-align: center; color: #333; margin-top: 10px; margin-bottom: 40px; font-size: 24px;
         }
 
-        /* --- FORMULARIO SUPERIOR --- */
         .search-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding: 0 20px;
         }
@@ -57,7 +55,6 @@
 
         label { color: #333; font-weight: 500; font-size: 15px; }
 
-        /* Estilos input fecha */
         .seleccionar {
             position: relative;
             display: block;
@@ -92,7 +89,6 @@
         }
         .btn-primary:hover { background-color: #a9cce3; }
 
-        /* --- RESULTADOS --- */
         .results-box {
             border: 1px solid #a9cce3; background-color: #f0f8ff;
             border-radius: 8px; padding: 20px; display: none; margin-top: 20px;
@@ -102,7 +98,6 @@
 
         .results-box h3 { text-align: center; font-size: 16px; margin-bottom: 15px; font-weight: normal; color: #333; }
 
-        /* --- TABS --- */
         .tabs-container { display: flex; gap: 2px; margin-bottom: 0; }
         .tab {
             background-color: #e0e0e0; border: 1px solid #999; border-bottom: none;
@@ -110,7 +105,6 @@
         }
         .tab.active { background-color: white; font-weight: bold; border-bottom: 1px solid white; position: relative; top: 1px; z-index: 5; }
 
-        /* --- TABLA --- */
         .grid-wrapper {
             background-color: #e6e6e6; border: 1px solid #999; height: 300px;
             overflow-y: auto; position: relative;
@@ -128,11 +122,9 @@
             text-align: center; vertical-align: middle;
         }
         
-        /* Colores de estado (Visualizador) */
-        .status-gray { background-color: #bfbfbf; color: #555; } /* Ocupada */
-        .status-green { background-color: #90ee90; } /* Disponible */
+        .status-gray { background-color: #bfbfbf; color: #555; }
+        .status-green { background-color: #90ee90; }
 
-        /* Scrollbar */
         .grid-wrapper::-webkit-scrollbar { width: 18px; }
         .grid-wrapper::-webkit-scrollbar-track { background: #eaf2f8; border-left: 1px solid #a9cce3; }
         .grid-wrapper::-webkit-scrollbar-thumb { background-color: #a9cce3; border-radius: 10px; border: 3px solid #eaf2f8; }
@@ -212,7 +204,6 @@
 
     document.addEventListener("DOMContentLoaded", function() {
 
-        // 1. Configurar Calendarios
         flatpickr("#desde", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
         flatpickr("#hasta", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
 
@@ -222,7 +213,6 @@
         const inputHasta = document.getElementById('hasta');
         const btnSiguiente = document.getElementById('btnSiguiente');
 
-        // --- BUSCAR DISPONIBILIDAD ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -242,15 +232,12 @@
                 return;
             }
 
-            // Preparar fecha ISO para backend (yyyy-MM-dd)
             const isoDesde = formatearISO(fechaInicio);
             const isoHasta = formatearISO(fechaFin);
 
-            // Obtener el tab activo (o default a IE)
             const tabActiva = document.querySelector('.tab.active');
             const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
 
-            // Llamar al backend
             fetch(`/api/habitaciones/estado?desde=${isoDesde}&hasta=${isoHasta}`)
             .then(response => {
                 if (!response.ok) throw new Error("Error en servidor");
@@ -260,7 +247,6 @@
                 datosHabitaciones = data;
                 listaFechas = generarListaFechas(desdeVal, hastaVal);
                 
-                // Renderizar según el tab actual
                 filtrarColumnasPorTipo(codigoTipo);
                 resultsArea.classList.add('show');
             })
@@ -270,14 +256,12 @@
             });
         });
 
-        // --- RENDERIZAR TABLA (SOLO LECTURA) ---
         function renderizarTabla(habitacionesFiltradas, fechas) {
             const thead = document.querySelector("table thead");
             const tbody = document.querySelector("table tbody");
             thead.innerHTML = "";
             tbody.innerHTML = "";
 
-            // A. Cabecera
             const trHead = document.createElement("tr");
             const thFecha = document.createElement("th");
             thFecha.textContent = "Fecha";
@@ -292,7 +276,6 @@
             });
             thead.appendChild(trHead);
 
-            // B. Cuerpo
             fechas.forEach((fechaStr, i) => {
                 const tr = document.createElement("tr");
                 const tdFecha = document.createElement("td");
@@ -308,8 +291,8 @@
                         td.title = "Disponible";
                     } else {
                         td.className = 'status-gray';
-                        td.title = estado; // Muestra "Ocupada", "Reservada", etc al pasar el mouse
-                        td.innerText = "X"; // Opcional: marca visual
+                        td.title = estado;
+                        td.innerText = "X";
                     }
                     tr.appendChild(td);
                 });
@@ -343,11 +326,9 @@
                 return;
             }
 
-            // Redirigir a la pantalla de Reserva pasando las fechas
             window.location.href = `reservar?desde=${encodeURIComponent(desde)}&hasta=${encodeURIComponent(hasta)}`;
         });
 
-        // --- UTILS ---
         function parseDateLocal(str) {
             const [d, m, y] = str.split('/');
             return new Date(y, m-1, d);

@@ -6,15 +6,16 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "personas_fisicas")
-public class PersonaFisica extends ResponsablePago {    
+public class PersonaFisica extends ResponsablePago {
 
-    @Column(nullable = false, length = 100) //debe resolverse que PosicionIVA default es Consumidor final
+    @Column(nullable = false, length = 100)
     private String PosicionIVA;
-    
+
     @OneToOne
     private Huesped RefHuesped;
 
-    protected PersonaFisica() {}
+    protected PersonaFisica() {
+    }
 
     public PersonaFisica(String PosicionIVA, String CUIT, Huesped RefHuesped) {
         super(CUIT);

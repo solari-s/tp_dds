@@ -26,9 +26,8 @@ public class GestorReservas {
     private HistorialEstadoHabitacionRepository historialRepo;
 
     @Autowired
-    private HabitacionRepository habitacionRepo; // Inyección correcta del repositorio
+    private HabitacionRepository habitacionRepo;
 
-    // --- BÚSQUEDA DE DISPONIBILIDAD (Para el script JS) ---
     public List<Map<String, Object>> buscarDisponibilidad(String tipoString, String desdeStr, String hastaStr) {
         List<Map<String, Object>> listaResultado = new ArrayList<>();
 
@@ -45,7 +44,7 @@ public class GestorReservas {
         List<Date> rango = generarRangoFechas(desde, hasta);
 
         for (Date fecha : rango) {
-            boolean sd1 = verificarLibre(1, tipoEnum, fecha); // Ajustar lógica según tu necesidad real
+            boolean sd1 = verificarLibre(1, tipoEnum, fecha);
             boolean sd2 = verificarLibre(2, tipoEnum, fecha);
 
             Map<String, Object> fila = new HashMap<>();
@@ -58,11 +57,9 @@ public class GestorReservas {
         return listaResultado;
     }
 
-    // --- CREAR RESERVA (Método que daba error) ---
     @Transactional
     public String crearReserva(String tipoStr, int numeroHab, String fechaInicioStr, String fechaFinStr) {
         try {
-            // 1. Validaciones
             Date fechaInicio = parsearFechaFront(fechaInicioStr);
             Date fechaFin = parsearFechaFront(fechaFinStr);
 
@@ -73,7 +70,6 @@ public class GestorReservas {
             if (tipoEnum == null)
                 return "Error: Tipo de habitación inválido";
 
-            // 2. Verificar disponibilidad
             List<Date> diasSolicitados = generarRangoFechas(fechaInicio, fechaFin);
             for (Date dia : diasSolicitados) {
                 if (!verificarLibre(numeroHab, tipoEnum, dia)) {
@@ -82,17 +78,12 @@ public class GestorReservas {
                 }
             }
 
-            // 3. Buscar la habitación
-            // --- CORRECCIÓN AQUÍ: Usamos verificación clásica ---
             Habitacion habitacionRef = habitacionRepo.findByIdNumeroAndIdTipo(numeroHab, tipoEnum);
 
             if (habitacionRef == null) {
-                // Si es null, lanzamos el error manualmente
                 return "Error: La habitación no existe (Revise número y tipo)";
             }
-            // ----------------------------------------------------
 
-            // 4. Crear Reserva
             HistorialEstadoHabitacion nuevo = new HistorialEstadoHabitacion(
                     habitacionRef,
                     "14:00",
@@ -111,7 +102,6 @@ public class GestorReservas {
         }
     }
 
-    // --- UTILIDADES ---
     private TipoHabitacion normalizarTipo(String t) {
         try {
             if (t == null)

@@ -17,37 +17,35 @@ public class Factura {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoFactura tipoFactura;
-    
+
     @Column(nullable = false)
     private float valorEstadia;
-    
-    // CU 16 10.A. El sistema comprueba que el monto acumulado es menor a la deuda. 
-    // 10.A.1. El sistema actualiza el campo “Total a pagar”
+
     @Column(nullable = false)
     private float totalAPagar;
-    
+
     @Column(nullable = false)
     private float vuelto;
-    
-    // totalAPagar == 0 (?)
+
     @Column(nullable = false)
     private boolean pagado;
 
     @ManyToOne
     @JoinColumn(name = "responsable_pago")
-    private ResponsablePago responsablePago; 
+    private ResponsablePago responsablePago;
 
     @OneToMany(mappedBy = "factura")
     private List<FormaDePago> formasDePago;
 
     @ManyToOne
-    @JoinColumn( name = "nota_cancela")
+    @JoinColumn(name = "nota_cancela")
     private NotaDeCredito notaDeCredito;
 
-    public Factura(){}
+    public Factura() {
+    }
 
-    //creo q esto es lo mínimo idkkk
-    public Factura(ResponsablePago responsablePago, int valorEstadia, float totalAPagar){
+    // creo q esto es lo mínimo idkkk
+    public Factura(ResponsablePago responsablePago, int valorEstadia, float totalAPagar) {
         this.responsablePago = responsablePago;
         this.totalAPagar = totalAPagar;
         this.valorEstadia = valorEstadia;
@@ -102,11 +100,11 @@ public class Factura {
         this.pagado = pagado;
     }
 
-    public ResponsablePago getResponsablePago(){
+    public ResponsablePago getResponsablePago() {
         return responsablePago;
     }
 
-    public void setResponsablePago(ResponsablePago p){
+    public void setResponsablePago(ResponsablePago p) {
         this.responsablePago = p;
     }
 
@@ -118,7 +116,7 @@ public class Factura {
         this.formasDePago = formasDePago;
     }
 
-    public void agregarFormaDePago(FormaDePago f){
+    public void agregarFormaDePago(FormaDePago f) {
         formasDePago.add(f);
     }
 

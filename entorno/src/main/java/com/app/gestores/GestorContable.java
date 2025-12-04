@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.responsablePago.*;
+import com.app.huesped.Huesped;
 import com.app.repository.PersonaFisicaRepository;
 import com.app.repository.PersonaJuridicaRepository;
 import com.app.repository.ResponsablePagoRepository;
@@ -32,4 +33,29 @@ public class GestorContable{
         return respp;
     }
 
+    public void registrarPersonaFisica(PersonaFisicaDTO pfDto, Huesped huespedReferencia) {
+        if (pfDto == null || pfDto.getCUIT() == null) return;
+
+        // 1. Formatear CUIT si viene sucio del front (opcional, buena práctica)
+        String cuitLimpio = pfDto.getCUIT().replaceAll("[^0-9]", "");
+        String cuitFormateado = cuitLimpio; 
+        if (cuitLimpio.length() == 11) {
+             cuitFormateado = cuitLimpio.substring(0, 2) + "-" + 
+                              cuitLimpio.substring(2, 10) + "-" + 
+                              cuitLimpio.substring(10, 11);
+        }
+
+        // 2. Crear la entidad
+        // Nota: Al usar herencia JOINED, guardar la hija (PersonaFisica) 
+        // automáticamente inserta en la tabla padre (ResponsablePago).
+        PersonaFisica nuevaPF = new PersonaFisica(
+            pfDto.getPosicionIVA(),
+            cuitFormateado,
+            huespedReferencia // Aquí vinculamos el huesped que nos pasan
+        );
+
+        // 3. Guardar
+        personaFisicaRepository.save(nuevaPF);
+    }
 }
+

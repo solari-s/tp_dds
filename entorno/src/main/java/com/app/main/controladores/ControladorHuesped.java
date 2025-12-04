@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.app.gestores.GestorContable;
 import com.app.gestores.GestorHuesped;
 import com.app.huesped.Huesped;
 import com.app.huesped.HuespedDTO;
@@ -25,6 +26,9 @@ public class ControladorHuesped {
 
     @Autowired
     private GestorHuesped gestorHuesped;
+
+    @Autowired
+    private GestorContable gestorContable;
 
     @GetMapping("/altaHuesped")
     public String altaHuesped(Model model) {
@@ -85,12 +89,25 @@ public class ControladorHuesped {
     // Endpoint para recibir el JSON desde el fetch de JavaScript
     @PostMapping("/api/huespedes/crear")
     @ResponseBody
-    public ResponseEntity<?> crearHuespedAPI(@RequestBody HuespedDTO huespedDTO) {
+    public ResponseEntity<?> crearHuespedAPI(@RequestBody ContenedorDeAltaHuesped request) { // <-- CAMBIO AQUÍ
         try {
-            gestorHuesped.darDeAltaHuesped(huespedDTO);
-            return ResponseEntity.ok().body("{\"message\": \"Huesped creado exitosamente\"}");
+            // PASO 1: Registrar Huésped (GestorHuesped)
+            Huesped huespedGuardado = gestorHuesped.darDeAltaHuesped(request.getHuesped());
+
+            // PASO 2: Registrar Responsable Fiscal (GestorContable)
+            // Solo si mandaron datos de persona física
+            if (request.getPersonaFisica() != null && 
+                request.getPersonaFisica().getCUIT() != null && 
+                !request.getPersonaFisica().getCUIT().isEmpty()) {
+                
+                gestorContable.registrarPersonaFisica(request.getPersonaFisica(), huespedGuardado);
+            }
+
+            return ResponseEntity.ok().body("{\"message\": \"Huesped y Responsable creados exitosamente\"}");
+
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al crear huésped: " + e.getMessage());
+            e.printStackTrace(); // Útil para ver errores en consola del servidor
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 }

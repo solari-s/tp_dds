@@ -15,6 +15,15 @@ public interface HistorialEstadoHabitacionRepository
         extends JpaRepository<HistorialEstadoHabitacion, HistorialHabitacionPK> {
 
     // Buscar historial de una habitación específica
-    @Query("SELECT h FROM HistorialEstadoHabitacion h WHERE h.id.habitacionPK.numero = :numero AND h.id.habitacionPK.tipo = :tipo")
-    List<HistorialEstadoHabitacion> findByHabitacion(@Param("numero") int numero, @Param("tipo") TipoHabitacion tipo);
+    @Query("""
+            SELECT h FROM HistorialEstadoHabitacion h
+            WHERE h.id.numero = :numero
+              AND h.id.tipo = :tipo
+            """)
+    List<HistorialEstadoHabitacion> findByHabitacion(
+            @Param("numero") int numero,
+            @Param("tipo") TipoHabitacion tipo);
+
+    List<HistorialEstadoHabitacion> findByIdNumeroAndIdTipo(int numero, TipoHabitacion tipo);
+
 }

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cuitEl = document.getElementById("cuit");
     const cuit = cuitEl.value.trim();
-    if (cuit && !isValidCUIT(cuit)) {
+    if (!isValidCUIT(cuit)) {
       cuitEl.classList.add("campo-error");
       hayErrores = true;
     }
@@ -88,38 +88,48 @@ document.addEventListener("DOMContentLoaded", () => {
       nacionalidadEl.classList.add("campo-error");
       hayErrores = true;
     }
+    const ivaEl = document.getElementById("iva");
 
     // --- RESULTADO ---
-if (hayErrores) {
+  if (hayErrores) {
       console.log("Formulario inválido, campos marcados en rojo.");
       return;
     }
 
-    // 1. Preparar los datos (Mapeo manual de IDs HTML a atributos del DTO)
-    const datosHuesped = {
-        nombre: nombresEl.value,      // HTML id="nombres" -> DTO "nombre"
+    const dtoHuesped = {
+        nombre: nombresEl.value,
         apellido: apellidoEl.value,
-        // Convertimos a mayúsculas para asegurar que coincida con el Enum en Java (DNI, PASAPORTE)
         tipo_documento: tipoDocEl.value.toUpperCase(), 
-        nroDocumento: numDocEl.value, // HTML id="numDoc" -> DTO "nroDocumento"
-        // Convertimos la fecha de dd/mm/yyyy a yyyy-mm-dd
+        nroDocumento: numDocEl.value,
         fechaDeNacimiento: convertirFecha(nacimientoEl.value),
         nacionalidad: nacionalidadEl.value,
         email: emailEl.value,
         telefono: telefonoEl.value,
         ocupacion: ocupacionEl.value,
-        direccion: direccionEl.value 
+        direccion: direccionEl.value
+    };
+
+    let dtoPersonaFisica = null;
+    if (cuitEl.value.trim() !== "") {
+        dtoPersonaFisica = {
+            cuit: cuitEl.value.trim(),      // Asegúrate que coincida con el campo en Java (CUIT o cuit)
+            posicionIVA: ivaEl.value
+            // refHuesped no se manda, se asigna en el backend
+        };
+    }
+
+    const payload = {
+        huesped: dtoHuesped,
+        personaFisica: dtoPersonaFisica
     };
 
     try {
-        // 2. Enviar al servidor
         const response = await fetch('/api/huespedes/crear', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datosHuesped)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) // Enviamos el wrapper
         });
+        
 
         if (!response.ok) throw new Error('Error en la respuesta del servidor');
 

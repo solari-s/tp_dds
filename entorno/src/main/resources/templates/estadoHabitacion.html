@@ -230,7 +230,8 @@
         // --- VALIDACIÓN Y BÚSQUEDA ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+            // debug -> console.log("SUBMIT DISPARADO");
+
             // 1. Limpiamos errores previos y ocultamos tabla por si acaso
             limpiarErrores();
             resultsArea.classList.remove('show');
@@ -256,7 +257,10 @@
             }
 
             // 3. Si pasa la validación, hacemos el Fetch
-            fetch(`/api/reservas/buscar?tipo=${tipo}&desde=${desde}&hasta=${hasta}`)
+            console.log("Llamando a:", `/api/reservas/buscar?tipo=${codigoTipo}&desde=${desdeVal}&hasta=${hastaVal}`);
+            const tabActiva = document.querySelector('.tab.active');
+            const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
+            fetch(`/api/reservas/buscar?tipo=${codigoTipo}&desde=${desdeVal}&hasta=${hastaVal}`)
             .then(response => {
                 if (!response.ok) throw new Error("Error en la respuesta del servidor");
                 return response.json();

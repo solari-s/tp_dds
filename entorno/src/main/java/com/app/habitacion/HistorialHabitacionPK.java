@@ -8,13 +8,18 @@ import java.util.Objects;
 @Embeddable
 public class HistorialHabitacionPK implements Serializable {
 
-    @Embedded
-    private HabitacionPK habitacionPK;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false)
+    private TipoHabitacion tipo;
 
+    @Column(name = "numero", nullable = false)
+    private int numero;
+
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date fecha;// inicio del estado
+    private Date fecha;
 
-    // hashcode y equals
+    // equals & hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -22,46 +27,47 @@ public class HistorialHabitacionPK implements Serializable {
         if (!(o instanceof HistorialHabitacionPK))
             return false;
         HistorialHabitacionPK that = (HistorialHabitacionPK) o;
-        return Objects.equals(habitacionPK, that.habitacionPK) && Objects.equals(fecha, that.fecha);
+        return numero == that.numero &&
+                tipo == that.tipo &&
+                Objects.equals(fecha, that.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(habitacionPK, fecha);
+        return Objects.hash(tipo, numero, fecha);
     }
 
-    // constructores
+    // constructor vacío
     public HistorialHabitacionPK() {
-        this.habitacionPK = new HabitacionPK();
     }
 
+    // constructor
     public HistorialHabitacionPK(TipoHabitacion tipo, int numero, Date fecha) {
-        this.habitacionPK = new HabitacionPK();
-        habitacionPK.setTipo(tipo);
-        habitacionPK.setNumero(numero);
+        this.tipo = tipo;
+        this.numero = numero;
         this.fecha = fecha;
     }
 
-    // getter
+    // getters
     public TipoHabitacion getTipo() {
-        return habitacionPK.getTipo();
+        return tipo;
     }
 
     public int getNumero() {
-        return habitacionPK.getNumero();
+        return numero;
     }
 
     public Date getFecha() {
         return fecha;
     }
 
-    // setter
+    // setters
     public void setTipo(TipoHabitacion tipo) {
-        habitacionPK.setTipo(tipo);
+        this.tipo = tipo;
     }
 
     public void setNumero(int numero) {
-        habitacionPK.setNumero(numero);
+        this.numero = numero;
     }
 
     public void setFecha(Date fecha) {

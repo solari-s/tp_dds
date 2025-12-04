@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.huesped.Huesped;
 import com.app.huesped.HuespedDTO;
-import com.app.huesped.HuespedPK;
+
 import com.app.repository.HuespedRepository;
 
 
@@ -19,13 +19,12 @@ public class GestorHuesped{
     @Autowired
     private HuespedRepository huespedRepository;
 
-    public HuespedDTO darDeAltaHuesped(HuespedDTO huesped) {
-        if(huesped!=null){
-            Huesped huespedGuardar = new Huesped(huesped);
-            huespedRepository.save(huespedGuardar);
-            return huesped;
-        }
-        else return null;
+    
+    public Huesped darDeAltaHuesped(HuespedDTO huespedDto) {
+        if (huespedDto == null) return null;
+
+        Huesped huespedGuardar = new Huesped(huespedDto);
+        return huespedRepository.save(huespedGuardar);
     }
 
     public List<HuespedDTO> buscarHuespedes(HuespedDTO filtro) {

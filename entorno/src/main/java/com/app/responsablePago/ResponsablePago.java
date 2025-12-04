@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class ResponsablePago {
+public class ResponsablePago {
     
     @Id
     private String CUIT;

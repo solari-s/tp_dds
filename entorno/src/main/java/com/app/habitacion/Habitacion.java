@@ -52,14 +52,39 @@ public class Habitacion {
             return EstadoHabitacion.Disponible;
         }
 
+        // 1. Normalizar la fecha consultada (poner hora a 00:00:00)
+        java.util.Calendar calConsulta = java.util.Calendar.getInstance();
+        calConsulta.setTime(fecha);
+        resetTime(calConsulta);
+        java.util.Date fechaConsultaZero = calConsulta.getTime();
+
         for (HistorialEstadoHabitacion historial : this.historialEstados) {
-            // Verificar si la fecha cae dentro del rango del historial
-            // Nota: Asegúrate de comparar ignorando horas si es necesario, aquí uso comparación directa de Date
-            if (!fecha.before(historial.getFechaInicio()) && !fecha.after(historial.getFechaFin())) {
+            // 2. Normalizar fecha inicio del historial
+            java.util.Calendar calInicio = java.util.Calendar.getInstance();
+            calInicio.setTime(historial.getFechaInicio());
+            resetTime(calInicio);
+
+            // 3. Normalizar fecha fin del historial
+            java.util.Calendar calFin = java.util.Calendar.getInstance();
+            calFin.setTime(historial.getFechaFin());
+            resetTime(calFin);
+
+            // 4. Comparar: (fecha >= inicio) Y (fecha <= fin)
+            // !before(inicio) equivale a >= inicio
+            // !after(fin) equivale a <= fin
+            if (!fechaConsultaZero.before(calInicio.getTime()) && !fechaConsultaZero.after(calFin.getTime())) {
                 return historial.getEstado();
             }
         }
         return EstadoHabitacion.Disponible;
+    }
+
+    // Método auxiliar privado para poner la hora en cero
+    private void resetTime(java.util.Calendar cal) {
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+        cal.set(java.util.Calendar.MINUTE, 0);
+        cal.set(java.util.Calendar.SECOND, 0);
+        cal.set(java.util.Calendar.MILLISECOND, 0);
     }
 
     //getters

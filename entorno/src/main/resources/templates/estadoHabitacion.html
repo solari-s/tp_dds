@@ -49,11 +49,10 @@
         .input-group {
             display: flex; align-items: center; gap: 10px;
         }
-        /* --- CLASES DE ERROR --- */
+        
         .input-error {
             border: 2px solid #ff4d4d !important;
             background-color: #fff0f0;
-            color: #d8000c;
         }
 
         label { color: #333; font-weight: 500; font-size: 15px; }
@@ -129,10 +128,9 @@
             text-align: center; vertical-align: middle;
         }
         
-        /* Colores de estado */
-        .status-gray { background-color: #bfbfbf; cursor: not-allowed; } 
-        .status-green { background-color: #90ee90; cursor: pointer; } 
-        .status-selected { background-color: #4a90e2 !important; color: white; }
+        /* Colores de estado (Visualizador) */
+        .status-gray { background-color: #bfbfbf; color: #555; } /* Ocupada */
+        .status-green { background-color: #90ee90; } /* Disponible */
 
         /* Scrollbar */
         .grid-wrapper::-webkit-scrollbar { width: 18px; }
@@ -146,11 +144,15 @@
 
     <div class="container">
         <div style="position: absolute; top: 15px; right: 15px; display: flex; gap: 10px;">
-            <div style="width: 30px; height: 30px; background: #90ee90; border: 1px solid #a9cce3; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
-            <div style="width: 30px; height: 30px; background: #bfbfbf; border: 1px solid #a9cce3; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold;">X</div>
+            <div style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                <div style="width: 20px; height: 20px; background: #90ee90; border: 1px solid #ccc;"></div> Disponible
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px; font-size: 12px;">
+                <div style="width: 20px; height: 20px; background: #bfbfbf; border: 1px solid #ccc;"></div> Ocupada/Reservada
+            </div>
         </div>
 
-        <h1>Estado de habitaciones</h1>
+        <h1>Estado de habitaciones (Visualizador)</h1>
 
         <form id="availabilityForm">
             <div class="search-bar">
@@ -175,13 +177,11 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary">Buscar</button>
+                <button type="submit" class="btn-primary">Buscar Disponibilidad</button>
             </div>
         </form>
 
         <div id="resultsArea" class="results-box">
-            <h3>Habitaciones disponibles</h3>
-
             <div class="tabs-container">
                 <button class="tab active" data-tipo="IE">Individual estándar</button>
                 <button class="tab" data-tipo="DE">Doble estándar</button>
@@ -198,7 +198,7 @@
             </div>
 
             <div class="bottom-action">
-                <button id="btnIrACU4" class="btn-primary">Siguiente</button>
+                <button id="btnSiguiente" class="btn-primary">Siguiente</button>
             </div>
         </div>
     </div>
@@ -209,277 +209,171 @@
 <script>
     let datosHabitaciones = [];
     let listaFechas = [];
-    // Guarda: { "101": { inicio: 0, fin: 3 } }
-    let selecciones = {}; 
 
     document.addEventListener("DOMContentLoaded", function() {
 
-        // 1. Configuración de Calendarios
+        // 1. Configurar Calendarios
         flatpickr("#desde", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
         flatpickr("#hasta", { locale: "es", dateFormat: "d/m/Y", allowInput: false, disableMobile: "true" });
 
         const form = document.getElementById('availabilityForm');
         const resultsArea = document.getElementById('resultsArea');
-        const btnIrACU4 = document.getElementById('btnIrACU4');
         const inputDesde = document.getElementById('desde');
         const inputHasta = document.getElementById('hasta');
+        const btnSiguiente = document.getElementById('btnSiguiente');
 
-        // --- VALIDACIÓN Y BÚSQUEDA ---
+        // --- BUSCAR DISPONIBILIDAD ---
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             limpiarErrores();
-            resultsArea.classList.remove('show');
-
+            
             const desdeVal = inputDesde.value;
             const hastaVal = inputHasta.value;
 
-            if (!desdeVal || !hastaVal) return alert("Por favor seleccione ambas fechas.");
+            if (!desdeVal || !hastaVal) return alert("Seleccione ambas fechas.");
 
             const fechaInicio = parseDateLocal(desdeVal);
             const fechaFin = parseDateLocal(hastaVal);
 
             if (fechaInicio > fechaFin) {
-                alert("Error: La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'.");
+                alert("La fecha 'Desde' no puede ser posterior a 'Hasta'.");
                 inputDesde.classList.add('input-error');
-                inputHasta.classList.add('input-error');
                 return;
             }
 
-            // --- CORRECCIÓN 1: Definir variables antes de usar y convertir fecha a ISO ---
-            const tabActiva = document.querySelector('.tab.active');
-            const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
-            
-            // Backend espera yyyy-MM-dd (ISO)
+            // Preparar fecha ISO para backend (yyyy-MM-dd)
             const isoDesde = formatearISO(fechaInicio);
             const isoHasta = formatearISO(fechaFin);
 
-            console.log("Consultando:", `/api/habitaciones/estado?desde=${isoDesde}&hasta=${isoHasta}`);
+            // Obtener el tab activo (o default a IE)
+            const tabActiva = document.querySelector('.tab.active');
+            const codigoTipo = tabActiva ? tabActiva.dataset.tipo : "IE";
 
+            // Llamar al backend
             fetch(`/api/habitaciones/estado?desde=${isoDesde}&hasta=${isoHasta}`)
             .then(response => {
-                if (!response.ok) throw new Error("Error en la respuesta del servidor");
+                if (!response.ok) throw new Error("Error en servidor");
                 return response.json();
             })
             .then(data => {
                 datosHabitaciones = data;
                 listaFechas = generarListaFechas(desdeVal, hastaVal);
-                // Reiniciar selecciones al buscar de nuevo
-                selecciones = {};
                 
-                filtrarColumnasPorTipo(codigoTipo); 
+                // Renderizar según el tab actual
+                filtrarColumnasPorTipo(codigoTipo);
                 resultsArea.classList.add('show');
             })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Hubo un error al obtener la disponibilidad. Verifique que el servidor esté corriendo.");
+            .catch(err => {
+                console.error(err);
+                alert("Error al cargar disponibilidad.");
             });
         });
 
-        // --- LÓGICA DE TABLA Y SELECCIÓN ---
+        // --- RENDERIZAR TABLA (SOLO LECTURA) ---
         function renderizarTabla(habitacionesFiltradas, fechas) {
-            const tableHead = document.querySelector("#resultsArea table thead");
-            const tableBody = document.querySelector("#resultsArea table tbody");
+            const thead = document.querySelector("table thead");
+            const tbody = document.querySelector("table tbody");
+            thead.innerHTML = "";
+            tbody.innerHTML = "";
 
-            tableHead.innerHTML = "";
-            tableBody.innerHTML = "";
-
-            // Cabecera
+            // A. Cabecera
             const trHead = document.createElement("tr");
             const thFecha = document.createElement("th");
             thFecha.textContent = "Fecha";
             trHead.appendChild(thFecha);
 
-            habitacionesFiltradas.sort((a, b) => a.numero - b.numero);
+            habitacionesFiltradas.sort((a,b) => a.numero - b.numero);
 
-            habitacionesFiltradas.forEach(hab => {
-                const th = document.createElement('th');
-                th.textContent = `Hab. ${hab.numero}`;
+            habitacionesFiltradas.forEach(h => {
+                const th = document.createElement("th");
+                th.textContent = `Hab. ${h.numero}`;
                 trHead.appendChild(th);
             });
-            tableHead.appendChild(trHead);
+            thead.appendChild(trHead);
 
-            // Cuerpo
-            fechas.forEach((fechaStr, diaIndex) => {
-                const tr = document.createElement('tr');
-                const tdFecha = document.createElement('td');
+            // B. Cuerpo
+            fechas.forEach((fechaStr, i) => {
+                const tr = document.createElement("tr");
+                const tdFecha = document.createElement("td");
                 tdFecha.textContent = fechaStr;
                 tr.appendChild(tdFecha);
 
-                habitacionesFiltradas.forEach(hab => {
-                    const td = document.createElement('td');
-                    const estado = hab.estadosPorDia[diaIndex]; // 'Disponible', 'Ocupada', etc.
+                habitacionesFiltradas.forEach(h => {
+                    const td = document.createElement("td");
+                    const estado = h.estadosPorDia[i];
 
-                    // Guardamos metadatos para el clic
-                    td.dataset.numero = hab.numero;
-                    td.dataset.dia = diaIndex;
-
-                    if (estado === 'Disponible') {
-                        td.classList.add('status-green');
-                        // Evento clic para seleccionar
-                        td.onclick = () => manejarSeleccion(hab.numero, diaIndex, td);
-                        // Verificar si ya estaba seleccionado (persistencia entre tabs)
-                        verificarSeleccionVisual(hab.numero, diaIndex, td);
+                    if(estado === 'Disponible') {
+                        td.className = 'status-green';
+                        td.title = "Disponible";
                     } else {
-                        td.classList.add('status-gray');
-                        td.title = estado;
+                        td.className = 'status-gray';
+                        td.title = estado; // Muestra "Ocupada", "Reservada", etc al pasar el mouse
+                        td.innerText = "X"; // Opcional: marca visual
                     }
                     tr.appendChild(td);
                 });
-                tableBody.appendChild(tr);
+                tbody.appendChild(tr);
             });
         }
 
-        // --- LÓGICA DE CLIC ---
-        function manejarSeleccion(numeroHab, diaIndex, celda) {
-            if (!selecciones[numeroHab]) {
-                selecciones[numeroHab] = { inicio: null, fin: null };
-            }
-            const sel = selecciones[numeroHab];
-
-            // 1. Primer clic (Inicio)
-            if (sel.inicio === null) {
-                sel.inicio = diaIndex;
-                celda.style.border = "3px solid #2e3d63"; // Marca visual temporal
-            } 
-            // 2. Segundo clic (Fin)
-            else if (sel.fin === null) {
-                if (diaIndex < sel.inicio) {
-                    alert("La fecha final debe ser posterior a la inicial.");
-                    resetSeleccion(numeroHab);
-                    return;
-                }
-                // Validar que no haya ocupados en el medio
-                if (!validarRangoDisponible(numeroHab, sel.inicio, diaIndex)) {
-                    alert("El rango incluye días no disponibles.");
-                    resetSeleccion(numeroHab);
-                    return;
-                }
-                sel.fin = diaIndex;
-                pintarRango(numeroHab, sel.inicio, sel.fin);
-            } 
-            // 3. Tercer clic (Reset)
-            else {
-                resetSeleccion(numeroHab); // Borra visual
-                selecciones[numeroHab].inicio = diaIndex; // Inicia nuevo inmediatamente
-                celda.style.border = "3px solid #2e3d63";
-            }
-        }
-
-        function validarRangoDisponible(numeroHab, inicio, fin) {
-            // Buscamos la habitación en los datos globales (no filtrados)
-            const hab = datosHabitaciones.find(h => h.numero == numeroHab);
-            for (let i = inicio; i <= fin; i++) {
-                if (hab.estadosPorDia[i] !== 'Disponible') return false;
-            }
-            return true;
-        }
-
-        function pintarRango(numeroHab, inicio, fin) {
-            // Pinta celdas de azul
-            const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
-            celdas.forEach(td => {
-                const dia = parseInt(td.dataset.dia);
-                if (dia >= inicio && dia <= fin) {
-                    td.classList.add('status-selected');
-                    td.style.border = 'none';
-                }
-            });
-        }
-
-        function verificarSeleccionVisual(numeroHab, diaIndex, td) {
-            const sel = selecciones[numeroHab];
-            if (sel && sel.inicio !== null && sel.fin !== null) {
-                if (diaIndex >= sel.inicio && diaIndex <= sel.fin) {
-                    td.classList.add('status-selected');
-                }
-            } else if (sel && sel.inicio === diaIndex) {
-                td.style.border = "3px solid #2e3d63";
-            }
-        }
-
-        function resetSeleccion(numeroHab) {
-            selecciones[numeroHab] = { inicio: null, fin: null };
-            const celdas = document.querySelectorAll(`td[data-numero='${numeroHab}']`);
-            celdas.forEach(td => {
-                td.classList.remove('status-selected');
-                td.style.border = '';
-            });
-        }
-
-        // --- TABS ---
+        // --- MANEJO DE TABS ---
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
-                e.preventDefault(); 
+                e.preventDefault();
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 filtrarColumnasPorTipo(tab.dataset.tipo);
             });
         });
 
-        function filtrarColumnasPorTipo(codigoTipo) {
-            // Filtramos localmente los datos que ya trajimos del backend
-            const habitacionesFiltradas = datosHabitaciones.filter(h => h.tipo === codigoTipo);
-            renderizarTabla(habitacionesFiltradas, listaFechas);
+        function filtrarColumnasPorTipo(codigo) {
+            const filtradas = datosHabitaciones.filter(h => h.tipo === codigo);
+            renderizarTabla(filtradas, listaFechas);
         }
 
         // --- BOTÓN SIGUIENTE ---
-        btnIrACU4.addEventListener("click", () => {
-            const desdeVal = inputDesde.value;
-            const hastaVal = inputHasta.value;
-
-            // Verificar si hay alguna selección hecha
-            let haySeleccion = false;
-            for (const key in selecciones) {
-                if (selecciones[key].fin !== null) haySeleccion = true;
+        btnSiguiente.addEventListener('click', () => {
+            const desde = inputDesde.value;
+            const hasta = inputHasta.value;
+            
+            if(!desde || !hasta) {
+                alert("Debe realizar una búsqueda primero.");
+                return;
             }
 
-            if (!haySeleccion) {
-                // Si no seleccionó celdas, al menos validamos fechas
-                if (!desdeVal || !hastaVal) return alert("Seleccione fechas.");
-            } else {
-                // Aquí podrías guardar 'selecciones' en localStorage o pasarlo en URL
-                console.log("Reservas a procesar:", selecciones);
-            }
-
-            // Redirige pasando las fechas
-            window.location.href = `reservarHabitacion.html?desde=${encodeURIComponent(desdeVal)}&hasta=${encodeURIComponent(hastaVal)}`;
+            // Redirigir a la pantalla de Reserva pasando las fechas
+            window.location.href = `reservar?desde=${encodeURIComponent(desde)}&hasta=${encodeURIComponent(hasta)}`;
         });
 
         // --- UTILS ---
         function parseDateLocal(str) {
-            const [dia, mes, anio] = str.split('/');
-            return new Date(anio, mes - 1, dia);
+            const [d, m, y] = str.split('/');
+            return new Date(y, m-1, d);
         }
-
         function formatearISO(date) {
             const y = date.getFullYear();
-            const m = String(date.getMonth() + 1).padStart(2, '0');
-            const d = String(date.getDate()).padStart(2, '0');
+            const m = String(date.getMonth()+1).padStart(2,'0');
+            const d = String(date.getDate()).padStart(2,'0');
             return `${y}-${m}-${d}`;
         }
-
         function generarListaFechas(desde, hasta) {
             let actual = parseDateLocal(desde);
             const fin = parseDateLocal(hasta);
             const lista = [];
-            while (actual <= fin) {
-                const d = String(actual.getDate()).padStart(2, '0');
-                const m = String(actual.getMonth() + 1).padStart(2, '0');
+            while(actual <= fin) {
+                const d = String(actual.getDate()).padStart(2,'0');
+                const m = String(actual.getMonth()+1).padStart(2,'0');
                 const y = String(actual.getFullYear()).slice(-2);
                 lista.push(`${d}/${m}/${y}`);
-                actual.setDate(actual.getDate() + 1);
+                actual.setDate(actual.getDate()+1);
             }
             return lista;
         }
-
         function limpiarErrores() {
             inputDesde.classList.remove('input-error');
-            inputHasta.classList.remove('input-error');
         }
-        inputDesde.addEventListener('input', limpiarErrores);
-        inputHasta.addEventListener('input', limpiarErrores);
     });
 </script>
 </body>

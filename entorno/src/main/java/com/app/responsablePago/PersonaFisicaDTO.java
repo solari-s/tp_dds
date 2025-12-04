@@ -14,6 +14,9 @@ public class PersonaFisicaDTO {
         this.RefHuesped = huesped;
     }
 
+    public PersonaFisicaDTO() {
+    }
+
     public PersonaFisicaDTO(PersonaFisica p){
 
         CUIT = p.getCUIT();

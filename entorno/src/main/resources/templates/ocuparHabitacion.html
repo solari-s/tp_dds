@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CU15 - Ocupar Habitación</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { background: #e9f0fa; max-width: 1200px; margin: 0 auto; padding: 20px; border-radius: 8px; min-height: 600px; }
+        
+        /* Ocultar secciones dinámicamente */
+        .seccion { display: none; }
+        .seccion.activa { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* TABLA GRID */
+        .grid-box { height: 400px; overflow: auto; background: white; border: 1px solid #ccc; margin-top: 20px;}
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        th, td { padding: 8px; border: 1px solid #ddd; }
+        th { background: #f0f0f0; position: sticky; top: 0; }
+        
+        /* ESTADOS COLORES */
+        .st-disponible { background-color: #90ee90; cursor: pointer; } /* Verde */
+        .st-reservada { background-color: #ffcccb; cursor: pointer; }  /* Rojo */
+        .st-ocupada { background-color: #d3d3d3; color: #777; cursor: not-allowed; } /* Gris */
+        .st-seleccionada { background-color: #4a90e2 !important; color: white; } /* Azul */
+
+        /* BUSQUEDA HUESPED */
+        .search-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 10px; margin-bottom: 20px; }
+        .lista-seleccionados { margin-top: 20px; padding: 10px; background: #fff; border: 1px solid #a9cce3; border-radius: 5px; }
+        .tag-huesped { display: inline-block; background: #4a90e2; color: white; padding: 5px 10px; border-radius: 15px; margin: 5px; }
+        
+        button { padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; background: #4a90e2; color: white; }
+        input, select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; width: 100%; box-sizing: border-box;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="paso1" class="seccion activa">
+        <h1>Ocupar Habitación - Paso 1: Selección</h1>
+        <div style="display:flex; gap:20px; margin-bottom: 20px;">
+            <input id="desde" placeholder="Fecha Desde">
+            <input id="hasta" placeholder="Fecha Hasta">
+            <select id="tipoHab">
+                <option value="IE">Individual Estándar</option>
+                <option value="DE">Doble Estándar</option>
+                <option value="DS">Doble Superior</option>
+                <option value="SFP">Superior Family Plan</option>
+                <option value="SD">Suite Doble</option>
+            </select>
+            <button onclick="buscarDisponibilidad()">Buscar Disponibilidad</button>
+        </div>
+
+        <div class="grid-box">
+            <table id="tablaHabitaciones">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <p id="msgContinuar" style="text-align: center; color: #4a90e2; font-weight: bold; margin-top: 15px; display: none;">
+            SELECCIÓN REALIZADA. PRESIONE CUALQUIER TECLA PARA CONTINUAR...
+        </p>
+    </div>
+
+    <div id="paso2" class="seccion">
+        <h1>Ocupar Habitación - Paso 2: Huéspedes</h1>
+        
+        <div class="lista-seleccionados">
+            <h3>Huéspedes a Ocupar:</h3>
+            <div id="containerTags">Starting...</div>
+        </div>
+        <br>
+
+        <div class="search-grid">
+            <input id="hNombre" placeholder="Nombre">
+            <input id="hApellido" placeholder="Apellido">
+            <select id="hTipoDoc"><option value="DNI">DNI</option><option value="PASAPORTE">Pasaporte</option></select>
+            <input id="hDoc" placeholder="Documento">
+            <button onclick="buscarHuesped()">Buscar</button>
+        </div>
+
+        <div class="grid-box" style="height: 250px;">
+            <table id="tablaHuespedes">
+                <thead>
+                    <tr><th>Nombre</th><th>Apellido</th><th>Doc</th><th>Acción</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 20px; text-align: right;">
+            <button onclick="volverPaso1()" style="background:#ccc; color:black">Volver</button>
+            <button onclick="confirmarOcupacion()">CONFIRMAR OCUPACIÓN</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // VARIABLES GLOBALES
+    let datosGrid = [];
+    let fechasGrid = [];
+    let seleccion = null; // { numero, tipo, fechaInicioStr, fechaFinStr }
+    let huespedesSeleccionados = []; // Array de objetos Huesped
+
+    // INICIALIZACIÓN
+    document.addEventListener("DOMContentLoaded", () => {
+        flatpickr("#desde", { dateFormat: "d/m/Y" });
+        flatpickr("#hasta", { dateFormat: "d/m/Y" });
+
+        // Evento Global de Tecla para transición
+        document.addEventListener("keydown", (e) => {
+            const paso1Visible = document.getElementById("paso1").classList.contains("activa");
+            const msgVisible = document.getElementById("msgContinuar").style.display === "block";
+            
+            // Si estamos en paso 1, hay mensaje visible y se presiona tecla
+            if (paso1Visible && msgVisible && seleccion) {
+                irPaso2();
+            }
+        });
+    });
+
+    // --- LÓGICA PASO 1: GRID ---
+
+    async function buscarDisponibilidad() {
+        const desde = document.getElementById("desde").value;
+        const hasta = document.getElementById("hasta").value;
+        const tipo = document.getElementById("tipoHab").value;
+
+        if(!desde || !hasta) return Swal.fire("Error", "Ingrese fechas", "error");
+
+        const isoDesde = dmyToIso(desde);
+        const isoHasta = dmyToIso(hasta);
+
+        const res = await fetch(`/api/habitaciones/estado?desde=${isoDesde}&hasta=${isoHasta}`);
+        const data = await res.json();
+        
+        // Filtramos solo el tipo seleccionado
+        datosGrid = data.filter(h => h.tipo === tipo);
+        fechasGrid = generarRangoFechas(desde, hasta);
+        
+        renderizarGrid(datosGrid, fechasGrid);
+    }
+
+    function renderizarGrid(habitaciones, fechas) {
+        const thead = document.querySelector("#tablaHabitaciones thead");
+        const tbody = document.querySelector("#tablaHabitaciones tbody");
+        thead.innerHTML = ""; tbody.innerHTML = "";
+
+        // Header
+        let tr = document.createElement("tr");
+        tr.innerHTML = "<th>Fecha</th>";
+        habitaciones.forEach(h => tr.innerHTML += `<th>Hab ${h.numero}</th>`);
+        thead.appendChild(tr);
+
+        // Body
+        fechas.forEach((f, i) => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `<td>${f}</td>`; // Fecha row header
+            
+            habitaciones.forEach(h => {
+                let td = document.createElement("td");
+                let estado = h.estadosPorDia[i]; 
+                
+                // Lógica de colores según CU15
+                if (estado === "Disponible") {
+                    td.className = "st-disponible"; // Verde
+                    td.onclick = () => clickCelda(h.numero, h.tipo, i);
+                } else if (estado === "Reservada") {
+                    td.className = "st-reservada"; // Rojo
+                    td.onclick = () => clickCelda(h.numero, h.tipo, i);
+                } else {
+                    td.className = "st-ocupada"; // Gris
+                    // No onclick (No seleccionable)
+                }
+                
+                // Pintar azul si está seleccionado
+                if(seleccion && seleccion.numero === h.numero && i >= seleccion.idxInicio && i <= seleccion.idxFin) {
+                    td.className = "st-seleccionada";
+                }
+
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+    }
+
+    function clickCelda(numero, tipo, index) {
+        // Lógica de selección de rango
+        if (!seleccion || seleccion.numero !== numero) {
+            // Inicio nueva selección
+            seleccion = { numero, tipo, idxInicio: index, idxFin: index };
+        } else {
+            // Extender selección
+            if (index < seleccion.idxInicio) seleccion = { numero, tipo, idxInicio: index, idxFin: index }; // Reset si click atrás
+            else {
+                // Validar que no haya grises en el medio
+                if (rangoValido(numero, seleccion.idxInicio, index)) {
+                    seleccion.idxFin = index;
+                } else {
+                    return Swal.fire("Error", "El rango incluye días no seleccionables (Gris).", "warning");
+                }
+            }
+        }
+        
+        // Re-render para mostrar azul
+        renderizarGrid(datosGrid, fechasGrid);
+
+        // Mostrar cartel
+        document.getElementById("msgContinuar").style.display = "block";
+    }
+
+    function rangoValido(num, ini, fin) {
+        const hab = datosGrid.find(h => h.numero === num);
+        for(let k=ini; k<=fin; k++) {
+            let est = hab.estadosPorDia[k];
+            // Solo verde o rojo permitido
+            if (est !== "Disponible" && est !== "Reservada") return false;
+        }
+        return true;
+    }
+
+    // --- TRANSICIÓN ---
+    function irPaso2() {
+        document.getElementById("paso1").classList.remove("activa");
+        document.getElementById("paso2").classList.add("activa");
+        actualizarListaSeleccionados();
+    }
+    
+    function volverPaso1() {
+        document.getElementById("paso2").classList.remove("activa");
+        document.getElementById("paso1").classList.add("activa");
+    }
+
+    // --- LÓGICA PASO 2: HUÉSPEDES ---
+
+    async function buscarHuesped() {
+        const nombre = document.getElementById("hNombre").value;
+        const apellido = document.getElementById("hApellido").value;
+        const tipo = document.getElementById("hTipoDoc").value;
+        const doc = document.getElementById("hDoc").value;
+
+        const params = new URLSearchParams({ nombre, apellido, tipoDocumento: tipo, documento: doc });
+        
+        const res = await fetch(`/api/huespedes/buscar?${params}`);
+        let data = await res.json();
+
+        // FILTRO: Quitar los que ya están seleccionados visualmente en la tabla
+        // "Facundo desaparecerá de la búsqueda pero debe seguir seleccionado"
+        data = data.filter(h => !huespedesSeleccionados.some(sel => sel.nroDocumento === h.nroDocumento && sel.tipo_documento === h.tipo_documento));
+
+        const tbody = document.querySelector("#tablaHuespedes tbody");
+        tbody.innerHTML = "";
+
+        data.forEach(h => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${h.nombre}</td>
+                <td>${h.apellido}</td>
+                <td>${h.tipo_documento} ${h.nroDocumento}</td>
+                <td><button onclick='seleccionarHuesped(${JSON.stringify(h)})'>Seleccionar</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    window.seleccionarHuesped = function(huesped) {
+        huespedesSeleccionados.push(huesped);
+        actualizarListaSeleccionados();
+        buscarHuesped(); // Refrescar tabla para que desaparezca
+    }
+
+    function actualizarListaSeleccionados() {
+        const div = document.getElementById("containerTags");
+        if(huespedesSeleccionados.length === 0) {
+            div.innerHTML = "Ninguno seleccionado.";
+            return;
+        }
+        div.innerHTML = "";
+        huespedesSeleccionados.forEach(h => {
+            let span = document.createElement("span");
+            span.className = "tag-huesped";
+            span.textContent = `${h.nombre} ${h.apellido}`;
+            div.appendChild(span);
+        });
+    }
+
+    // --- LÓGICA FINAL: GUARDAR ---
+
+    async function confirmarOcupacion() {
+        if (!seleccion || huespedesSeleccionados.length === 0) {
+            return Swal.fire("Atención", "Debe seleccionar una habitación y al menos un huésped.", "warning");
+        }
+
+        // Preparar Fechas ISO desde el grid (que tiene formato dd/MM/yyyy)
+        const fInicio = dmyToIso(fechasGrid[seleccion.idxInicio]);
+        const fFin = dmyToIso(fechasGrid[seleccion.idxFin]);
+
+        const payload = {
+            numeroHabitacion: seleccion.numero,
+            tipoHabitacion: seleccion.tipo,
+            fechaInicio: fInicio,
+            fechaFin: fFin,
+            huespedes: huespedesSeleccionados
+        };
+
+        try {
+            const res = await fetch("/api/habitaciones/ocupar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                await Swal.fire("Éxito", "Habitación ocupada y huéspedes actualizados.", "success");
+                window.location.href = "/"; // Volver al inicio
+            } else {
+                throw new Error(await res.text());
+            }
+        } catch (err) {
+            Swal.fire("Error", "No se pudo ocupar: " + err.message, "error");
+        }
+    }
+
+    // UTILS
+    function dmyToIso(dateStr) {
+        const [d, m, y] = dateStr.split('/');
+        return `${y}-${m}-${d}`;
+    }
+
+    function generarRangoFechas(desde, hasta) {
+        // Implementación simple para visualización
+        // Asume input correcto dd/mm/yyyy
+        let dates = [];
+        let curr = parseDate(desde);
+        let end = parseDate(hasta);
+        while(curr <= end) {
+            dates.push(formatDate(curr));
+            curr.setDate(curr.getDate() + 1);
+        }
+        return dates;
+    }
+    function parseDate(s) { const [d,m,y] = s.split('/'); return new Date(y, m-1, d); }
+    function formatDate(d) { return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; }
+
+</script>
+
+</body>
+</html>

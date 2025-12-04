@@ -20,6 +20,13 @@ import com.app.habitacion.TipoHabitacion;
 import com.app.repository.HabitacionRepository;
 import com.app.repository.HistorialEstadoHabitacionRepository;
 
+import com.app.huesped.Huesped;
+import com.app.huesped.HuespedDTO; 
+import com.app.huesped.HuespedPK;
+import com.app.repository.HuespedRepository;
+import com.app.habitacion.OcuparDTO; 
+import java.text.SimpleDateFormat;
+
 @Service
 public class GestorHabitaciones {
 
@@ -28,6 +35,47 @@ public class GestorHabitaciones {
 
     @Autowired
     private HistorialEstadoHabitacionRepository historialRepository;
+
+    @Autowired
+    private HuespedRepository huespedRepository;
+
+    @Transactional
+    public void registrarOcupacion(OcuparDTO ocupacion) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
+        // 1. Convertir Fechas
+        Date inicio = sdf.parse(ocupacion.getFechaInicio());
+        Date fin = sdf.parse(ocupacion.getFechaFin());
+        TipoHabitacion tipo = TipoHabitacion.valueOf(ocupacion.getTipoHabitacion());
+
+        // 2. Buscar Habitación
+        Habitacion hab = habitacionRepository.findByIdNumeroAndIdTipo(ocupacion.getNumeroHabitacion(), tipo);
+        if (hab == null) throw new RuntimeException("Habitación no encontrada");
+
+        // 3. Crear Registro en Historial (ESTADOS)
+        // Usamos horaInicio 00:00 y horaFin 23:59 como pediste, o las del constructor
+        // El constructor HistorialEstadoHabitacion(Habitacion, String horaIn, Date fechaIn, String horaFn, Date fechaFn, Estado) existe
+        HistorialEstadoHabitacion nuevoEstado = new HistorialEstadoHabitacion(
+            hab,
+            "00:00",
+            inicio,
+            "23:59",
+            fin,
+            EstadoHabitacion.Ocupada
+        );
+        historialRepository.save(nuevoEstado);
+
+        // 4. Actualizar Huéspedes (Alojado = TRUE)
+        for (HuespedDTO hDto : ocupacion.getHuespedes()) {
+            HuespedPK pk = new HuespedPK(hDto.getTipo_documento(), hDto.getNroDocumento());
+            Huesped huesped = huespedRepository.findById(pk).orElse(null);
+            
+            if (huesped != null) {
+                huesped.setAlojado(true);
+                huespedRepository.save(huesped);
+            }
+        }
+    }
 
     // --------------------------------------------------------
     // 1) MOSTRAR ESTADO DE HABITACIONES ENTRE FECHAS
@@ -152,4 +200,6 @@ public class GestorHabitaciones {
         }
         return dates;
     }
+
+
 }

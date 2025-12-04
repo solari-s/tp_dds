@@ -10,4 +10,9 @@ public class HomeController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/ocupar")
+    public String vistaOcupar() {
+        return "ocuparHabitacion";
+    }
 }

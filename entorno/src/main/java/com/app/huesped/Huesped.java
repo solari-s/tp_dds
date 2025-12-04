@@ -79,4 +79,8 @@ public class Huesped {
     public String getOcupacion() { return ocupacion; }
     public boolean isAlojado() { return alojado; }
     public Direccion getDireccion() { return direccion; }
+
+    public void setAlojado(boolean alojado) {
+        this.alojado = alojado;
+    }
 }

@@ -5,9 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import com.app.gestores.GestorHabitaciones;
 import com.app.habitacion.HabitacionDTO;
-
+import com.app.habitacion.OcuparDTO;
+import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,4 +23,17 @@ public class ControladorHabitacion {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
         return gestorHabitaciones.mostrarEstadoHabitaciones(desde, hasta);
     }
+
+    @PostMapping("/ocupar")
+    public ResponseEntity<?> ocuparHabitacion(@RequestBody OcuparDTO ocupacionDTO) {
+        try {
+            gestorHabitaciones.registrarOcupacion(ocupacionDTO);
+            return ResponseEntity.ok("{\"mensaje\": \"Ocupación registrada con éxito\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
+
+    
 }

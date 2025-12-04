@@ -54,10 +54,9 @@
     let datosHabitaciones = [];
     let listaFechas = [];
     let listaFechasISO = [];
-    let seleccionActual = null; // { numero: 101, inicio: 0, fin: 3, tipo: 'IE' }
+    let seleccionActual = null;
 
     document.addEventListener("DOMContentLoaded", () => {
-        // CORRECCIÓN: Usar nombres consistentes para params
         const params = new URLSearchParams(window.location.search);
         const desde = params.get("desde");
         const hasta = params.get("hasta");
@@ -65,7 +64,6 @@
         if(!desde || !hasta) return alert("Fechas inválidas. Vuelva atrás.");
         document.getElementById("infoFechas").textContent = `Fechas: ${desde} al ${hasta}`;
 
-        // Convertir fechas y llamar API
         const isoDesde = convertirFechaIso(desde);
         const isoHasta = convertirFechaIso(hasta);
 
@@ -78,14 +76,12 @@
                 filtrarRenderizar("IE");
             });
 
-        // Eventos Tabs
         document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
             document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
             t.classList.add("active");
             filtrarRenderizar(t.dataset.tipo);
         }));
 
-        // Evento Reservar
         document.getElementById("btnReservar").addEventListener("click", realizarReserva);
     });
 
@@ -95,7 +91,6 @@
         const tbody = document.querySelector("tbody");
         thead.innerHTML = ""; tbody.innerHTML = "";
 
-        // Header
         const trH = document.createElement("tr");
         trH.innerHTML = "<th>Fecha</th>";
         filtradas.sort((a,b)=>a.numero-b.numero).forEach(h => {
@@ -103,7 +98,6 @@
         });
         thead.appendChild(trH);
 
-        // Body
         listaFechas.forEach((fecha, i) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `<td>${fecha}</td>`;
@@ -114,7 +108,6 @@
                 if(estado === "Disponible") {
                     td.className = "status-green";
                     td.onclick = () => clickCelda(h.numero, i, h.tipo);
-                    // Pintar selección si existe
                     if(seleccionActual && seleccionActual.numero === h.numero && i >= seleccionActual.inicio && i <= seleccionActual.fin) {
                         td.className = "status-selected";
                     }
@@ -129,13 +122,11 @@
     }
 
     function clickCelda(numero, index, tipo) {
-        // Lógica de selección simple: clic inicio -> clic fin
         if(!seleccionActual || seleccionActual.numero !== numero) {
             seleccionActual = { numero, inicio: index, fin: index, tipo };
         } else {
             if(index < seleccionActual.inicio) seleccionActual = { numero, inicio: index, fin: index, tipo };
             else {
-                // Validar ocupados en medio
                 if(validarRango(numero, seleccionActual.inicio, index)) seleccionActual.fin = index;
                 else alert("Rango inválido (días ocupados).");
             }
@@ -168,52 +159,51 @@
         if(res.ok) window.location.href = "/estado";
     }
 
-    // Utils
     // Convierte "dd/MM/yyyy" → "yyyy-MM-dd"
-function convertirFechaIso(s) {
-    const [d, m, y] = s.split('/');
-    return `${y}-${m}-${d}`;
-}
-
-// Convierte "yyyy-MM-dd" → objeto Date seguro
-function parseISO(dateStr) {
-    const [y, m, d] = dateStr.split('-');
-    return new Date(parseInt(y), parseInt(m)-1, parseInt(d));
-}
-
-// Genera rango ISO bien formado
-function generarRangoFechasISO(desdeISO, hastaISO) {
-    let a = parseISO(desdeISO);
-    let b = parseISO(hastaISO);
-    let r = [];
-
-    while (a <= b) {
-        r.push(a.toISOString().split("T")[0]);
-        a.setDate(a.getDate() + 1);
+    function convertirFechaIso(s) {
+        const [d, m, y] = s.split('/');
+        return `${y}-${m}-${d}`;
     }
 
-    return r;
-}
-
-// Para mostrar fechas dd/MM/yyyy sin romper
-function generarRangoFechas(desde, hasta) {
-    const isoD = convertirFechaIso(desde);
-    const isoH = convertirFechaIso(hasta);
-
-    let a = parseISO(isoD);
-    let b = parseISO(isoH);
-    let r = [];
-
-    while (a <= b) {
-        r.push(fmt(a));
-        a.setDate(a.getDate() + 1);
+    // Convierte "yyyy-MM-dd" → objeto Date seguro
+    function parseISO(dateStr) {
+        const [y, m, d] = dateStr.split('-');
+        return new Date(parseInt(y), parseInt(m)-1, parseInt(d));
     }
-    return r;
-}
 
-function fmt(d) {
-    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
-}
+    // Genera rango ISO bien formado
+    function generarRangoFechasISO(desdeISO, hastaISO) {
+        let a = parseISO(desdeISO);
+        let b = parseISO(hastaISO);
+        let r = [];
+
+        while (a <= b) {
+            r.push(a.toISOString().split("T")[0]);
+            a.setDate(a.getDate() + 1);
+        }
+
+        return r;
+    }
+
+    // Para mostrar fechas dd/MM/yyyy sin romper
+    function generarRangoFechas(desde, hasta) {
+        const isoD = convertirFechaIso(desde);
+        const isoH = convertirFechaIso(hasta);
+
+        let a = parseISO(isoD);
+        let b = parseISO(isoH);
+        let r = [];
+
+        while (a <= b) {
+            r.push(fmt(a));
+            a.setDate(a.getDate() + 1);
+        }
+        return r;
+    }
+
+    function fmt(d) {
+        return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+    }
 
 </script>
 </body>

@@ -124,8 +124,6 @@ VALUES
 (502, 'SD', '2025-12-10', '2025-12-15 11:00:00', '16:00', '11:00', 'ocupada'),
 (502, 'SD', '2025-11-25', '2025-11-28 12:00:00', '15:00', '12:00', 'reservada');
 
-
-
 INSERT INTO ESTADIAS(
     id, factura_id, habitacion_numero, habitacion_tipo,
     reserva_id, fecha_inicio, fecha_fin, precio

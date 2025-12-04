@@ -3,348 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <title>Reservar habitación</title>
-
 <style>
-/* ---------------------- ESTILO GENERAL CLARO ---------------------- */
-body{
-    margin:0;
-    font-family:Segoe UI, sans-serif;
-    background:#e7eff9;
-}
+    body { font-family: 'Segoe UI', sans-serif; background: #e7eff9; display: flex; justify-content: center; padding: 20px; }
+    .window { width: 95%; max-width: 1100px; background: #f4f7fc; border-radius: 14px; box-shadow: 0 0 12px rgba(0,0,0,0.1); padding: 25px; }
+    h1 { text-align: center; color: #333; }
+    
+    .tabs { display: flex; gap: 4px; margin-bottom: 0; }
+    .tab { padding: 8px 18px; background: #e0e0e0; border: 1px solid #ccc; border-bottom: none; border-radius: 10px 10px 0 0; cursor: pointer; }
+    .tab.active { background: white; border-bottom: 1px solid white; font-weight: bold; }
 
-.window{
-    width:95%;
-    margin:20px auto;
-    background:#f4f7fc;
-    border-radius:14px;
-    box-shadow:0 0 12px rgba(0,0,0,0.12);
-    padding:25px;
-}
+    .table-box { background: white; border: 1px solid #d3d7de; padding: 10px; height: 400px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #ececec; padding: 10px; position: sticky; top: 0; }
+    td { padding: 0; height: 40px; border: 1px solid #ccc; text-align: center; }
 
-/* Título */
-.title{
-    text-align:center;
-    font-size:24px;
-    margin-bottom:20px;
-}
+    .status-green { background-color: #90ee90; cursor: pointer; }
+    .status-gray { background-color: #bfbfbf; cursor: not-allowed; }
+    .status-selected { background-color: #4a90e2 !important; color: white !important; }
 
-/* Fila select + botón */
-.row{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:14px;
-    margin-bottom:25px;
-}
-
-select{
-    padding:10px 20px;
-    font-size:16px;
-    border-radius:10px;
-    border:1px solid #c7d3e0;
-    background:white;
-}
-
-button{
-    padding:10px 22px;
-    background:#c7d9f7;
-    border:none;
-    border-radius:20px;
-    cursor:pointer;
-    font-size:16px;
-}
-
-button:hover{
-    background:#b5cbf5;
-}
-
-/* ---------------------- CONTENEDOR PRINCIPAL ---------------------- */
-.main-box{
-    background:white;
-    border-radius:16px;
-    border:1px solid #dde6f2;
-    padding:18px;
-    margin-top:10px;
-}
-
-/* ---------------------- TABS ---------------------- */
-.tabs{
-    display:flex;
-    gap:4px;
-    margin:0 auto 15px auto;
-    width:max-content;
-}
-
-.tab{
-    padding:8px 18px;
-    font-size:14px;
-    background:#f2f2f2;
-    border:1px solid #ccc;
-    border-bottom:none;
-    border-radius:10px 10px 0 0;
-    cursor:pointer;
-}
-
-.tab.active{
-    background:white;
-    border-bottom:1px solid white;
-}
-
-/* ---------------------- TABLA ---------------------- */
-.table-box{
-    border:1px solid #d3d7de;
-    border-radius:14px;
-    padding:10px;
-    height:350px;
-    overflow-y:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    background:#ececec;
-    padding:10px;
-    border:1px solid #ccc;
-    text-align:center;
-    font-weight:600;
-}
-
-td{
-    padding:12px;
-    border:1px solid #ccc;
-    text-align:center;
-}
-
-/* Colores */
-.disp{
-    background:#b7e3a0; /* verde */
-}
-.no-disp{
-    background:#c5c5c5; /* gris */
-}
-
-/* ---------------------- BOTÓN RESERVAR ---------------------- */
-.reserve-btn{
-    margin-top:20px;
-    display:flex;
-    justify-content:flex-end;
-}
-
-.reserve-btn button{
-    background:#c7d9f7;
-    border-radius:18px;
-}
-
-/* Scrollbar */
-.table-box::-webkit-scrollbar{
-    width:14px;
-}
-.table-box::-webkit-scrollbar-track{
-    background:#e6edf7;
-    border-radius:10px;
-}
-.table-box::-webkit-scrollbar-thumb{
-    background:#b4c2dd;
-    border-radius:10px;
-}
+    .actions { display: flex; justify-content: flex-end; margin-top: 20px; gap: 10px; }
+    button { padding: 10px 25px; border-radius: 20px; border: none; cursor: pointer; }
+    .btn-reservar { background: #4a90e2; color: white; font-weight: bold; }
 </style>
 </head>
-
 <body>
 
 <div class="window">
+    <h1>Confirmar Reserva</h1>
+    <p style="text-align:center" id="infoFechas">Cargando...</p>
 
-    <div class="title">Reservar habitación</div>
-
-    <div class="row">
-        <label>Tipo de habitación:</label>
-        <select id="tipo">
-            <option>Select</option>
-            <option>Individual estándar</option>
-            <option>Doble estándar</option>
-            <option>Doble superior</option>
-            <option>Superior family plan</option>
-            <option>Suite doble</option>
-        </select>
-
-        <button onclick="buscar()">Buscar</button>
+    <div class="tabs">
+        <div class="tab active" data-tipo="IE">Individual estándar</div>
+        <div class="tab" data-tipo="DE">Doble estándar</div>
+        <div class="tab" data-tipo="DS">Doble superior</div>
+        <div class="tab" data-tipo="SFP">Superior family plan</div>
+        <div class="tab" data-tipo="SD">Suite doble</div>
     </div>
 
-    <div class="main-box">
+    <div class="table-box">
+        <table><thead></thead><tbody></tbody></table>
+    </div>
 
-        <h3 style="text-align:center;margin-top:0;">Habitaciones disponibles</h3>
-
-        <!-- TABS -->
-        <div class="tabs">
-            <div class="tab active">Individual estándar</div>
-            <div class="tab">Doble estándar</div>
-            <div class="tab">Doble superior</div>
-            <div class="tab">Superior family plan</div>
-            <div class="tab">Suite doble</div>
-        </div>
-
-        <!-- TABLA -->
-        <div class="table-box">
-            <table id="tabla">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>SD1</th>
-                        <th>SD2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Se rellena por JS -->
-                </tbody>
-            </table>
-        </div>
-
-        <div class="reserve-btn">
-            <button onclick="reservar()">Reservar</button>
-        </div>
-
+    <div class="actions">
+        <button onclick="window.location.href='/estado'" style="background:#ccc">Volver</button>
+        <button class="btn-reservar" id="btnReservar">CONFIRMAR RESERVA</button>
     </div>
 </div>
 
 <script>
+    let datosHabitaciones = [];
+    let listaFechas = [];
+    let listaFechasISO = [];
+    let seleccionActual = null; // { numero: 101, inicio: 0, fin: 3, tipo: 'IE' }
 
-    const paramsFechas = new URLSearchParams(window.location.search);
+    document.addEventListener("DOMContentLoaded", () => {
+        // CORRECCIÓN: Usar nombres consistentes para params
+        const params = new URLSearchParams(window.location.search);
+        const desde = params.get("desde");
+        const hasta = params.get("hasta");
 
-    const fechaDesde = params.get("desde");
-    const fechaHasta = params.get("hasta");
+        if(!desde || !hasta) return alert("Fechas inválidas. Vuelva atrás.");
+        document.getElementById("infoFechas").textContent = `Fechas: ${desde} al ${hasta}`;
 
-    console.log("Fechas recibidas:", fechaDesde, fechaHasta);
+        // Convertir fechas y llamar API
+        const isoDesde = convertirFechaIso(desde);
+        const isoHasta = convertirFechaIso(hasta);
 
-    // URL base de tu API Spring Boot
-    const API_URL = "http://localhost:8080/api/reservas";
+        fetch(`/api/habitaciones/estado?desde=${isoDesde}&hasta=${isoHasta}`)
+            .then(res => res.json())
+            .then(data => {
+                datosHabitaciones = data;
+                listaFechas = generarRangoFechas(desde, hasta);
+                listaFechasISO = generarRangoFechasISO(isoDesde, isoHasta);
+                filtrarRenderizar("IE");
+            });
 
-    /* ---------------------- FUNCION BUSCAR (GET) ---------------------- */
-    async function buscar() {
-    const combo = document.getElementById("tipo");
-    const tipo = combo.value;
+        // Eventos Tabs
+        document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+            document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+            t.classList.add("active");
+            filtrarRenderizar(t.dataset.tipo);
+        }));
 
-    if (tipo === "Select") {
-        alert("Por favor, selecciona un tipo de habitación.");
-        return;
-    }
+        // Evento Reservar
+        document.getElementById("btnReservar").addEventListener("click", realizarReserva);
+    });
 
-    if (!fechaDesde || !fechaHasta) {
-        alert("Error: no se recibieron fechas desde CU5.");
-        return;
-    }
+    function filtrarRenderizar(tipo) {
+        const filtradas = datosHabitaciones.filter(h => h.tipo === tipo);
+        const thead = document.querySelector("thead");
+        const tbody = document.querySelector("tbody");
+        thead.innerHTML = ""; tbody.innerHTML = "";
 
-    try {
-        // Llamada real al backend con TIPO + RANGO
-        const response = await fetch(`${API_URL}/buscar?tipo=${tipo}&desde=${fechaDesde}&hasta=${fechaHasta}`);
+        // Header
+        const trH = document.createElement("tr");
+        trH.innerHTML = "<th>Fecha</th>";
+        filtradas.sort((a,b)=>a.numero-b.numero).forEach(h => {
+            const th = document.createElement("th"); th.textContent = `Hab ${h.numero}`; trH.appendChild(th);
+        });
+        thead.appendChild(trH);
 
-        if (response.ok) {
-            const datos = await response.json();
-            cargarTabla(datos);
-        } else {
-            alert("Error al obtener datos del servidor.");
-        }
-    } catch (e) {
-        console.error("Error de conexión:", e);
-        alert("No se pudo conectar con el servidor.");
-    }
-}
-
-
-    /* ---------------------- CARGAR TABLA ---------------------- */
-    function cargarTabla(datos) {
-        const tbody = document.querySelector("#tabla tbody");
-        tbody.innerHTML = ""; // Limpiar tabla anterior
-
-        if (datos.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='3'>No hay datos disponibles para estas fechas.</td></tr>";
-            return;
-        }
-
-        datos.forEach(item => {
+        // Body
+        listaFechas.forEach((fecha, i) => {
             const tr = document.createElement("tr");
-
-            // Usamos las claves del MAPA de Java: fecha, sd1 (hab1), sd2 (hab2)
-            tr.innerHTML = `
-                <td>${item.fecha}</td>
-                <td class="${item.sd1 ? 'disp' : 'no-disp'}">H1</td>
-                <td class="${item.sd2 ? 'disp' : 'no-disp'}">H2</td>
-            `;
+            tr.innerHTML = `<td>${fecha}</td>`;
+            filtradas.forEach(h => {
+                const td = document.createElement("td");
+                const estado = h.estadosPorDia[i];
+                
+                if(estado === "Disponible") {
+                    td.className = "status-green";
+                    td.onclick = () => clickCelda(h.numero, i, h.tipo);
+                    // Pintar selección si existe
+                    if(seleccionActual && seleccionActual.numero === h.numero && i >= seleccionActual.inicio && i <= seleccionActual.fin) {
+                        td.className = "status-selected";
+                    }
+                } else {
+                    td.className = "status-gray";
+                    td.title = estado;
+                }
+                tr.appendChild(td);
+            });
             tbody.appendChild(tr);
         });
     }
 
-    /* ---------------------- FUNCION RESERVAR (POST) ---------------------- */
-    async function reservar() {
-        // Como tu HTML no tiene campos para fecha/habitación, los pedimos por ventana emergente
-        const tipo = document.getElementById("tipo").value;
+    function clickCelda(numero, index, tipo) {
+        // Lógica de selección simple: clic inicio -> clic fin
+        if(!seleccionActual || seleccionActual.numero !== numero) {
+            seleccionActual = { numero, inicio: index, fin: index, tipo };
+        } else {
+            if(index < seleccionActual.inicio) seleccionActual = { numero, inicio: index, fin: index, tipo };
+            else {
+                // Validar ocupados en medio
+                if(validarRango(numero, seleccionActual.inicio, index)) seleccionActual.fin = index;
+                else alert("Rango inválido (días ocupados).");
+            }
+        }
+        filtrarRenderizar(tipo);
+    }
+
+    function validarRango(num, ini, fin) {
+        const hab = datosHabitaciones.find(h => h.numero === num);
+        for(let k=ini; k<=fin; k++) if(hab.estadosPorDia[k] !== "Disponible") return false;
+        return true;
+    }
+
+    async function realizarReserva() {
+        if(!seleccionActual) return alert("Seleccione un rango verde primero.");
         
-        if (tipo === "Select") {
-            alert("Primero selecciona un tipo de habitación.");
-            return;
-        }
+        const ini = listaFechasISO[seleccionActual.inicio];
+        const fin = listaFechasISO[seleccionActual.fin];
 
-        const fecha = prompt("Ingresa la fecha a reservar (dd/MM/yy):", "10/04/25");
-        if (!fecha) return; // Si cancela, salimos
+        if(!confirm(`Reservar Habitación ${seleccionActual.numero}\nDel ${ini} al ${fin}?`)) return;
 
-        const numHab = prompt("Ingresa el número de habitación (1 o 2):", "1");
-        if (!numHab) return;
+        const formData = new URLSearchParams();
+        formData.append("tipo", seleccionActual.tipo);
+        formData.append("numero", seleccionActual.numero);
+        formData.append("fechaInicio", ini);
+        formData.append("fechaFin", fin);
 
-        try {
-            // Preparamos los datos para enviar
-            // Usamos URLSearchParams para simular un formulario simple (@RequestParam en Java)
-            const params = new URLSearchParams();
-            params.append("tipo", tipo);
-            params.append("fecha", fecha);
-            params.append("numero", numHab);
-
-            // Enviamos la petición POST para GUARDAR
-            const response = await fetch(`${API_URL}/crear`, {
-                method: "POST",
-                body: params
-            });
-
-            if (response.ok) {
-                const mensaje = await response.text();
-                alert(mensaje); // "Reserva exitosa"
-                buscar(); // Recargamos la tabla para ver que ahora aparece roja (ocupada)
-            } else {
-                alert("Error al reservar. Puede que la habitación ya esté ocupada.");
-            }
-
-        } catch (e) {
-            console.error(e);
-            alert("Error de conexión al intentar reservar.");
-        }
+        const res = await fetch("/api/reservas/crear", { method: "POST", body: formData });
+        alert(await res.text());
+        if(res.ok) window.location.href = "/estado";
     }
 
-    /* ---------------------- TABS VISUALES ---------------------- */
-    document.querySelectorAll(".tab").forEach(t => {
-        t.addEventListener("click", () => {
-            document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-            t.classList.add("active");
-            // Aquí podrías sincronizar el select si quisieras
-        });
-    });
-
-
-    const params = new URLSearchParams(window.location.search);
-    const tipoSeleccionado = params.get("tipo");
-
-    if (tipoSeleccionado) {
-        const tabs = document.querySelectorAll(".tab");
-        tabs.forEach(tab => {
-            if (tab.textContent.trim() === tipoSeleccionado.trim()) {
-                tabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-            }
-        });
+    // Utils
+    function convertirFechaIso(s) { const [d,m,y] = s.split('/'); return `20${y}-${m}-${d}`; }
+    function generarRangoFechas(d,h) { /* Igual que antes */ 
+        let a = parse(d), b = parse(h), r = [];
+        while(a<=b) { r.push(fmt(a)); a.setDate(a.getDate()+1); }
+        return r;
     }
-
-
+    function generarRangoFechasISO(d,h) {
+        let a = new Date(d+"T12:00:00"), b = new Date(h+"T12:00:00"), r=[];
+        while(a<=b) { r.push(a.toISOString().split("T")[0]); a.setDate(a.getDate()+1); }
+        return r;
+    }
+    function parse(s) { const [d,m,y] = s.split('/'); return new Date(20+y, m-1, d); }
+    function fmt(d) { return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`; }
 </script>
-
 </body>
 </html>

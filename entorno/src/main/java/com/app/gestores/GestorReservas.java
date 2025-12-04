@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // Importante para guardar
 
 import com.app.habitacion.EstadoHabitacion;
 import com.app.habitacion.Habitacion;
@@ -37,12 +38,11 @@ public class GestorReservas {
             return listaResultado;
         }
 
-        // 2. Convertir fechas (del front vienen yyyy-MM-dd)
+        // 2. Convertir fechas
         Date desde = parsearFechaFront(desdeStr);
         Date hasta = parsearFechaFront(hastaStr);
 
         if (desde == null || hasta == null || desde.after(hasta)) {
-            System.out.println("Rango de fechas inválido");
             return listaResultado;
         }
 
@@ -53,6 +53,8 @@ public class GestorReservas {
         for (Date fecha : rango) {
             boolean sd1 = verificarLibre(1, tipoEnum, fecha);
             boolean sd2 = verificarLibre(2, tipoEnum, fecha);
+            // (Si tienes más habitaciones, deberías iterarlas dinámicamente,
+            // pero mantenemos tu lógica actual de 2 habitaciones por tipo)
 
             Map<String, Object> fila = new HashMap<>();
             fila.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
@@ -65,42 +67,55 @@ public class GestorReservas {
         return listaResultado;
     }
 
-    // -------------------- UTILIDADES ------------------------ //
-
-    public String crearReserva(String tipoStr, String fechaStr, int numeroHab) {
+    // ---------------------------------------------------------------
+    // MÉTODO CORREGIDO: Ahora acepta RANGO (Fecha Inicio y Fin)
+    // ---------------------------------------------------------------
+    @Transactional
+    public String crearReserva(String tipoStr, int numeroHab, String fechaInicioStr, String fechaFinStr) {
         try {
-            // Convertir fecha
-            Date fecha = parsearFechaFront(fechaStr);
+            // 1. Parsear Fechas
+            Date fechaInicio = parsearFechaFront(fechaInicioStr);
+            Date fechaFin = parsearFechaFront(fechaFinStr);
 
-            // Normalizar tipo
+            if (fechaInicio == null || fechaFin == null) {
+                return "Error: Formato de fechas incorrecto.";
+            }
+
+            // 2. Normalizar tipo
             TipoHabitacion tipoEnum = normalizarTipo(tipoStr);
             if (tipoEnum == null) {
-                return "Tipo de habitación inválido";
+                return "Error: Tipo de habitación inválido";
             }
 
-            // Validar disponibilidad
-            if (!verificarLibre(numeroHab, tipoEnum, fecha)) {
-                return "Error: La habitación ya está reservada u ocupada en esa fecha.";
+            // 3. Validar disponibilidad para TODOS los días del rango
+            // Si un solo día del rango está ocupado, no se puede reservar.
+            List<Date> diasSolicitados = generarRangoFechas(fechaInicio, fechaFin);
+
+            for (Date dia : diasSolicitados) {
+                if (!verificarLibre(numeroHab, tipoEnum, dia)) {
+                    String diaOcupado = new SimpleDateFormat("dd/MM/yyyy").format(dia);
+                    return "Error: La habitación ya está ocupada el día " + diaOcupado;
+                }
             }
 
-            // Crear referencia a la habitación
+            // 4. Crear referencia a la habitación
             Habitacion habitacionRef = new Habitacion();
             habitacionRef.setNumero(numeroHab);
-            habitacionRef.setTipo(tipoEnum);
+            habitacionRef.setTipo(tipoEnum); // Necesario para la PK compuesta
 
-            // Crear la reserva
+            // 5. Crear la reserva (Un solo registro con fecha inicio y fin)
             HistorialEstadoHabitacion nuevo = new HistorialEstadoHabitacion(
                     habitacionRef,
-                    "14:00",
-                    fecha,
-                    "10:00",
-                    fecha,
+                    "14:00", // Hora Check-in default
+                    fechaInicio,
+                    "10:00", // Hora Check-out default
+                    fechaFin,
                     EstadoHabitacion.Reservada);
 
-            // Guardar
+            // 6. Guardar
             historialRepo.save(nuevo);
 
-            return "¡Reserva Exitosa!";
+            return "¡Reserva Exitosa para la habitación " + numeroHab + "!";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,23 +123,32 @@ public class GestorReservas {
         }
     }
 
+    // -------------------- UTILIDADES ------------------------ //
+
     private TipoHabitacion normalizarTipo(String t) {
         try {
-            return TipoHabitacion.valueOf(
-                    t.toUpperCase()
-                            .replace("Á", "A")
-                            .replace("É", "E")
-                            .replace("Í", "I")
-                            .replace("Ó", "O")
-                            .replace("Ú", "U")
-                            .replace(" ", "_"));
+            // Intenta coincidencia exacta primero
+            return TipoHabitacion.valueOf(t);
         } catch (Exception e) {
-            return null;
+            // Si falla, intenta limpiar strings sucios
+            try {
+                return TipoHabitacion.valueOf(
+                        t.trim().toUpperCase()
+                                .replace("Á", "A")
+                                .replace("É", "E")
+                                .replace("Í", "I")
+                                .replace("Ó", "O")
+                                .replace("Ú", "U")
+                                .replace(" ", "_"));
+            } catch (Exception ex) {
+                return null;
+            }
         }
     }
 
     private Date parsearFechaFront(String f) {
         try {
+            // El front manda yyyy-MM-dd
             return new SimpleDateFormat("yyyy-MM-dd").parse(f);
         } catch (Exception e) {
             return null;
@@ -143,22 +167,22 @@ public class GestorReservas {
         return lista;
     }
 
-    private boolean verificarLibre(int numero, TipoHabitacion tipo, Date fecha) {
+    private boolean verificarLibre(int numero, TipoHabitacion tipo, Date fechaConsulta) {
+        // Traemos todo el historial de esa habitación
         List<HistorialEstadoHabitacion> historial = historialRepo.findByHabitacion(numero, tipo);
 
+        // Revisamos si la fecha consultada cae dentro de algún rango reservado/ocupado
         for (HistorialEstadoHabitacion h : historial) {
-            if (mismoDia(h.getFechaInicio(), fecha)) {
-                if (h.getEstado() == EstadoHabitacion.Ocupada ||
-                        h.getEstado() == EstadoHabitacion.Reservada) {
-                    return false;
-                }
+
+            // Si el estado es Disponible, no nos importa, seguimos buscando bloqueos
+            if (h.getEstado() == EstadoHabitacion.Disponible)
+                continue;
+
+            // Chequeo de rango: ¿La fechaConsulta está entre h.inicio y h.fin?
+            if (!fechaConsulta.before(h.getFechaInicio()) && !fechaConsulta.after(h.getFechaFin())) {
+                return false; // Está ocupada
             }
         }
-        return true;
-    }
-
-    private boolean mismoDia(Date d1, Date d2) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        return fmt.format(d1).equals(fmt.format(d2));
+        return true; // Está libre
     }
 }

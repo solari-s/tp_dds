@@ -19,8 +19,6 @@ import com.app.huesped.Huesped;
 import com.app.huesped.HuespedDTO;
 import com.app.huesped.TipoDoc;
 
-
-
 @Controller
 public class ControladorHuesped {
 
@@ -61,10 +59,12 @@ public class ControladorHuesped {
             @RequestParam(required = false) String documento) {
 
         HuespedDTO filtro = new HuespedDTO();
-        
+
         // Asignamos solo si no están vacíos para que el Gestor filtre correctamente
-        if (nombre != null && !nombre.isEmpty()) filtro.setNombre(nombre);
-        if (apellido != null && !apellido.isEmpty()) filtro.setApellido(apellido);
+        if (nombre != null && !nombre.isEmpty())
+            filtro.setNombre(nombre);
+        if (apellido != null && !apellido.isEmpty())
+            filtro.setApellido(apellido);
         if (tipoDocumento != null && !tipoDocumento.trim().isEmpty()) {
             try {
                 filtro.setTipo_documento(TipoDoc.valueOf(tipoDocumento));
@@ -73,17 +73,22 @@ public class ControladorHuesped {
                 System.out.println("Tipo de documento inválido: " + tipoDocumento);
             }
         }
-        if (documento != null && !documento.isEmpty()) filtro.setNroDocumento(documento);
+        if (documento != null && !documento.isEmpty())
+            filtro.setNroDocumento(documento);
 
         List<HuespedDTO> resultados = gestorHuesped.buscarHuespedes(filtro);
         return ResponseEntity.ok(resultados);
-   }
+    }
 
-
-    @GetMapping("/estado") 
+    @GetMapping("/estado")
     public String mostrarPaginaEstado() {
-        // Busca "estadoHabitacion.html" 
-        return "estadoHabitacion"; 
+        // Busca "estadoHabitacion.html"
+        return "estadoHabitacion";
+    }
+
+    @GetMapping("/reservar")
+    public String mostrarPaginaReserva() {
+        return "reservarHabitacion"; // Busca reservarHabitacion.html
     }
 
     // Endpoint para recibir el JSON desde el fetch de JavaScript
@@ -96,10 +101,10 @@ public class ControladorHuesped {
 
             // PASO 2: Registrar Responsable Fiscal (GestorContable)
             // Solo si mandaron datos de persona física
-            if (request.getPersonaFisica() != null && 
-                request.getPersonaFisica().getCUIT() != null && 
-                !request.getPersonaFisica().getCUIT().isEmpty()) {
-                
+            if (request.getPersonaFisica() != null &&
+                    request.getPersonaFisica().getCUIT() != null &&
+                    !request.getPersonaFisica().getCUIT().isEmpty()) {
+
                 gestorContable.registrarPersonaFisica(request.getPersonaFisica(), huespedGuardado);
             }
 

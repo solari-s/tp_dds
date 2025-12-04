@@ -15,8 +15,11 @@ public class ControladorReserva {
     private GestorReservas gestorReservas;
 
     @GetMapping("/buscar")
-    public List<Map<String, Object>> buscar(@RequestParam String tipo) {
-        return gestorReservas.buscarDisponibilidad(tipo);
+    public List<Map<String, Object>> buscar(
+            @RequestParam String tipo,
+            @RequestParam String desde,
+            @RequestParam String hasta) {
+        return gestorReservas.buscarDisponibilidad(tipo, desde, hasta);
     }
 
     @PostMapping("/crear")

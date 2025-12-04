@@ -210,35 +210,48 @@ td{
 </div>
 
 <script>
+
+    const paramsFechas = new URLSearchParams(window.location.search);
+
+    const fechaDesde = params.get("desde");
+    const fechaHasta = params.get("hasta");
+
+    console.log("Fechas recibidas:", fechaDesde, fechaHasta);
+
     // URL base de tu API Spring Boot
     const API_URL = "http://localhost:8080/api/reservas";
 
     /* ---------------------- FUNCION BUSCAR (GET) ---------------------- */
     async function buscar() {
-        const combo = document.getElementById("tipo");
-        const tipo = combo.value;
+    const combo = document.getElementById("tipo");
+    const tipo = combo.value;
 
-        // Validación
-        if (tipo === "Select") {
-            alert("Por favor, selecciona un tipo de habitación.");
-            return;
-        }
-
-        try {
-            // Llamada al Backend (Controller -> Gestor -> BDD)
-            const response = await fetch(`${API_URL}/buscar?tipo=${tipo}`);
-
-            if (response.ok) {
-                const datos = await response.json();
-                cargarTabla(datos);
-            } else {
-                alert("Error al obtener datos del servidor.");
-            }
-        } catch (e) {
-            console.error("Error de conexión:", e);
-            alert("No se pudo conectar con el servidor (Revisa que Spring Boot esté corriendo).");
-        }
+    if (tipo === "Select") {
+        alert("Por favor, selecciona un tipo de habitación.");
+        return;
     }
+
+    if (!fechaDesde || !fechaHasta) {
+        alert("Error: no se recibieron fechas desde CU5.");
+        return;
+    }
+
+    try {
+        // Llamada real al backend con TIPO + RANGO
+        const response = await fetch(`${API_URL}/buscar?tipo=${tipo}&desde=${fechaDesde}&hasta=${fechaHasta}`);
+
+        if (response.ok) {
+            const datos = await response.json();
+            cargarTabla(datos);
+        } else {
+            alert("Error al obtener datos del servidor.");
+        }
+    } catch (e) {
+        console.error("Error de conexión:", e);
+        alert("No se pudo conectar con el servidor.");
+    }
+}
+
 
     /* ---------------------- CARGAR TABLA ---------------------- */
     function cargarTabla(datos) {
@@ -315,6 +328,22 @@ td{
             // Aquí podrías sincronizar el select si quisieras
         });
     });
+
+
+    const params = new URLSearchParams(window.location.search);
+    const tipoSeleccionado = params.get("tipo");
+
+    if (tipoSeleccionado) {
+        const tabs = document.querySelectorAll(".tab");
+        tabs.forEach(tab => {
+            if (tab.textContent.trim() === tipoSeleccionado.trim()) {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+            }
+        });
+    }
+
+
 </script>
 
 </body>

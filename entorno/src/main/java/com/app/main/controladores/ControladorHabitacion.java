@@ -18,8 +18,8 @@ public class ControladorHabitacion {
 
     @GetMapping("/estado")
     public List<HabitacionDTO> getEstadoHabitaciones(
-            @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date desde,
-            @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") Date hasta) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date hasta) {
         return gestorHabitaciones.mostrarEstadoHabitaciones(desde, hasta);
     }
 }

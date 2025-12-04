@@ -279,74 +279,94 @@
         </div>
     </div>
 
-    <script>
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita recarga de página
-
-        // 1. Obtener valores del formulario
-        const nombre = document.getElementById('nombre').value.trim();
-        const apellido = document.getElementById('apellido').value.trim();
+<script>
+    async function realizarBusqueda() {
+        // 1. Obtener valores
+        const nombre = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
         const tipoDoc = document.getElementById('tipoDocumento').value;
-        const nroDoc = document.getElementById('nroDocumento').value.trim();
+        const documento = document.getElementById('documento').value;
 
-        // 2. Construir la URL con parámetros para el backend
+        // 2. Preparar parámetros (solo enviamos lo que no está vacío)
         const params = new URLSearchParams();
-        if (nombre) params.append('nombre', nombre);
-        if (apellido) params.append('apellido', apellido);
-        if (tipoDoc) params.append('tipoDocumento', tipoDoc);
-        if (nroDoc) params.append('nroDocumento', nroDoc);
+        if(nombre) params.append('nombre', nombre);
+        if(apellido) params.append('apellido', apellido);
+        if(tipoDoc) params.append('tipoDocumento', tipoDoc);
+        if(documento) params.append('documento', documento);
 
-        // 3. Llamada al Backend (Fetch)
-        fetch(`/api/huespedes/buscar?${params.toString()}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la conexión con el servidor');
-                }
-                return response.json();
-            })
-            .then(data => {
-                actualizarTabla(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Hubo un error al buscar los huéspedes.");
-            });
-    });
+        try {
+            // 3. Llamar al Backend
+            const response = await fetch(`/api/huespedes/buscar?${params.toString()}`);
+            
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor: " + response.status);
+            }
 
-    function actualizarTabla(huespedes) {
-        // A. Actualizar el título con la cantidad exacta de la BD
-        const tituloResultados = document.querySelector('.results-header');
-        tituloResultados.textContent = `Huéspedes encontrados (${huespedes.length})`;
+            const data = await response.json();
 
-        // B. Limpiar tabla actual
-        const tbody = document.querySelector('table tbody');
-        tbody.innerHTML = ""; 
+            // REGLA: Si no hay resultados, ir a Alta Huesped
+            if (data.length === 0) {
+                alert("No se encontraron resultados. Redirigiendo a registrar nuevo huésped...");
+                window.location.href = '/altaHuesped';
+                return;
+            }
 
-        // C. Llenar con datos reales
+            // Si hay resultados, mostrar tabla
+            mostrarResultados(data);
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert("Error al buscar. Verifica que el servidor esté corriendo y la URL sea correcta.");
+        }
+    }
+
+    function mostrarResultados(huespedes) {
+        const contenedor = document.getElementById('contenedorResultados');
+        const cantidadSpan = document.getElementById('cantidadResultados');
+        const tbody = document.getElementById('tablaCuerpo');
+        
+        tbody.innerHTML = ''; 
+        document.getElementById('selectedHuespedId').value = ''; 
+
+        cantidadSpan.textContent = `(${huespedes.length})`;
+        
         huespedes.forEach(h => {
-            const fila = `
-                <tr>
-                    <td>${h.nombre}</td>
-                    <td>${h.apellido}</td>
-                    <td>${h.nroDocumento}</td>
-                </tr>
+            const row = document.createElement('tr');
+            // Al hacer clic en la fila, se selecciona el radio button
+            row.onclick = function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                document.getElementById('selectedHuespedId').value = radio.value;
+            };
+            
+            row.innerHTML = `
+                <td><input type="radio" name="huespedSel" value="${h.idUsuario}"></td>
+                <td>${h.apellido}</td>
+                <td>${h.nombre}</td>
+                <td>${h.tipoDocumento}</td>
+                <td>${h.documento}</td>
+                <td>${h.email}</td>
+                <td>${h.telefono}</td>
             `;
-            tbody.innerHTML += fila;
+            tbody.appendChild(row);
         });
 
-        // D. Rellenar con filas vacías para mantener el diseño azul
-        const filasMinimas = 8;
-        const filasFaltantes = filasMinimas - huespedes.length;
-
-        if (filasFaltantes > 0) {
-            for (let i = 0; i < filasFaltantes; i++) {
-                tbody.innerHTML += `<tr><td></td><td></td><td></td></tr>`;
-            }
-        }
-
-        // E. Mostrar el contenedor
-        document.getElementById('results').classList.add('show');
+        contenedor.style.display = 'block';
     }
-    </script>
+
+    function siguiente() {
+        const idSeleccionado = document.getElementById('selectedHuespedId').value;
+
+        // REGLA: Si aprieta siguiente SIN seleccionar a nadie -> ir a Alta Huesped
+        if (!idSeleccionado) {
+            window.location.href = '/altaHuesped';
+        } else {
+            // Si seleccionó a alguien, proceder (aquí pones tu lógica de siguiente paso)
+            // Por ahora asumo que vas a la reserva con ese ID
+            window.location.href = '/reservarHabitacion?idHuesped=' + idSeleccionado;
+        }
+    }
+</script>
+
 </body>
 </html>

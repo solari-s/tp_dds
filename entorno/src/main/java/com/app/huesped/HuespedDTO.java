@@ -1,8 +1,10 @@
 package com.app.huesped;
 
+import com.app.direccion.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class HuespedDTO {
     // mismos atributos que Huesped
@@ -10,12 +12,14 @@ public class HuespedDTO {
     private String apellido;
     private TipoDoc tipo_documento;
     private String nroDocumento;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "America/Argentina/Buenos_Aires")
     private Date fechaDeNacimiento;
     private String nacionalidad;
     private String email;
     private String telefono;
     private String ocupacion;
     private boolean alojado;
+    private String direccion;
 
 
     // Constructor desde Huesped
@@ -30,6 +34,8 @@ public class HuespedDTO {
         this.telefono = huesped.getTelefono();
         this.ocupacion = huesped.getOcupacion();
         this.alojado = huesped.isAlojado();
+        this.direccion = null;
+
     }
     public HuespedDTO() {
         this.nombre = "";
@@ -42,6 +48,7 @@ public class HuespedDTO {
         this.telefono = "";
         this.ocupacion = "";
         this.alojado = false;
+        this.direccion = null;
     }
     // Getters
 
@@ -106,6 +113,9 @@ public class HuespedDTO {
     public void setFechaDeNacimiento(Date fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
+
+    public String getDireccion() { return direccion; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
 
     //hacemos una sobrecarga de setFechaDeNacimiento para aceptar String
     public void setFechaDeNacimiento(String fechaString) {

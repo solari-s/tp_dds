@@ -90,34 +90,69 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- RESULTADO ---
-    if (hayErrores) {
+if (hayErrores) {
       console.log("Formulario inválido, campos marcados en rojo.");
       return;
     }
 
-    // ✅ Si todo está bien: popup de éxito
-    const resultado = await Swal.fire({
-      title: `El huésped ${nombresEl.value} ${apellidoEl.value} ha sido cargado correctamente.`,
-      text: "¿Desea cargar otro?",
-      icon: "success",
-      showCancelButton: true,
-      confirmButtonText: "SÍ",
-      cancelButtonText: "NO",
-      confirmButtonColor: "#A8C6FA",
-      cancelButtonColor: "#A8C6FA",
-      background: "#D4E3FC",
-      color: "#000000",
-      width: '400px',
-      height: '184px',
-      reverseButtons: true
-    });
+    // 1. Preparar los datos (Mapeo manual de IDs HTML a atributos del DTO)
+    const datosHuesped = {
+        nombre: nombresEl.value,      // HTML id="nombres" -> DTO "nombre"
+        apellido: apellidoEl.value,
+        // Convertimos a mayúsculas para asegurar que coincida con el Enum en Java (DNI, PASAPORTE)
+        tipo_documento: tipoDocEl.value.toUpperCase(), 
+        nroDocumento: numDocEl.value, // HTML id="numDoc" -> DTO "nroDocumento"
+        // Convertimos la fecha de dd/mm/yyyy a yyyy-mm-dd
+        fechaDeNacimiento: convertirFecha(nacimientoEl.value),
+        nacionalidad: nacionalidadEl.value,
+        email: emailEl.value,
+        telefono: telefonoEl.value,
+        ocupacion: ocupacionEl.value,
+        direccion: direccionEl.value 
+    };
 
-    if (resultado.isConfirmed) {
-      clearFieldErrors();
-      form.reset();
-    } else {
-      console.log("No desea cargar otro huésped.");
-      // Podés redirigir o cerrar modal si querés
+    try {
+        // 2. Enviar al servidor
+        const response = await fetch('/api/huespedes/crear', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosHuesped)
+        });
+
+        if (!response.ok) throw new Error('Error en la respuesta del servidor');
+
+        // 3. Mostrar Popup de Éxito SOLO si se guardó correctamente
+        const resultado = await Swal.fire({
+            title: `El huésped ${nombresEl.value} ${apellidoEl.value} ha sido cargado correctamente.`,
+            text: "¿Desea cargar otro?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonText: "SÍ",
+            cancelButtonText: "NO",
+            confirmButtonColor: "#A8C6FA",
+            cancelButtonColor: "#A8C6FA",
+            background: "#D4E3FC",
+            color: "#000000",
+            width: '400px',
+            reverseButtons: true
+        });
+
+        if (resultado.isConfirmed) {
+            clearFieldErrors();
+            form.reset();
+        } else {
+            window.location.href = "/"; // O redirigir a donde quieras
+        }
+
+    } catch (error) {
+        console.error(error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo guardar el huésped. Intente nuevamente.'
+        });
     }
   });
 
@@ -168,6 +203,26 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+
 function isValidCUIT(cuit) {
-  return /^(\d{11}|\d{2}-\d{8}-\d{1})$/.test(cuit);
+  if (!cuit) return true; // Si es opcional y está vacío, es válido
+  
+  // 1. Eliminamos guiones, espacios y cualquier cosa que no sea número
+  const limpio = cuit.toString().replace(/[^0-9]/g, "");
+  
+  // 2. Verificamos que tenga exactamente 11 números
+  if (limpio.length !== 11) return false;
+
+  // (Opcional) Si quieres validar el dígito verificador real de AFIP, 
+  // podés agregar esa lógica aquí, pero por ahora con validar longitud basta 
+  // para que no te de el error "en rojo" con un número correcto.
+  return true;
+}
+
+
+function convertirFecha(fechaDDMMYYYY) {
+    if (!fechaDDMMYYYY) return null;
+    const partes = fechaDDMMYYYY.split('/');
+    if (partes.length !== 3) return fechaDDMMYYYY;
+    return `${partes[2]}-${partes[1]}-${partes[0]}`;
 }

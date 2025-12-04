@@ -78,4 +78,5 @@ public class Huesped {
     public String getTelefono() { return telefono; }
     public String getOcupacion() { return ocupacion; }
     public boolean isAlojado() { return alojado; }
+    public Direccion getDireccion() { return direccion; }
 }

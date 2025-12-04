@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -81,5 +82,15 @@ public class ControladorHuesped {
         return "estadoHabitacion"; 
     }
 
-    
+    // Endpoint para recibir el JSON desde el fetch de JavaScript
+    @PostMapping("/api/huespedes/crear")
+    @ResponseBody
+    public ResponseEntity<?> crearHuespedAPI(@RequestBody HuespedDTO huespedDTO) {
+        try {
+            gestorHuesped.darDeAltaHuesped(huespedDTO);
+            return ResponseEntity.ok().body("{\"message\": \"Huesped creado exitosamente\"}");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al crear huésped: " + e.getMessage());
+        }
+    }
 }

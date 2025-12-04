@@ -153,3 +153,15 @@ VALUES
 (1009, NULL, true,  152400, 152400, 2600,  NULL,            'B'),
 (1010, NULL, true,  280920, 280920, 0,     '30-70987654-3', 'A'),
 (1011, NULL, true,  442000, 442000, 0,     NULL,            'B');
+
+INSERT INTO habitaciones_reservadas 
+    (reserva_id, habitacion_numero, habitacion_tipo)
+VALUES
+(1,  101, 'IE'),   
+(2,  201, 'DE'),   
+(3,  301, 'DS'),   
+(4,  401, 'SFP'),  
+(5,  502, 'SD'),   
+(6,  105, 'IE'),   
+(7,  208, 'DE'),   
+(8,  305, 'DS');

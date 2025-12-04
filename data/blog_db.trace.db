@@ -70,7 +70,11 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+<<<<<<< HEAD
 2025-12-04 00:41:59.002263-03:00 jdbc[3]: exception
+=======
+2025-12-04 00:39:43.600883-03:00 jdbc[3]: exception
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
 alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
@@ -110,7 +114,11 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+<<<<<<< HEAD
 	at java.base/java.util.HashMap.forEach(Unknown Source)
+=======
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
 	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
 	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
@@ -139,6 +147,7 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
 	at com.app.main.Main.main(Main.java:18)
+<<<<<<< HEAD
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
@@ -159,6 +168,20 @@ org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CH
 Data conversion error converting "CHARACTER VARYING to DECFLOAT"; SQL statement:
 select he1_0.numero,he1_0.tipo,he1_0.fecha,he1_0.estado,he1_0.fecha_fin,he1_0.hora_fin,he1_0.hora_inicio from estados he1_0 where (he1_0.numero,he1_0.tipo) in ((?,?)) [22018-232]
 2025-12-04 00:54:17.537223-03:00 jdbc[3]: exception
+=======
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-04 00:41:36.140812-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER VARYING to DECFLOAT"
+Data conversion error converting "CHARACTER VARYING to DECFLOAT"; SQL statement:
+select he1_0.numero,he1_0.tipo,he1_0.fecha,he1_0.estado,he1_0.fecha_fin,he1_0.hora_fin,he1_0.hora_inicio from estados he1_0 where (he1_0.numero,he1_0.tipo) in ((?,?)) [22018-232]
+2025-12-04 00:41:59.337566-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Conversión de datos fallida, convirtiendo "CHARACTER VARYING to DECFLOAT"
+Data conversion error converting "CHARACTER VARYING to DECFLOAT"; SQL statement:
+select he1_0.numero,he1_0.tipo,he1_0.fecha,he1_0.estado,he1_0.fecha_fin,he1_0.hora_fin,he1_0.hora_inicio from estados he1_0 where (he1_0.numero,he1_0.tipo) in ((?,?)) [22018-232]
+2025-12-04 00:53:04.460612-03:00 jdbc[3]: exception
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
 alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
@@ -198,7 +221,11 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+<<<<<<< HEAD
 	at java.base/java.util.HashMap.forEach(Unknown Source)
+=======
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
 	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
 	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
@@ -227,10 +254,17 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
 	at com.app.main.Main.main(Main.java:18)
+<<<<<<< HEAD
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
 2025-12-04 01:00:57.437884-03:00 jdbc[3]: exception
+=======
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-04 00:57:21.192611-03:00 jdbc[3]: exception
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Values of types "TINYINT" and "ENUM('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO')" are not comparable; SQL statement:
 alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign key (numero, tipo) references habitaciones [90110-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
@@ -270,7 +304,11 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:112)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+<<<<<<< HEAD
 	at java.base/java.util.HashMap.forEach(Unknown Source)
+=======
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
 	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
 	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
@@ -299,6 +337,7 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
 	at com.app.main.Main.main(Main.java:18)
+<<<<<<< HEAD
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
@@ -327,11 +366,27 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
 	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
 	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+=======
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+2025-12-04 00:59:06.172957-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Dominio "TIPO_HABITACION" ya existe
+Domain "TIPO_HABITACION" already exists; SQL statement:
+CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO') [90119-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateDomain.update(CreateDomain.java:82)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
 	at org.h2.command.Command.executeUpdate(Command.java:304)
 	at org.h2.command.Command.executeUpdate(Command.java:248)
 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+<<<<<<< HEAD
 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
@@ -399,11 +454,66 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:288)
 	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
 	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+=======
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-04 00:59:12.727236-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Dominio "TIPO_HABITACION" ya existe
+Domain "TIPO_HABITACION" already exists; SQL statement:
+CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO') [90119-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateDomain.update(CreateDomain.java:82)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0
 	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
 	at org.h2.command.Command.executeUpdate(Command.java:304)
 	at org.h2.command.Command.executeUpdate(Command.java:248)
 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+<<<<<<< HEAD
 	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
 	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
@@ -446,3 +556,47 @@ alter table if exists estados add constraint FKq9pkquo9ci9i7md3bih5mplcb foreign
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+=======
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1344)
+	at org.h2.server.web.WebApp.query(WebApp.java:1142)
+	at org.h2.server.web.WebApp.query(WebApp.java:1118)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+>>>>>>> ecf4ac07f678738c9cffedb1b01a790f889fa9e0

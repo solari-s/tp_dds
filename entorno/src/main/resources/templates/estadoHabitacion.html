@@ -256,7 +256,7 @@
             }
 
             // 3. Si pasa la validación, hacemos el Fetch
-            fetch(`/api/habitaciones/estado?desde=${desdeVal}&hasta=${hastaVal}`)
+            fetch(`/api/reservas/buscar?tipo=${tipo}&desde=${desde}&hasta=${hasta}`)
             .then(response => {
                 if (!response.ok) throw new Error("Error en la respuesta del servidor");
                 return response.json();
@@ -359,21 +359,19 @@
         }
 
         // Botón Siguiente
-        if(btnIrACU4){
-            btnIrACU4.addEventListener("click", () => {
-                const desdeVal = inputDesde.value;
-                const hastaVal = inputHasta.value;
+        btnIrACU4.addEventListener("click", () => {
+        const desdeVal = inputDesde.value;
+        const hastaVal = inputHasta.value;
 
-                if(!desdeVal || !hastaVal) {
-                    alert("No hay fechas seleccionadas para procesar.");
-                    return;
-                }
-                
-                // Aquí podrías validar de nuevo fechas por seguridad si quisieras
-                console.log("Transición al CU4");
-                alert(`Siguiente paso: Se enviarán las fechas (${desdeVal} - ${hastaVal}) y la tabla de disponibilidad al proceso de Reserva (CU4).`);
-            });
+        if (!desdeVal || !hastaVal) {
+            alert("Seleccione fechas para continuar.");
+            return;
         }
+
+        // CU5 envía el rango → CU4 lo recibe para buscar habitaciones
+        window.location.href = `reservarHabitacion.html?desde=${encodeURIComponent(desdeVal)}&hasta=${encodeURIComponent(hastaVal)}`;
+        });
+
 
         function generarListaFechas(desde, hasta) {
             let actual = parseDateLocal(desde);

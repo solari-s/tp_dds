@@ -3,7 +3,6 @@ package com.app.gestores;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +20,10 @@ import com.app.repository.HabitacionRepository;
 import com.app.repository.HistorialEstadoHabitacionRepository;
 
 import com.app.huesped.Huesped;
-import com.app.huesped.HuespedDTO; 
+import com.app.huesped.HuespedDTO;
 import com.app.huesped.HuespedPK;
 import com.app.repository.HuespedRepository;
-import com.app.habitacion.OcuparDTO; 
+import com.app.habitacion.OcuparDTO;
 import java.text.SimpleDateFormat;
 
 @Service
@@ -42,7 +41,7 @@ public class GestorHabitaciones {
     @Transactional
     public void registrarOcupacion(OcuparDTO ocupacion) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         // 1. Convertir Fechas
         Date inicio = sdf.parse(ocupacion.getFechaInicio());
         Date fin = sdf.parse(ocupacion.getFechaFin());
@@ -50,26 +49,27 @@ public class GestorHabitaciones {
 
         // 2. Buscar Habitación
         Habitacion hab = habitacionRepository.findByIdNumeroAndIdTipo(ocupacion.getNumeroHabitacion(), tipo);
-        if (hab == null) throw new RuntimeException("Habitación no encontrada");
+        if (hab == null)
+            throw new RuntimeException("Habitación no encontrada");
 
         // 3. Crear Registro en Historial (ESTADOS)
         // Usamos horaInicio 00:00 y horaFin 23:59 como pediste, o las del constructor
-        // El constructor HistorialEstadoHabitacion(Habitacion, String horaIn, Date fechaIn, String horaFn, Date fechaFn, Estado) existe
+        // El constructor HistorialEstadoHabitacion(Habitacion, String horaIn, Date
+        // fechaIn, String horaFn, Date fechaFn, Estado) existe
         HistorialEstadoHabitacion nuevoEstado = new HistorialEstadoHabitacion(
-            hab,
-            "00:00",
-            inicio,
-            "23:59",
-            fin,
-            EstadoHabitacion.Ocupada
-        );
+                hab,
+                "00:00",
+                inicio,
+                "23:59",
+                fin,
+                EstadoHabitacion.Ocupada);
         historialRepository.save(nuevoEstado);
 
         // 4. Actualizar Huéspedes (Alojado = TRUE)
         for (HuespedDTO hDto : ocupacion.getHuespedes()) {
             HuespedPK pk = new HuespedPK(hDto.getTipo_documento(), hDto.getNroDocumento());
             Huesped huesped = huespedRepository.findById(pk).orElse(null);
-            
+
             if (huesped != null) {
                 huesped.setAlojado(true);
                 huespedRepository.save(huesped);
@@ -191,15 +191,15 @@ public class GestorHabitaciones {
     private List<Date> generarRangoFechas(LocalDate start, LocalDate end) {
         List<Date> dates = new ArrayList<>();
         LocalDate current = start;
-        
+
         while (!current.isAfter(end)) {
-            // Convertimos LocalDate a Date usando el inicio del día en la zona horaria del sistema
+            // Convertimos LocalDate a Date usando el inicio del día en la zona horaria del
+            // sistema
             // Esto evita que se convierta en "21:00 del día anterior"
             dates.add(Date.from(current.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             current = current.plusDays(1);
         }
         return dates;
     }
-
 
 }

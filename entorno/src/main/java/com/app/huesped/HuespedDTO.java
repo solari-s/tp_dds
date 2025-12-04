@@ -1,6 +1,5 @@
 package com.app.huesped;
 
-import com.app.direccion.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +20,6 @@ public class HuespedDTO {
     private boolean alojado;
     private String direccion;
 
-
     // Constructor desde Huesped
     public HuespedDTO(Huesped huesped) {
         this.nombre = huesped.getNombre();
@@ -37,6 +35,7 @@ public class HuespedDTO {
         this.direccion = null;
 
     }
+
     public HuespedDTO() {
         this.nombre = "";
         this.apellido = "";
@@ -114,27 +113,31 @@ public class HuespedDTO {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public String getDireccion() {
+        return direccion;
+    }
 
-    //hacemos una sobrecarga de setFechaDeNacimiento para aceptar String
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    // hacemos una sobrecarga de setFechaDeNacimiento para aceptar String
     public void setFechaDeNacimiento(String fechaString) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         try {
             if (fechaString != null && !fechaString.isEmpty()) {
                 this.fechaDeNacimiento = sdf.parse(fechaString);
             } else {
                 this.fechaDeNacimiento = null;
             }
-            
+
         } catch (ParseException e) {
             // Si falla (ej: formato incorrecto), imprime un error
             System.out.println("Error al parsear la fecha: " + fechaString + " - " + e.getMessage());
             this.fechaDeNacimiento = null; // Asigna null si falla
         }
     }
-    
 
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;

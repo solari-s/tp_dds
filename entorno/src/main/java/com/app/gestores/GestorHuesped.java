@@ -33,7 +33,7 @@ public class GestorHuesped{
         String apellido = filtro.getApellido();
         String nombre = filtro.getNombre();
         String dni = filtro.getNroDocumento();
-        String tipoDocumento = filtro.getTipo_documento().toString();
+        //String tipoDocumento = filtro.getTipo_documento().toString();
 
         if (apellido != null && !apellido.isEmpty()) {
             spec = spec.and((root, query, cb) -> 
@@ -49,13 +49,13 @@ public class GestorHuesped{
 
         if (dni != null && !dni.isEmpty()) {
             spec = spec.and((root, query, cb) -> 
-                cb.equal(root.get("dni"), dni)
+                cb.equal(root.get("id").get("nroDocumento"), dni)
             );
         }
 
-        if (tipoDocumento != null && !tipoDocumento.isEmpty()) {
+        if (filtro.getTipo_documento() != null) {
             spec = spec.and((root, query, cb) -> 
-                cb.equal(cb.lower(root.get("tipoDocumento")), tipoDocumento.toLowerCase())
+                cb.equal(root.get("id").get("tipo_documento"), filtro.getTipo_documento())
             );
         }
 

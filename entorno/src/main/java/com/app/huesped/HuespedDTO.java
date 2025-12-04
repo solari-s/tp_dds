@@ -34,7 +34,7 @@ public class HuespedDTO {
     public HuespedDTO() {
         this.nombre = "";
         this.apellido = "";
-        this.tipo_documento = TipoDoc.DNI;
+        this.tipo_documento = null;
         this.nroDocumento = "";
         this.fechaDeNacimiento = null;
         this.nacionalidad = "";

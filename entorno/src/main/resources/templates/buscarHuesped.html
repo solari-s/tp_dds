@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Huésped</title>
     <style>
@@ -105,7 +106,7 @@
             background-color: #357abd;
         }
 
-        /* --- Estilos de la Tabla de Resultados (Nueva Sección) --- */
+        /* --- Estilos de la Tabla de Resultados --- */
         .results-container {
             display: none; /* Oculto por defecto */
             border: 1px solid #a9cce3;
@@ -166,13 +167,14 @@
             height: 35px; /* Altura mínima para filas vacías */
             color: #333;
             font-size: 14px;
+            text-align: center; /* Alineación centrada para datos */
         }
 
         td:last-child {
             border-right: none;
         }
 
-        /* Estilo personalizado para el scrollbar (Chrome/Edge/Safari) */
+        /* Estilo personalizado para el scrollbar */
         .table-wrapper::-webkit-scrollbar {
             width: 15px;
         }
@@ -198,7 +200,7 @@
             color: #333;
             border: 1px solid #a9cce3;
             padding: 8px 30px;
-            border-radius: 20px; /* Bordes muy redondos como la imagen */
+            border-radius: 20px; /* Bordes muy redondos */
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -214,7 +216,9 @@
     <div class="container">
         <h1>Buscar Huésped</h1>
         
-        <form id="searchForm">
+        <input type="hidden" id="selectedHuespedId" value="">
+
+        <form id="searchForm" onsubmit="event.preventDefault(); realizarBusqueda();">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -228,7 +232,7 @@
 
                 <div class="form-group">
                     <label for="tipoDocumento">Tipo Documento:</label>
-                    <select id="tipoDocumento" name="tipoDocumento" required>
+                    <select id="tipoDocumento" name="tipoDocumento">
                         <option value="" disabled selected hidden>Seleccione su tipo de documento</option>
                         <option value="DNI">DNI</option>
                         <option value="LE">LE</option>
@@ -250,123 +254,179 @@
         </form>
 
         <div class="results-container" id="results">
-            <div class="results-header">Huéspedes encontrados (Cantidad)</div>
+            <div class="results-header">Huéspedes encontrados <span id="cantidadResultados">(0)</span></div>
             
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombres</th>
+                            <th>Seleccionar</th>
                             <th>Apellido</th>
+                            <th>Nombres</th>
+                            <th>Tipo Doc.</th>
                             <th>N° de documento</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>Juan</td><td>Perez</td><td>12345678</td></tr> <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                    </tbody>
+                    <tbody id="tablaCuerpo">
+                        </tbody>
                 </table>
             </div>
 
             <div class="next-btn-container">
-                <button class="btn-secondary">Siguiente</button>
+                <button class="btn-secondary" onclick="siguiente()">Siguiente</button>
             </div>
         </div>
     </div>
 
 <script>
+    // --- FUNCIÓN DE BÚSQUEDA ---
     async function realizarBusqueda() {
-        // 1. Obtener valores
-        const nombre = document.getElementById('nombre').value;
-        const apellido = document.getElementById('apellido').value;
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
         const tipoDoc = document.getElementById('tipoDocumento').value;
-        const documento = document.getElementById('documento').value;
+        const nroDocumento = document.getElementById('nroDocumento').value.trim();
 
-        // 2. Preparar parámetros (solo enviamos lo que no está vacío)
+        // 1. SOLUCIÓN PROBLEMA "NULL": Si no puso nada, ir directo a Alta Huesped
+        if (!nombre && !apellido && !tipoDoc && !nroDocumento) {
+            // Opcional: podrías preguntar antes con un confirm(), pero pediste redirigir directo.
+            window.location.href = '/altaHuesped';
+            return;
+        }
+
+        // Preparar parámetros
         const params = new URLSearchParams();
         if(nombre) params.append('nombre', nombre);
         if(apellido) params.append('apellido', apellido);
         if(tipoDoc) params.append('tipoDocumento', tipoDoc);
-        if(documento) params.append('documento', documento);
+        if(nroDocumento) params.append('documento', nroDocumento);
 
         try {
-            // 3. Llamar al Backend
             const response = await fetch(`/api/huespedes/buscar?${params.toString()}`);
             
             if (!response.ok) {
-                throw new Error("Error en la respuesta del servidor: " + response.status);
+                throw new Error("Error del servidor");
             }
 
             const data = await response.json();
 
-            // REGLA: Si no hay resultados, ir a Alta Huesped
-            if (data.length === 0) {
-                alert("No se encontraron resultados. Redirigiendo a registrar nuevo huésped...");
-                window.location.href = '/altaHuesped';
+            // Si no hay resultados, ir a Alta Huesped
+            if (!data || data.length === 0) {
+                // Usamos SweetAlert para que sea más bonito antes de redirigir
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No encontrado',
+                    text: 'No se encontró el huésped. Redirigiendo a registro...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = '/altaHuesped';
+                });
                 return;
             }
 
-            // Si hay resultados, mostrar tabla
             mostrarResultados(data);
 
         } catch (error) {
             console.error('Error:', error);
-            alert("Error al buscar. Verifica que el servidor esté corriendo y la URL sea correcta.");
+            // Si hubo un error real de conexión, lo mostramos
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al buscar. Verifique que el servidor esté corriendo.',
+                confirmButtonColor: '#4a90e2'
+            });
         }
     }
 
+    // --- FUNCIÓN MOSTRAR TABLA (Con lógica de Deselección) ---
     function mostrarResultados(huespedes) {
-        const contenedor = document.getElementById('contenedorResultados');
+        const contenedor = document.getElementById('results');
         const cantidadSpan = document.getElementById('cantidadResultados');
         const tbody = document.getElementById('tablaCuerpo');
+        const inputHidden = document.getElementById('selectedHuespedId');
         
+        // Limpiar tabla y selección previa
         tbody.innerHTML = ''; 
-        document.getElementById('selectedHuespedId').value = ''; 
-
+        inputHidden.value = ''; 
         cantidadSpan.textContent = `(${huespedes.length})`;
         
         huespedes.forEach(h => {
             const row = document.createElement('tr');
-            // Al hacer clic en la fila, se selecciona el radio button
-            row.onclick = function() {
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                document.getElementById('selectedHuespedId').value = radio.value;
-            };
+            row.style.cursor = 'pointer';
             
+            // Usamos nroDocumento como ID (asegúrate que sea único o usa un ID de base de datos)
+            const valorId = h.nroDocumento; 
+
             row.innerHTML = `
-                <td><input type="radio" name="huespedSel" value="${h.idUsuario}"></td>
+                <td><input type="radio" name="huespedSel" value="${valorId}" style="pointer-events: none;"></td>
                 <td>${h.apellido}</td>
                 <td>${h.nombre}</td>
-                <td>${h.tipoDocumento}</td>
-                <td>${h.documento}</td>
-                <td>${h.email}</td>
+                <td>${h.tipo_documento || '-'}</td>
+                <td>${h.nroDocumento}</td>
+                <td>${h.email || '-'}</td>
                 <td>${h.telefono}</td>
             `;
+            
+            // 2. SOLUCIÓN PROBLEMA SELECCIÓN: Toggle (Seleccionar / Deseleccionar)
+            row.onclick = function() {
+                const radio = this.querySelector('input[type="radio"]');
+                const yaEstabaSeleccionado = (inputHidden.value === String(valorId));
+
+                // Reseteamos estilos de TODAS las filas primero
+                const filas = tbody.querySelectorAll('tr');
+                filas.forEach(f => {
+                    f.style.backgroundColor = 'white';
+                    f.querySelector('input[type="radio"]').checked = false;
+                });
+
+                if (yaEstabaSeleccionado) {
+                    // DESELECCIONAR: Si clicamos el que ya estaba marcado
+                    inputHidden.value = ''; // Borramos el ID guardado
+                    radio.checked = false;  // Visualmente desmarcado
+                    this.style.backgroundColor = 'white'; // Fondo normal
+                } else {
+                    // SELECCIONAR NUEVO
+                    inputHidden.value = valorId;
+                    radio.checked = true;
+                    this.style.backgroundColor = '#eaf2f8'; // Color de selección
+                }
+            };
+
             tbody.appendChild(row);
         });
 
         contenedor.style.display = 'block';
     }
 
+    // --- FUNCIÓN SIGUIENTE (Popup Mockup) ---
     function siguiente() {
         const idSeleccionado = document.getElementById('selectedHuespedId').value;
 
-        // REGLA: Si aprieta siguiente SIN seleccionar a nadie -> ir a Alta Huesped
+        // Si no seleccionó nada -> Ir a Alta Huesped
         if (!idSeleccionado) {
             window.location.href = '/altaHuesped';
         } else {
-            // Si seleccionó a alguien, proceder (aquí pones tu lógica de siguiente paso)
-            // Por ahora asumo que vas a la reserva con ese ID
-            window.location.href = '/reservarHabitacion?idHuesped=' + idSeleccionado;
+            // 3. SOLUCIÓN PROBLEMA ERROR SIGUIENTE: Popup de "En proceso"
+            Swal.fire({
+                title: 'Funcionalidad en desarrollo',
+                text: 'Ahora se debería ejecutar modificar huésped, implementación en proceso...',
+                icon: 'info',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4a90e2',
+                background: '#e9f0fa'
+            }).then((result) => {
+                // Al tocar OK, recargamos o limpiamos la selección
+                if (result.isConfirmed) {
+                    
+                    window.location.reload(); 
+                    
+                   
+                }
+            });
         }
     }
 </script>
-
 </body>
 </html>

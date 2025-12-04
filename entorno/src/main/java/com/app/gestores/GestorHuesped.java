@@ -49,13 +49,14 @@ public class GestorHuesped{
 
         if (dni != null && !dni.isEmpty()) {
             spec = spec.and((root, query, cb) -> 
-                cb.equal(root.get("dni"), dni)
+                cb.equal(root.get("id").get("nroDocumento"), dni)
             );
         }
 
         if (tipoDocumento != null && !tipoDocumento.isEmpty()) {
             spec = spec.and((root, query, cb) -> 
-                cb.equal(cb.lower(root.get("tipoDocumento")), tipoDocumento.toLowerCase())
+                // Si falla con String, prueba pasar directamente filtro.getTipo_documento() sin toString()
+                cb.equal(root.get("id").get("tipo_documento").as(String.class), tipoDocumento)
             );
         }
 

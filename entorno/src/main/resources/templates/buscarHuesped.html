@@ -105,7 +105,7 @@
             background-color: #357abd;
         }
 
-        /* --- Estilos de la Tabla de Resultados (Nueva Sección) --- */
+        /* --- Estilos de la Tabla de Resultados --- */
         .results-container {
             display: none; /* Oculto por defecto */
             border: 1px solid #a9cce3;
@@ -166,13 +166,14 @@
             height: 35px; /* Altura mínima para filas vacías */
             color: #333;
             font-size: 14px;
+            text-align: center; /* Alineación centrada para datos */
         }
 
         td:last-child {
             border-right: none;
         }
 
-        /* Estilo personalizado para el scrollbar (Chrome/Edge/Safari) */
+        /* Estilo personalizado para el scrollbar */
         .table-wrapper::-webkit-scrollbar {
             width: 15px;
         }
@@ -198,7 +199,7 @@
             color: #333;
             border: 1px solid #a9cce3;
             padding: 8px 30px;
-            border-radius: 20px; /* Bordes muy redondos como la imagen */
+            border-radius: 20px; /* Bordes muy redondos */
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -214,7 +215,9 @@
     <div class="container">
         <h1>Buscar Huésped</h1>
         
-        <form id="searchForm">
+        <input type="hidden" id="selectedHuespedId" value="">
+
+        <form id="searchForm" onsubmit="event.preventDefault(); realizarBusqueda();">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -228,7 +231,7 @@
 
                 <div class="form-group">
                     <label for="tipoDocumento">Tipo Documento:</label>
-                    <select id="tipoDocumento" name="tipoDocumento" required>
+                    <select id="tipoDocumento" name="tipoDocumento">
                         <option value="" disabled selected hidden>Seleccione su tipo de documento</option>
                         <option value="DNI">DNI</option>
                         <option value="LE">LE</option>
@@ -250,31 +253,28 @@
         </form>
 
         <div class="results-container" id="results">
-            <div class="results-header">Huéspedes encontrados (Cantidad)</div>
+            <div class="results-header">Huéspedes encontrados <span id="cantidadResultados">(0)</span></div>
             
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombres</th>
+                            <th>Seleccionar</th>
                             <th>Apellido</th>
+                            <th>Nombres</th>
+                            <th>Tipo Doc.</th>
                             <th>N° de documento</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr><td>Juan</td><td>Perez</td><td>12345678</td></tr> <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                        <tr><td></td><td></td><td></td></tr>
-                    </tbody>
+                    <tbody id="tablaCuerpo">
+                        </tbody>
                 </table>
             </div>
 
             <div class="next-btn-container">
-                <button class="btn-secondary">Siguiente</button>
+                <button class="btn-secondary" onclick="siguiente()">Siguiente</button>
             </div>
         </div>
     </div>
@@ -285,14 +285,14 @@
         const nombre = document.getElementById('nombre').value;
         const apellido = document.getElementById('apellido').value;
         const tipoDoc = document.getElementById('tipoDocumento').value;
-        const documento = document.getElementById('documento').value;
+        const nroDocumento = document.getElementById('nroDocumento').value; // Corregido ID
 
         // 2. Preparar parámetros (solo enviamos lo que no está vacío)
         const params = new URLSearchParams();
         if(nombre) params.append('nombre', nombre);
         if(apellido) params.append('apellido', apellido);
         if(tipoDoc) params.append('tipoDocumento', tipoDoc);
-        if(documento) params.append('documento', documento);
+        if(nroDocumento) params.append('documento', nroDocumento); // Backend espera 'documento'
 
         try {
             // 3. Llamar al Backend
@@ -305,8 +305,8 @@
             const data = await response.json();
 
             // REGLA: Si no hay resultados, ir a Alta Huesped
-            if (data.length === 0) {
-                alert("No se encontraron resultados. Redirigiendo a registrar nuevo huésped...");
+            if (!data || data.length === 0) {
+                alert("No se encontró ninguna persona. Redirigiendo a registrar nuevo huésped...");
                 window.location.href = '/altaHuesped';
                 return;
             }
@@ -321,33 +321,63 @@
     }
 
     function mostrarResultados(huespedes) {
-        const contenedor = document.getElementById('contenedorResultados');
+        const contenedor = document.getElementById('results'); // ID corregido
         const cantidadSpan = document.getElementById('cantidadResultados');
         const tbody = document.getElementById('tablaCuerpo');
+        const inputHidden = document.getElementById('selectedHuespedId');
         
         tbody.innerHTML = ''; 
-        document.getElementById('selectedHuespedId').value = ''; 
+        inputHidden.value = ''; // Limpiar selección previa
 
         cantidadSpan.textContent = `(${huespedes.length})`;
         
         huespedes.forEach(h => {
             const row = document.createElement('tr');
-            // Al hacer clic en la fila, se selecciona el radio button
+            // Hacemos que toda la fila sea clickeable para mejor experiencia
+            row.style.cursor = 'pointer';
+            
+            // Si el usuario ya está alojado, podríamos mostrar un indicador visual si fuera necesario,
+            // pero por ahora seguimos la lógica estándar.
+            
+            // Creamos las celdas
+            const tdRadio = document.createElement('td');
+            // Usamos 'nroDocumento' como valor único temporal si 'idUsuario' no existe en el DTO, 
+            // pero asumiendo que el DTO tiene un ID o usamos el documento como identificador.
+            // Nota: En tu DTO no vi un campo "id", así que usaré el nroDocumento o el objeto entero si es necesario.
+            // Para este ejemplo asumo que necesitas identificarlo por documento o ID si lo agregas.
+            const valorId = h.nroDocumento; 
+
+            tdRadio.innerHTML = `<input type="radio" name="huespedSel" value="${valorId}">`;
+            
             row.onclick = function() {
                 const radio = this.querySelector('input[type="radio"]');
                 radio.checked = true;
-                document.getElementById('selectedHuespedId').value = radio.value;
+                inputHidden.value = radio.value;
+                
+                // Resaltar fila seleccionada (opcional visual)
+                const filas = tbody.querySelectorAll('tr');
+                filas.forEach(f => f.style.backgroundColor = 'white');
+                this.style.backgroundColor = '#eaf2f8';
             };
-            
+
             row.innerHTML = `
-                <td><input type="radio" name="huespedSel" value="${h.idUsuario}"></td>
+                <td><input type="radio" name="huespedSel" value="${valorId}"></td>
                 <td>${h.apellido}</td>
                 <td>${h.nombre}</td>
-                <td>${h.tipoDocumento}</td>
-                <td>${h.documento}</td>
-                <td>${h.email}</td>
+                <td>${h.tipo_documento}</td>
+                <td>${h.nroDocumento}</td>
+                <td>${h.email || '-'}</td>
                 <td>${h.telefono}</td>
             `;
+            
+            // Re-asignar el onclick porque al usar innerHTML se pierde el anterior si no se hace con cuidado
+            // Mejor enfoque:
+            const radio = row.querySelector('input[type="radio"]');
+            row.addEventListener('click', () => {
+                radio.checked = true;
+                inputHidden.value = radio.value;
+            });
+
             tbody.appendChild(row);
         });
 
@@ -361,8 +391,8 @@
         if (!idSeleccionado) {
             window.location.href = '/altaHuesped';
         } else {
-            // Si seleccionó a alguien, proceder (aquí pones tu lógica de siguiente paso)
-            // Por ahora asumo que vas a la reserva con ese ID
+            // Si seleccionó a alguien, proceder a reservar
+            // Se pasa el ID (o documento) por URL
             window.location.href = '/reservarHabitacion?idHuesped=' + idSeleccionado;
         }
     }

@@ -1,8 +1,6 @@
 CONSULTAR TABLA
 
-SELECT COLUMN_NAME, DATA_TYPE
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'HABITACIONES';
+SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'HABITACIONES';
 
 CREATE TYPE tipo_habitacion AS ENUM ('IE', 'DE', 'DS', 'SFP', 'SD', 'OTRO');
 ALTER TABLE estados ALTER COLUMN tipo TYPE tipo_habitacion USING tipo::smallint::tipo_habitacion;
@@ -55,6 +53,26 @@ INSERT INTO huespedes (
 (14, '1978-11-11', '26789012',     '+543874562314', 'Álvarez',   'gabriela.alvarez@gmail.com', 'Argentina', 'Gabriela Noemí',   'Docente universitaria', 'DNI',       true),
 (15, '1985-09-17', 'DE8765432',    '+4917654321',   'Müller',    'hans.mueller@gmx.de',        'Alemania',  'Hans Peter',       'Turista',               'PASAPORTE', false);
 
+INSERT INTO RESPONSABLE_PAGO
+    (cuit)
+VALUES
+('30-71234567-8'),
+('20-24567890-1'),
+('30-55678901-2'),
+('27-26789012-3'),
+('30-70987654-3');
+
+
+INSERT INTO PERSONAS_FISICAS
+    (REF_HUESPED_NRO_DOCUMENTO,REF_HUESPED_TIPO_DOCUMENTO , POSICIONIVA, cuit)
+VALUES
+('33456789',        'DNI',      'RI',           '30-71234567-8'),
+('24567890',        'DNI',      'MT',           '20-24567890-1'),
+('32567890',        'DNI',      'RI',           '30-55678901-2'),
+('26789012',        'DNI',      'RNI',          '27-26789012-3'),
+('48765432',        'LC',      'RI',           '30-70987654-3');
+
+
 INSERT INTO habitaciones (numero, tipo, costo_noche) VALUES
 
 (101, 'IE', 50800), (102, 'IE', 50800), (103, 'IE', 50800), (104, 'IE', 50800), (105, 'IE', 50800),
@@ -86,6 +104,18 @@ VALUES
 (502, 'SD', '2025-11-30 00:00:00', '2025-12-05 23:59:59', '12:00',    '12:00',    'fueradeservicio'),
 (502, 'SD', '2025-11-25 15:00:00', '2025-11-28 12:00:00', '15:00', '12:00', 'reservada');
 
+INSERT INTO RESERVAS
+    (id, telefono, fecha_ingreso, fecha_egreso, hora_ingreso, hora_egreso, apellido, nombre)
+VALUES
+(1,  '+541112345678', '2025-12-15 15:00:00', '2025-12-18 12:00:00', '15:00', '12:00', 'García',      'Juan Carlos'),
+(2,  '+573001234567', '2025-12-20 16:00:00', '2025-12-24 11:00:00', '16:00', '11:00', 'Rodríguez',   'María Alejandra'),
+(3,  '+543512468135', '2025-12-12 17:00:00', '2025-12-16 12:00:00', '17:00', '12:00', 'Fernández',   'Carlos Alberto'),
+(4,  '+542615579924', '2025-12-26 14:00:00', '2025-12-30 12:00:00', '14:00', '12:00', 'López',       'Sofía Valentina'),
+(5,  '+4917654321',   '2025-12-22 18:00:00', '2025-12-28 12:00:00', '18:00', '12:00', 'Müller',      'Hans Peter'),
+(6,  '+543414567890', '2025-12-10 15:00:00', '2025-12-13 12:00:00', '15:00', '12:00', 'Pérez',       'Facundo Ezequiel'),
+(7,  '+541198745632', '2025-12-18 16:00:00', '2025-12-22 11:00:00', '16:00', '11:00', 'Díaz',        'Natalia Soledad'),
+(8,  '+543874562314', '2025-12-14 17:00:00', '2025-12-19 12:00:00', '17:00', '12:00', 'Álvarez',     'Gabriela Noemí');
+
 INSERT INTO ESTADIAS(
     id, factura_id, habitacion_numero, habitacion_tipo,
     reserva_id, fecha_inicio, fecha_fin, precio
@@ -109,3 +139,17 @@ INSERT INTO estados (numero, tipo, fecha, fecha_fin, hora_inicio, hora_fin, esta
 (205, 'DE',  '2025-12-05 16:00:00', '2025-12-09 11:00:00', '16:00', '11:00', 'ocupada'),
 (402, 'SFP', '2025-12-08 15:00:00', '2025-12-12 12:00:00', '15:00', '12:00', 'ocupada'),
 (501, 'SD',  '2025-12-01 19:00:00', '2025-12-04 12:00:00', '19:00', '12:00', 'ocupada');
+
+INSERT INTO facturas 
+    (id, nota_cancela, pagado, totalapagar, valor_estadia, vuelto, responsable_pago, tipo_factura)
+VALUES
+(1001, NULL, true,  152400, 152400, 0,     '30-71234567-8', 'A'),
+(1002, NULL, true,  280920, 280920, 600,   NULL,            'B'),
+(1003, NULL, true,  362240, 362240, 0,     '20-24567890-1', 'A'),
+(1004, NULL, true,  442000, 442000, 0,     NULL,            'B'),
+(1006, NULL, true,  152400, 152400, 1000,  NULL,            'B'),
+(1007, NULL, true,  280920, 280920, 0,     '30-55678901-2', 'A'),
+(1008, NULL, true,  452800, 452800, 0,     '27-26789012-3', 'A'),
+(1009, NULL, true,  152400, 152400, 2600,  NULL,            'B'),
+(1010, NULL, true,  280920, 280920, 0,     '30-70987654-3', 'A'),
+(1011, NULL, true,  442000, 442000, 0,     NULL,            'B');

@@ -15,7 +15,7 @@ public class Reserva {
 
     private String nombre;
     private String apellido;
-    private int telefono;
+    private String telefono;
     private Date fechaIngreso;
     private String HoraIngreso;
     private Date fechaEgreso;
@@ -36,8 +36,8 @@ public class Reserva {
     //constructores
 
     public Reserva(){}
-    
-    public Reserva(String nombre, String apellido, int telefono, Date fechaIngreso, String horaIngreso, Date fechaEgreso, String horaEgreso, List<Habitacion> habitacionesReservadas) {
+
+    public Reserva(String nombre, String apellido, String telefono, Date fechaIngreso, String horaIngreso, Date fechaEgreso, String horaEgreso, List<Habitacion> habitacionesReservadas) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
@@ -52,7 +52,7 @@ public class Reserva {
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
-    public int getTelefono() { return telefono; }
+    public String getTelefono() { return telefono; }
     public Date getFechaIngreso() { return fechaIngreso; }
     public String getHoraIngreso() { return HoraIngreso; }
     public Date getFechaEgreso() { return fechaEgreso; }
@@ -63,7 +63,7 @@ public class Reserva {
     //setters
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setApellido(String apellido) { this.apellido = apellido; }
-    public void setTelefono(int telefono) { this.telefono = telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
     public void setFechaIngreso(Date fechaIngreso) { this.fechaIngreso = fechaIngreso; }
     public void setHoraIngreso(String horaIngreso) { HoraIngreso = horaIngreso; }
     public void setFechaEgreso(Date fechaEgreso) { this.fechaEgreso = fechaEgreso; }

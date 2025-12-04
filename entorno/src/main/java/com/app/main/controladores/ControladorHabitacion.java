@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.app.gestores.GestorHabitaciones;
 import com.app.habitacion.HabitacionDTO;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class ControladorHabitacion {
 
     @GetMapping("/estado")
     public List<HabitacionDTO> getEstadoHabitaciones(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date desde,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date hasta) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
         return gestorHabitaciones.mostrarEstadoHabitaciones(desde, hasta);
     }
 }

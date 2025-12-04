@@ -1,5 +1,7 @@
 package com.app.gestores;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,11 +33,12 @@ public class GestorHabitaciones {
     // 1) MOSTRAR ESTADO DE HABITACIONES ENTRE FECHAS
     // --------------------------------------------------------
     @Transactional(readOnly = true)
-    public List<HabitacionDTO> mostrarEstadoHabitaciones(Date fechaInicio, Date fechaFin) {
+    public List<HabitacionDTO> mostrarEstadoHabitaciones(LocalDate fechaInicio, LocalDate fechaFin) {
 
         List<Habitacion> habitaciones = habitacionRepository.findAll();
         List<HabitacionDTO> dtos = new ArrayList<>();
 
+        // Generamos la lista de fechas segura sin desplazamiento horario
         List<Date> rangoFechas = generarRangoFechas(fechaInicio, fechaFin);
 
         for (Habitacion h : habitaciones) {
@@ -137,16 +140,16 @@ public class GestorHabitaciones {
     // --------------------------------------------------------
     // 5) GENERAR LISTA DE FECHAS ENTRE INICIO–FIN
     // --------------------------------------------------------
-    private List<Date> generarRangoFechas(Date start, Date end) {
+    private List<Date> generarRangoFechas(LocalDate start, LocalDate end) {
         List<Date> dates = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(start);
-
-        while (!calendar.getTime().after(end)) {
-            dates.add(calendar.getTime());
-            calendar.add(Calendar.DATE, 1);
+        LocalDate current = start;
+        
+        while (!current.isAfter(end)) {
+            // Convertimos LocalDate a Date usando el inicio del día en la zona horaria del sistema
+            // Esto evita que se convierta en "21:00 del día anterior"
+            dates.add(Date.from(current.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            current = current.plusDays(1);
         }
-
         return dates;
     }
 }

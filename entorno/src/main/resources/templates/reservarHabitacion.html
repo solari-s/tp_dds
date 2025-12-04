@@ -169,19 +169,52 @@
     }
 
     // Utils
-    function convertirFechaIso(s) { const [d,m,y] = s.split('/'); return `20${y}-${m}-${d}`; }
-    function generarRangoFechas(d,h) { /* Igual que antes */ 
-        let a = parse(d), b = parse(h), r = [];
-        while(a<=b) { r.push(fmt(a)); a.setDate(a.getDate()+1); }
-        return r;
+    // Convierte "dd/MM/yyyy" → "yyyy-MM-dd"
+function convertirFechaIso(s) {
+    const [d, m, y] = s.split('/');
+    return `${y}-${m}-${d}`;
+}
+
+// Convierte "yyyy-MM-dd" → objeto Date seguro
+function parseISO(dateStr) {
+    const [y, m, d] = dateStr.split('-');
+    return new Date(parseInt(y), parseInt(m)-1, parseInt(d));
+}
+
+// Genera rango ISO bien formado
+function generarRangoFechasISO(desdeISO, hastaISO) {
+    let a = parseISO(desdeISO);
+    let b = parseISO(hastaISO);
+    let r = [];
+
+    while (a <= b) {
+        r.push(a.toISOString().split("T")[0]);
+        a.setDate(a.getDate() + 1);
     }
-    function generarRangoFechasISO(d,h) {
-        let a = new Date(d+"T12:00:00"), b = new Date(h+"T12:00:00"), r=[];
-        while(a<=b) { r.push(a.toISOString().split("T")[0]); a.setDate(a.getDate()+1); }
-        return r;
+
+    return r;
+}
+
+// Para mostrar fechas dd/MM/yyyy sin romper
+function generarRangoFechas(desde, hasta) {
+    const isoD = convertirFechaIso(desde);
+    const isoH = convertirFechaIso(hasta);
+
+    let a = parseISO(isoD);
+    let b = parseISO(isoH);
+    let r = [];
+
+    while (a <= b) {
+        r.push(fmt(a));
+        a.setDate(a.getDate() + 1);
     }
-    function parse(s) { const [d,m,y] = s.split('/'); return new Date(20+y, m-1, d); }
-    function fmt(d) { return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`; }
+    return r;
+}
+
+function fmt(d) {
+    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+}
+
 </script>
 </body>
 </html>

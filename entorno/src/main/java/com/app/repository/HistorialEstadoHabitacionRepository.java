@@ -1,29 +1,47 @@
 package com.app.repository;
 
+import java.util.Date;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import com.app.habitacion.HistorialEstadoHabitacion;
 import com.app.habitacion.HistorialHabitacionPK;
 import com.app.habitacion.TipoHabitacion;
 
-@Repository
 public interface HistorialEstadoHabitacionRepository
-        extends JpaRepository<HistorialEstadoHabitacion, HistorialHabitacionPK> {
+                extends JpaRepository<HistorialEstadoHabitacion, HistorialHabitacionPK> {
 
-    // Buscar historial de una habitación específica
-    @Query("""
-            SELECT h FROM HistorialEstadoHabitacion h
-            WHERE h.id.numero = :numero
-              AND h.id.tipo = :tipo
-            """)
-    List<HistorialEstadoHabitacion> findByHabitacion(
-            @Param("numero") int numero,
-            @Param("tipo") TipoHabitacion tipo);
+        // ---------------------------------------------------------
+        // Para buscar todos los estados de UNA habitación en un día
+        // ---------------------------------------------------------
+        @Query("SELECT h FROM HistorialEstadoHabitacion h " +
+                        "WHERE h.id.numero = :numero AND h.id.tipo = :tipo")
+        List<HistorialEstadoHabitacion> findByHabitacion(
+                        @Param("numero") int numero,
+                        @Param("tipo") TipoHabitacion tipo);
 
-    List<HistorialEstadoHabitacion> findByIdNumeroAndIdTipo(int numero, TipoHabitacion tipo);
-
+        // ---------------------------------------------------------
+        // Método necesario por GestorHabitaciones.verificarDisponibilidad()
+        // Devuelve todos los registros cuyo rango se superpone
+        // ---------------------------------------------------------
+        @Query("""
+                        SELECT h FROM HistorialEstadoHabitacion h
+                        WHERE h.id.numero = :numero
+                          AND h.id.tipo = :tipo
+                          AND (
+                                (h.id.fecha BETWEEN :inicio AND :fin)
+                                OR
+                                (h.fechaFin IS NOT NULL AND h.fechaFin BETWEEN :inicio AND :fin)
+                                OR
+                                (h.id.fecha <= :inicio AND h.fechaFin >= :fin)
+                              )
+                        """)
+        List<HistorialEstadoHabitacion> buscarEstadosEnRango(
+                        @Param("numero") int numero,
+                        @Param("tipo") TipoHabitacion tipo,
+                        @Param("inicio") Date inicio,
+                        @Param("fin") Date fin);
 }

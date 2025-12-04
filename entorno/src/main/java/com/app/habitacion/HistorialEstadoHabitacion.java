@@ -48,6 +48,7 @@ public class HistorialEstadoHabitacion {
     }
 
     public HistorialEstadoHabitacion(Habitacion h, String horaInicio, Date fechaInicio, EstadoHabitacion estado) {
+        this.id = new HistorialHabitacionPK();
         this.habitacion = h;
         id.setNumero(h.getNumero());
         id.setTipo(h.getTipo());
@@ -58,6 +59,7 @@ public class HistorialEstadoHabitacion {
 
     public HistorialEstadoHabitacion(Habitacion h, String horaInicio, Date fechaInicio, String horaFin, Date fechaFin,
             EstadoHabitacion estado) {
+        this.id = new HistorialHabitacionPK();
         this.habitacion = h;
         id.setNumero(h.getNumero());
         id.setTipo(h.getTipo());

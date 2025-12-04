@@ -5,42 +5,47 @@ import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "habitaciones")
+@Table(name = "habitaciones")
 public class Habitacion {
 
     @EmbeddedId
     private HabitacionPK id;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private float costoNoche;
-    
+
     @OneToMany(mappedBy = "habitacion")
     private List<HistorialEstadoHabitacion> historialEstados;
 
     @ManyToMany(mappedBy = "habitacionesReservadas")
     private List<Reserva> reservas;
 
-    //constructores
-    public Habitacion(){}
+    // constructores
+    public Habitacion() {
+        this.id = new HabitacionPK();
+    }
 
-    public Habitacion(HabitacionDTO h){
+    public Habitacion(HabitacionDTO h) {
+        this.id = new HabitacionPK();
         id.setTipo(h.getTipo());
         id.setNumero(h.getNumero());
         this.costoNoche = h.getCostoNoche();
         this.historialEstados = new ArrayList<>();
         this.reservas = new ArrayList<>();
     }
-    
-    public Habitacion(String tipo, int numero,float costoNoche){
-        id.setTipo(TipoHabitacion.fromString(tipo)); 
+
+    public Habitacion(String tipo, int numero, float costoNoche) {
+        this.id = new HabitacionPK();
+        id.setTipo(TipoHabitacion.fromString(tipo));
         id.setNumero(numero);
         this.costoNoche = costoNoche;
         historialEstados = new ArrayList<>();
         reservas = new ArrayList<>();
     }
 
-    public Habitacion(TipoHabitacion tipo, int numero,float costoNoche){
-        id.setTipo(tipo); 
+    public Habitacion(TipoHabitacion tipo, int numero, float costoNoche) {
+        this.id = new HabitacionPK();
+        id.setTipo(tipo);
         id.setNumero(numero);
         this.costoNoche = costoNoche;
         historialEstados = new ArrayList<>();
@@ -87,16 +92,41 @@ public class Habitacion {
         cal.set(java.util.Calendar.MILLISECOND, 0);
     }
 
-    //getters
-    public TipoHabitacion getTipo() { return id.getTipo(); }
-    public int getNumero() { return id.getNumero(); }
-    public float getCostoNoche() { return costoNoche; }
-    public List<HistorialEstadoHabitacion> getHistorialEstados() { return historialEstados; }
-    public List<Reserva> getReservas() { return reservas; }
+    // getters
+    public TipoHabitacion getTipo() {
+        return id.getTipo();
+    }
 
-    //setters
-    public void setTipo(TipoHabitacion tipo) { id.setTipo(tipo); }
-    public void setNumero(int numero) { id.setNumero(numero); }    
-    public void setCostoNoche(float costoNoche) { this.costoNoche = costoNoche; }
-    public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
+    public int getNumero() {
+        return id.getNumero();
+    }
+
+    public float getCostoNoche() {
+        return costoNoche;
+    }
+
+    public List<HistorialEstadoHabitacion> getHistorialEstados() {
+        return historialEstados;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    // setters
+    public void setTipo(TipoHabitacion tipo) {
+        id.setTipo(tipo);
+    }
+
+    public void setNumero(int numero) {
+        id.setNumero(numero);
+    }
+
+    public void setCostoNoche(float costoNoche) {
+        this.costoNoche = costoNoche;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
 }

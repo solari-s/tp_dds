@@ -16,6 +16,7 @@ import com.app.habitacion.EstadoHabitacion;
 import com.app.habitacion.Habitacion;
 import com.app.habitacion.HistorialEstadoHabitacion;
 import com.app.habitacion.TipoHabitacion;
+import com.app.repository.HabitacionRepository;
 import com.app.repository.HistorialEstadoHabitacionRepository;
 
 @Service
@@ -23,6 +24,7 @@ public class GestorReservas {
 
     @Autowired
     private HistorialEstadoHabitacionRepository historialRepo;
+    private HabitacionRepository habitacionRepo;
 
     /**
      * Busca disponibilidad por rango de fechas y tipo de habitación.
@@ -98,10 +100,10 @@ public class GestorReservas {
                 }
             }
 
-            // 4. Crear referencia a la habitación
-            Habitacion habitacionRef = new Habitacion();
-            habitacionRef.setNumero(numeroHab);
-            habitacionRef.setTipo(tipoEnum); // Necesario para la PK compuesta
+            Habitacion habitacionRef = habitacionRepo.findByNumeroAndTipo(numeroHab, tipoEnum);
+            if (habitacionRef == null) {
+                return "Error: La habitación no existe en la base de datos.";
+            }
 
             // 5. Crear la reserva (Un solo registro con fecha inicio y fin)
             HistorialEstadoHabitacion nuevo = new HistorialEstadoHabitacion(
